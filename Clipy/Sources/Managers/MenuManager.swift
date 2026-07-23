@@ -21,6 +21,7 @@ final class MenuManager: NSObject {
     // MARK: - Properties
     // Menus
     private var clipMenu: NSMenu?
+    private var popupClipMenu: NSMenu?
     private var historyMenu: NSMenu?
     private var snippetMenu: NSMenu?
     // StatusMenu
@@ -73,7 +74,7 @@ extension MenuManager {
         let menu: NSMenu?
         switch type {
         case .main:
-            menu = clipMenu
+            menu = popupClipMenu
         case .history:
             menu = historyMenu
         case .snippet:
@@ -183,28 +184,38 @@ private extension MenuManager {
 // MARK: - Menus
 private extension MenuManager {
      func createClipMenu() {
-        clipMenu = NSMenu(title: Constants.Application.name)
+        clipMenu = makeMainMenu(forcesFlatHistory: false)
+        popupClipMenu = makeMainMenu(forcesFlatHistory: true)
         historyMenu = NSMenu(title: Constants.Menu.history)
         snippetMenu = NSMenu(title: Constants.Menu.snippet)
 
-        addHistoryItems(clipMenu!)
-        addHistoryItems(historyMenu!)
-
-        addSnippetItems(clipMenu!, separateMenu: true, details: snippetFolderDetails)
+        addHistoryItems(historyMenu!, forcesFlatHistory: true)
         addSnippetItems(snippetMenu!, separateMenu: false, details: snippetFolderDetails)
 
-        clipMenu?.addItem(NSMenuItem.separator())
+        statusBarItem.menu = clipMenu
+    }
+
+    /// The keyboard-invoked popup ignores the inline/folder settings so every clip
+    /// is visible and selectable by number the moment the menu opens; the status
+    /// bar menu keeps following the user's menu preferences.
+    func makeMainMenu(forcesFlatHistory: Bool) -> NSMenu {
+        let menu = NSMenu(title: Constants.Application.name)
+
+        addHistoryItems(menu, forcesFlatHistory: forcesFlatHistory)
+        addSnippetItems(menu, separateMenu: true, details: snippetFolderDetails)
+
+        menu.addItem(NSMenuItem.separator())
 
         if AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.addClearHistoryMenuItem) {
-            clipMenu?.addItem(NSMenuItem(title: String(localized: "Clear History"), action: #selector(AppDelegate.clearAllHistory)))
+            menu.addItem(NSMenuItem(title: String(localized: "Clear History"), action: #selector(AppDelegate.clearAllHistory)))
         }
 
-        clipMenu?.addItem(NSMenuItem(title: String(localized: "Edit Snippets"), action: #selector(AppDelegate.showSnippetEditorWindow)))
-        clipMenu?.addItem(NSMenuItem(title: String(localized: "Preferences"), action: #selector(AppDelegate.showPreferenceWindow)))
-        clipMenu?.addItem(NSMenuItem.separator())
-        clipMenu?.addItem(NSMenuItem(title: String(localized: "Quit Clipy"), action: #selector(AppDelegate.terminate)))
+        menu.addItem(NSMenuItem(title: String(localized: "Edit Snippets"), action: #selector(AppDelegate.showSnippetEditorWindow)))
+        menu.addItem(NSMenuItem(title: String(localized: "Preferences"), action: #selector(AppDelegate.showPreferenceWindow)))
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: String(localized: "Quit Clipy"), action: #selector(AppDelegate.terminate)))
 
-        statusBarItem.menu = clipMenu
+        return menu
     }
 
     func menuItemTitle(_ title: String, listNumber: NSInteger, isMarkWithNumber: Bool) -> String {
@@ -235,10 +246,11 @@ private extension MenuManager {
 
 // MARK: - Clips
 private extension MenuManager {
-    func addHistoryItems(_ menu: NSMenu) {
-        let placeInLine = AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.numberOfItemsPlaceInline)
-        let placeInsideFolder = AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.numberOfItemsPlaceInsideFolder)
+    func addHistoryItems(_ menu: NSMenu, forcesFlatHistory: Bool = false) {
         let maxHistory = AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.maxHistorySize)
+        // maxHistory caps the fetch below, so inlining that many means no folder is ever created.
+        let placeInLine = forcesFlatHistory ? maxHistory : AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.numberOfItemsPlaceInline)
+        let placeInsideFolder = AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.numberOfItemsPlaceInsideFolder)
 
         // History title
         let labelItem = NSMenuItem(title: String(localized: "History"), action: nil)
@@ -272,13 +284,13 @@ private extension MenuManager {
 
                 // Clip
                 if let subMenu = menu.item(at: subMenuIndex)?.submenu {
-                    let menuItem = makeClipMenuItem(historyDetail, index: i, listNumber: listNumber)
+                    let menuItem = makeClipMenuItem(historyDetail, index: i, listNumber: listNumber, forcesNumericKeyEquivalent: forcesFlatHistory)
                     subMenu.addItem(menuItem)
                     listNumber += 1
                 }
             } else {
                 // Clip
-                let menuItem = makeClipMenuItem(historyDetail, index: i, listNumber: listNumber)
+                let menuItem = makeClipMenuItem(historyDetail, index: i, listNumber: listNumber, forcesNumericKeyEquivalent: forcesFlatHistory)
                 menu.addItem(menuItem)
                 listNumber += 1
             }
@@ -291,12 +303,12 @@ private extension MenuManager {
         }
     }
 
-    func makeClipMenuItem(_ historyDetail: PasteboardHistoryDetail, index: Int, listNumber: Int) -> NSMenuItem {
+    func makeClipMenuItem(_ historyDetail: PasteboardHistoryDetail, index: Int, listNumber: Int, forcesNumericKeyEquivalent: Bool = false) -> NSMenuItem {
         let history = historyDetail.history
         let isMarkWithNumber = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.menuItemsAreMarkedWithNumbers)
         let isShowImage = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.showImageInTheMenu)
         let isShowColorCode = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.showColorPreviewInTheMenu)
-        let addNumbericKeyEquivalents = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.addNumericKeyEquivalents)
+        let addNumbericKeyEquivalents = forcesNumericKeyEquivalent || AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.addNumericKeyEquivalents)
 
         var keyEquivalent = ""
         if addNumbericKeyEquivalents && (index < kMaxKeyEquivalents) {
@@ -312,6 +324,10 @@ private extension MenuManager {
         let titleWithMark = menuItemTitle(history.typedTitle, listNumber: listNumber, isMarkWithNumber: isMarkWithNumber)
 
         let menuItem = NSMenuItem(title: titleWithMark, action: #selector(AppDelegate.selectClipMenuItem(_:)), keyEquivalent: keyEquivalent)
+        if forcesNumericKeyEquivalent && !keyEquivalent.isEmpty {
+            // A bare digit (the default mask would require ⌘) so "3" pastes item 3 while the popup is open.
+            menuItem.keyEquivalentModifierMask = []
+        }
         menuItem.representedObject = history.id
         menuItem.toolTip = history.toolTip
 
