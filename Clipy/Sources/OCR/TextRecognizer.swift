@@ -22,7 +22,7 @@ final class TextRecognizer: TextRecognizerProtocol {
     @Dependency(\.pasteboardHistoryRepository)
     private var pasteboardHistoryRepository
 
-    private let queue = DispatchQueue(label: "com.clipy-app.Clipy.TextRecognizer", qos: .utility)
+    private let queue = DispatchQueue(label: "jp.co.aiv.clipApp.TextRecognizer", qos: .utility)
 
     func recognizeTextIfNeeded(id: PasteboardHistory.ID) {
         queue.async { [weak self] in

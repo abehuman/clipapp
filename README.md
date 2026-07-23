@@ -1,72 +1,56 @@
-<div align="center">
-  <img src="./Resources/clipy_logo.png" width="400">
-</div>
+# ClipApp
 
-<br>
+ClipApp is a clipboard extension app for macOS, forked from
+[Clipy](https://github.com/Clipy/Clipy) (MIT License).
 
-![CI](https://github.com/Clipy/Clipy/workflows/CI/badge.svg)
-[![Release version](https://img.shields.io/github/release/Clipy/Clipy.svg)](https://github.com/Clipy/Clipy/releases/latest)
-[![OpenCollective](https://opencollective.com/clipy/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/clipy/sponsors/badge.svg)](#sponsors)
-
-Clipy is a Clipboard extension app for macOS.
+The main difference from Clipy: pressing the main popup hotkey (default
+`Cmd + Shift + V`) shows the clipboard history as one flat list with bare
+numeric key equivalents, so you can see every clip immediately and paste
+item N by pressing its number — no folder submenus to navigate. The status
+bar menu still follows the user's inline/folder menu preferences. See
+[docs/flat-history-popup.md](./docs/flat-history-popup.md) for design notes.
 
 ---
 
 __Requirement__: macOS 13 Ventura or later
-
-__Distribution Site__ : <https://clipy-app.com>
-
-<img src="http://clipy-app.com/img/screenshot1.png" width="400">
 
 ### Development Environment
 * macOS 26 Tahoe
 * Xcode 26.5
 
 ### How to Build
-macOS checks Accessibility permission by the app's code signature. If Clipy is built without a stable signing certificate, macOS may ask for Accessibility permission again for every build.
-
-For this reason, the default signing settings use the Clipy signing certificate. This certificate is available only to the maintainer, so local builds require switching to ad-hoc signing before building.
-
-#### Build for ad-hoc usage
 1. Open `Clipy.xcodeproj` in Xcode.
-2. Switch to ad-hoc build mode:
+2. For local builds without a Developer ID, use ad-hoc signing:
     1. Open `Configurations/CodeSigning.xcconfig`.
-    2. Uncomment `#include "Configurations/CodeSigning-AdHoc.xcconfig"`.
-3. Build the `Clipy` scheme.
+    2. Make sure `#include "Configurations/CodeSigning-AdHoc.xcconfig"` is uncommented.
+3. Build the `ClipApp` scheme (the product is `ClipApp.app`).
 
-If you want to use Firebase features, place your own `GoogleService-Info.plist` in `Clipy/GoogleService`. This file is not required for local builds without Firebase.
+Note: macOS ties Accessibility permission to the app's code signature, so
+ad-hoc builds may re-prompt for Accessibility permission after every build.
+For distribution, sign with your own Developer ID certificate and notarize.
 
-### Localization Contributors
-Clipy is looking for localization contributors.  
-If you can contribute, please see [CONTRIBUTING.md](https://github.com/Clipy/Clipy/blob/master/.github/CONTRIBUTING.md)
+If you want to use Firebase features, place your own `GoogleService-Info.plist`
+in `Clipy/GoogleService`. Without this file the Firebase code paths are inert
+and nothing is sent anywhere.
 
-### Distribution
-If you distribute derived work, especially in the Mac App Store, I ask you to follow two rules:
-
-1. Don't use `Clipy` and `ClipMenu` as your product name.
-2. Follow the MIT license terms.
-
-Thank you for your cooperation.
+### Auto Update
+Automatic updates are currently disabled: the Sparkle feed URL and public keys
+inherited from upstream Clipy have been removed. Before enabling updates,
+generate your own EdDSA key pair with Sparkle's `generate_keys`, host an
+`appcast.xml`, and add `SUFeedURL` / `SUPublicEDKey` back to
+`Clipy/Supporting Files/Info.plist`.
 
 ### Privacy Policy
-Please see [PRIVACY.md](./PRIVACY.md) for information about local data storage,
-network communication, analytics, and crash reporting.
-
-### Backers
-Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/clipy#backer)]
-
-<a href="https://opencollective.com/clipy#backers"><img src="https://opencollective.com/clipy/backers.svg?avatarHeight=36&width=600" /></a>
-
-### Sponsors
-Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/clipy#sponsor)]
-
-<a href="https://opencollective.com/clipy#sponsors"><img src="https://opencollective.com/clipy/sponsors.svg?avatarHeight=36&width=600" /></a>
+Please see [PRIVACY.md](./PRIVACY.md).
 
 ### Licence
-Clipy is available under the MIT license. See the LICENSE file for more info.
+ClipApp is available under the MIT license. See the LICENSE file for more info.
+
+ClipApp is based on [Clipy](https://github.com/Clipy/Clipy), copyright
+Clipy Project / Shunsuke Furubayashi, which is itself based on
+[ClipMenu](https://github.com/naotaka/ClipMenu) by
+[@naotaka](https://github.com/naotaka). See LICENSE and LICENSE_CLIPMENU.
+Per upstream's request, this fork does not use the names "Clipy" or
+"ClipMenu" as its product name.
 
 Icons are copyrighted by their respective authors.
-
-### Special Thanks
-__Thank you for [@naotaka](https://github.com/naotaka) who have published [ClipMenu](https://github.com/naotaka/ClipMenu) as OSS.__

@@ -356,34 +356,40 @@
     },
     "Launch Clipy on system startup?" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Launch ClipApp on system startup?"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Iniciar o Clipy ao iniciar o sistema?"
+            "value" : "Iniciar o ClipApp ao iniciar o sistema?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clipy beim Starten öffnen?"
+            "value" : "ClipApp beim Starten öffnen?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vuoi avviare Clipy al login?"
+            "value" : "Vuoi avviare ClipApp al login?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "システム起動時にClipyを起動しますか?"
+            "value" : "システム起動時にClipAppを起動しますか?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "系统启动时打开 Clipy?"
+            "value" : "系统启动时打开 ClipApp?"
           }
         }
       }
@@ -405,7 +411,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Avvia Clipy al login"
+            "value" : "Avvia ClipApp al login"
           }
         },
         "ja" : {
@@ -613,34 +619,40 @@
     },
     "Quit Clipy" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit ClipApp"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Encerrar Clipy"
+            "value" : "Encerrar ClipApp"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clipy beenden"
+            "value" : "ClipApp beenden"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esci da Clipy"
+            "value" : "Esci da ClipApp"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clipyを終了"
+            "value" : "ClipAppを終了"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "退出 Clipy"
+            "value" : "退出 ClipApp"
           }
         }
       }
@@ -749,7 +761,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "この動作を行うためにはシステム環境設定の\"セキュリティとプライバシー\"環境設定で、Clipyへのアクセシビリティのアクセスを許可してください。"
+            "value" : "この動作を行うためにはシステム環境設定の\"セキュリティとプライバシー\"環境設定で、ClipAppへのアクセシビリティのアクセスを許可してください。"
           }
         },
         "zh-Hans" : {

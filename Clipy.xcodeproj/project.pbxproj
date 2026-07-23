@@ -1310,7 +1310,8 @@
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				INFOPLIST_FILE = "Clipy/Supporting Files/Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.clipy-app.Clipy.debug";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipApp.debug";
+				PRODUCT_NAME = ClipApp;
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
 				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
 				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
@@ -1335,7 +1336,8 @@
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				INFOPLIST_FILE = "Clipy/Supporting Files/Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.clipy-app.Clipy";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipApp";
+				PRODUCT_NAME = ClipApp;
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
 				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
 				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
@@ -1354,8 +1356,8 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.clipyapp.$(PRODUCT_NAME:rfc1034identifier)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clipy.app/Contents/MacOS/Clipy";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipAppTests";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipApp.app/Contents/MacOS/ClipApp";
 			};
 			name = Debug;
 		};
@@ -1368,8 +1370,8 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.clipyapp.$(PRODUCT_NAME:rfc1034identifier)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clipy.app/Contents/MacOS/Clipy";
+				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipAppTests";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipApp.app/Contents/MacOS/ClipApp";
 			};
 			name = Release;
 		};
