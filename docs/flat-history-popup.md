@@ -22,8 +22,8 @@ history menu showed the same "1 - 10" folders.
 
 ## 1. Project basics
 
-Clipy is a menu-bar (status item) clipboard history manager for macOS 13+,
-written in Swift. There is no main window — everything happens through `NSMenu`
+ClipApp is a menu-bar (status item) clipboard history manager for macOS 13+,
+written in Swift and forked from Clipy. There is no main window — everything happens through `NSMenu`
 popups and a preferences window.
 
 | Area | File | Role |

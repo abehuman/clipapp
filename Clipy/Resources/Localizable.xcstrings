@@ -1,14 +1,11 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "Add" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adicionar"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27,6 +24,12 @@
             "value" : "追加"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -37,12 +40,6 @@
     },
     "Are you sure want to delete this item?" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tem certeza de que deseja excluir este item?"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -61,6 +58,12 @@
             "value" : "本当に削除してもよろしいですか？"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja excluir este item?"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -71,12 +74,6 @@
     },
     "Are you sure you want to clear your clipboard history?" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tem certeza de que deseja limpar seu histórico da área de transferência?"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -95,6 +92,12 @@
             "value" : "本当にクリップボード履歴をクリアしますか？"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja limpar seu histórico da área de transferência?"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -105,12 +108,6 @@
     },
     "Cancel" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancelar"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -129,6 +126,12 @@
             "value" : "キャンセル"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -139,12 +142,6 @@
     },
     "Clear History" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Limpar Histórico"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -163,6 +160,12 @@
             "value" : "履歴をクリア"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar Histórico"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -173,12 +176,6 @@
     },
     "Delete Item" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Excluir Item"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -197,6 +194,12 @@
             "value" : "スニペットを削除"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluir Item"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -207,12 +210,6 @@
     },
     "Don't Launch" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Não Iniciar"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -231,6 +228,12 @@
             "value" : "起動しない"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não Iniciar"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -241,12 +244,6 @@
     },
     "Edit Snippets" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Editar Snippets..."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -271,6 +268,12 @@
             "value" : "スニペットを編集..."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar Snippets..."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -282,12 +285,6 @@
     "General" : {
       "extractionState" : "manual",
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Geral"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -312,6 +309,12 @@
             "value" : "一般"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geral"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -322,12 +325,6 @@
     },
     "History" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Histórico"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -346,6 +343,12 @@
             "value" : "履歴"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histórico"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -356,22 +359,16 @@
     },
     "Launch Clipy on system startup?" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Launch ClipApp on system startup?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iniciar o ClipApp ao iniciar o sistema?"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ClipApp beim Starten öffnen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Launch ClipApp on system startup?"
           }
         },
         "it" : {
@@ -386,6 +383,12 @@
             "value" : "システム起動時にClipAppを起動しますか?"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar o ClipApp ao iniciar o sistema?"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -396,12 +399,6 @@
     },
     "Launch on system startup" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Iniciar com o sistema"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -420,6 +417,12 @@
             "value" : "起動する"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniciar com o sistema"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -431,12 +434,6 @@
     "Menu" : {
       "extractionState" : "manual",
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Menu"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -461,6 +458,12 @@
             "value" : "メニュー"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -471,12 +474,6 @@
     },
     "Open System Preferences" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abrir Preferências do Sistema"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -495,6 +492,12 @@
             "value" : "\"システム環境設定\"を開く"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abrir Preferências do Sistema"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -505,12 +508,6 @@
     },
     "Please allow Accessibility" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Por favor, permita Acessibilidade"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -535,6 +532,12 @@
             "value" : "アクセシビリティを有効にしてください。"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, permita Acessibilidade"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -545,12 +548,6 @@
     },
     "Please fill in the contents of the snippet" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Por favor, preencha o conteúdo do snippet"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -569,6 +566,12 @@
             "value" : "スニペットの内容を記入してください"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, preencha o conteúdo do snippet"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -579,12 +582,6 @@
     },
     "Preferences" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preferências..."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -609,6 +606,12 @@
             "value" : "環境設定..."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferências..."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -619,22 +622,16 @@
     },
     "Quit Clipy" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quit ClipApp"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Encerrar ClipApp"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "ClipApp beenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit ClipApp"
           }
         },
         "it" : {
@@ -649,6 +646,12 @@
             "value" : "ClipAppを終了"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encerrar ClipApp"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -660,12 +663,6 @@
     "Shortcuts" : {
       "extractionState" : "manual",
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Atalhos"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -690,6 +687,12 @@
             "value" : "ショートカット"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atalhos"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -700,12 +703,6 @@
     },
     "Snippet" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Snippet"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -724,6 +721,12 @@
             "value" : "スニペット"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snippet"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -734,12 +737,6 @@
     },
     "To do this action please allow Accessibility in Security Privacy preferences located in System Preferences" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Para realizar esta ação, permita Acessibilidade nas preferências de Segurança e Privacidade localizadas nas Preferências do Sistema."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -764,6 +761,12 @@
             "value" : "この動作を行うためにはシステム環境設定の\"セキュリティとプライバシー\"環境設定で、ClipAppへのアクセシビリティのアクセスを許可してください。"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para realizar esta ação, permita Acessibilidade nas preferências de Segurança e Privacidade localizadas nas Preferências do Sistema."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -775,12 +778,6 @@
     "Updates" : {
       "extractionState" : "manual",
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Atualizações"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -805,6 +802,12 @@
             "value" : "アップデート"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualizações"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -815,12 +818,6 @@
     },
     "You can change this setting in the Preferences if you want" : {
       "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Você pode alterar essa configuração nas Preferências, se desejar."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -843,6 +840,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "この設定はいつでも変更できます"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você pode alterar essa configuração nas Preferências, se desejar."
           }
         },
         "zh-Hans" : {

@@ -5,7 +5,7 @@ import Foundation
 import Magnet
 import Sharing
 import Testing
-@testable import Clipy
+@testable import ClipApp
 
 @Suite(.serialized, .dependencies)
 final class HotKeyServiceTests {

@@ -15,7 +15,7 @@ import Dependencies
 import DependenciesTestSupport
 import SQLiteData
 import Testing
-@testable import Clipy
+@testable import ClipApp
 
 @MainActor
 @Suite(

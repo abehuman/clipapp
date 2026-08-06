@@ -6,7 +6,9 @@ ClipApp is a clipboard extension app for macOS, forked from
 The main difference from Clipy: pressing the main popup hotkey (default
 `Cmd + Shift + V`) shows the clipboard history as one flat list with bare
 numeric key equivalents, so you can see every clip immediately and paste
-item N by pressing its number — no folder submenus to navigate. The status
+item N by pressing its number — no folder submenus to navigate.
+
+The status
 bar menu still follows the user's inline/folder menu preferences. See
 [docs/flat-history-popup.md](./docs/flat-history-popup.md) for design notes.
 

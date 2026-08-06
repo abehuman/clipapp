@@ -12,7 +12,7 @@
 
 import SQLiteData
 import Testing
-@testable import Clipy
+@testable import ClipApp
 
 extension SQLiteDataMigratorTests {
     @Test

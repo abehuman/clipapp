@@ -74,7 +74,6 @@
 		FA0D5CE81DDCC61600AC9052 /* ClipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D5CE71DDCC61600AC9052 /* ClipService.swift */; };
 		FA1189331E4CD58C00244F12 /* ExcludeAppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1189321E4CD58C00244F12 /* ExcludeAppService.swift */; };
 		FA1DB4901DDCA5D9007F95C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1DB48F1DDCA5D9007F95C8 /* Assets.xcassets */; };
-		FA1DB4941DDCB22C007F95C8 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = FA1DB4921DDCB22C007F95C8 /* dsa_pub.pem */; };
 		FA1DB4A21DDCB433007F95C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4A01DDCB433007F95C8 /* AppDelegate.swift */; };
 		FA1DB4A31DDCB433007F95C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4A11DDCB433007F95C8 /* Constants.swift */; };
 		FA1DB4A61DDCB443007F95C8 /* MenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4A51DDCB443007F95C8 /* MenuType.swift */; };
@@ -228,7 +227,6 @@
 		FA0D5CE71DDCC61600AC9052 /* ClipService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClipService.swift; sourceTree = "<group>"; };
 		FA1189321E4CD58C00244F12 /* ExcludeAppService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExcludeAppService.swift; sourceTree = "<group>"; };
 		FA1DB48F1DDCA5D9007F95C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FA1DB4921DDCB22C007F95C8 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		FA1DB4931DDCB22C007F95C8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA1DB4A01DDCB433007F95C8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA1DB4A11DDCB433007F95C8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -273,7 +271,7 @@
 		FAAA888E1E6862D90088FB34 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CPYUpdatesPreferenceViewController.strings; sourceTree = "<group>"; };
 		FAC0DCEE1DE3255E00309C49 /* NSImage+NSColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSImage+NSColor.swift"; sourceTree = "<group>"; };
 		FAC0DCF01DE576F300309C49 /* PasteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteService.swift; sourceTree = "<group>"; };
-		FAC43DC61B35D8B100C06102 /* Clipy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clipy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAC43DC61B35D8B100C06102 /* ClipApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC43DD81B35D8B100C06102 /* ClipyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC43DDD1B35D8B100C06102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC43E221B35DFC800C06102 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -523,7 +521,6 @@
 		FA1DB4911DDCB205007F95C8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FA1DB4921DDCB22C007F95C8 /* dsa_pub.pem */,
 				FA1DB4931DDCB22C007F95C8 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -715,7 +712,7 @@
 		FAC43DC71B35D8B100C06102 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FAC43DC61B35D8B100C06102 /* Clipy.app */,
+				FAC43DC61B35D8B100C06102 /* ClipApp.app */,
 				FAC43DD81B35D8B100C06102 /* ClipyTests.xctest */,
 			);
 			name = Products;
@@ -785,7 +782,7 @@
 				C5A67BCB2FED00E10015A0DE /* DependenciesMacros */,
 			);
 			productName = Clipy;
-			productReference = FAC43DC61B35D8B100C06102 /* Clipy.app */;
+			productReference = FAC43DC61B35D8B100C06102 /* ClipApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FAC43DD71B35D8B100C06102 /* ClipyTests */ = {
@@ -820,11 +817,10 @@
 				CLASSPREFIX = CPY;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 2650;
-				ORGANIZATIONNAME = "Clipy Project";
+				ORGANIZATIONNAME = "ClipApp Project";
 				TargetAttributes = {
 					FAC43DC51B35D8B100C06102 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = BBCHAJ584H;
 						LastSwiftMigration = 1140;
 						ProvisioningStyle = Manual;
 					};
@@ -892,7 +888,6 @@
 				FA1DB5191DDCB4C0007F95C8 /* CPYBetaPreferenceViewController.xib in Resources */,
 				FA6DD5151C7DEDB600317E73 /* (null) in Resources */,
 				C576AD7C2FBD345000B71213 /* Localizable.xcstrings in Resources */,
-				FA1DB4941DDCB22C007F95C8 /* dsa_pub.pem in Resources */,
 				FA1DB5221DDCB4C0007F95C8 /* CPYSnippetsEditorWindowController.xib in Resources */,
 			);
 		};
@@ -1310,7 +1305,7 @@
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				INFOPLIST_FILE = "Clipy/Supporting Files/Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipApp.debug";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.co.aiv.clipApp.debug;
 				PRODUCT_NAME = ClipApp;
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
 				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
@@ -1336,7 +1331,7 @@
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				INFOPLIST_FILE = "Clipy/Supporting Files/Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipApp";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.co.aiv.clipApp;
 				PRODUCT_NAME = ClipApp;
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
 				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
@@ -1356,7 +1351,7 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipAppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.co.aiv.clipAppTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipApp.app/Contents/MacOS/ClipApp";
 			};
 			name = Debug;
@@ -1370,7 +1365,7 @@
 					"$(inherited)",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.co.aiv.clipAppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = jp.co.aiv.clipAppTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClipApp.app/Contents/MacOS/ClipApp";
 			};
 			name = Release;
