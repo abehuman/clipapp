@@ -13,8 +13,8 @@ clipboard contents or snippet contents to external services.
 - ClipApp does not transmit clipboard text, clipboard images, snippets, or
   other copied contents to any server or third-party service.
 - As currently distributed, ClipApp performs **no network communication**:
-  automatic update checks are disabled (no update feed is configured), and
-  the app ships without a Firebase configuration file, so the inherited
+  automatic update support is not included, and the app ships without a
+  Firebase configuration file, so the inherited
   Firebase Analytics / Crashlytics code paths are inactive.
 
 ## Data Stored Locally

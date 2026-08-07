@@ -36,11 +36,7 @@ in `Clipy/GoogleService`. Without this file the Firebase code paths are inert
 and nothing is sent anywhere.
 
 ### Auto Update
-Automatic updates are currently disabled: the Sparkle feed URL and public keys
-inherited from upstream Clipy have been removed. Before enabling updates,
-generate your own EdDSA key pair with Sparkle's `generate_keys`, host an
-`appcast.xml`, and add `SUFeedURL` / `SUPublicEDKey` back to
-`Clipy/Supporting Files/Info.plist`.
+Automatic updates are NOT included. The inherited Sparkle integration, feed URL, and public keys have been removed.
 
 ### Privacy Policy
 Please see [PRIVACY.md](./PRIVACY.md).
@@ -48,11 +44,6 @@ Please see [PRIVACY.md](./PRIVACY.md).
 ### Licence
 ClipApp is available under the MIT license. See the LICENSE file for more info.
 
-ClipApp is based on [Clipy](https://github.com/Clipy/Clipy), copyright
+ClipApp is based on amazing project [Clipy](https://github.com/Clipy/Clipy), copyright
 Clipy Project / Shunsuke Furubayashi, which is itself based on
-[ClipMenu](https://github.com/naotaka/ClipMenu) by
-[@naotaka](https://github.com/naotaka). See LICENSE and LICENSE_CLIPMENU.
-Per upstream's request, this fork does not use the names "Clipy" or
-"ClipMenu" as its product name.
-
-Icons are copyrighted by their respective authors.
+[ClipMenu](https://github.com/naotaka/ClipMenu). See LICENSE and LICENSE_CLIPMENU.

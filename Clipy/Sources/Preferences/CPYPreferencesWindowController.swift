@@ -23,7 +23,6 @@ final class CPYPreferencesWindowController: NSWindowController {
     @IBOutlet private weak var typeImageView: NSImageView!
     @IBOutlet private weak var excludeImageView: NSImageView!
     @IBOutlet private weak var shortcutsImageView: NSImageView!
-    @IBOutlet private weak var updatesImageView: NSImageView!
     @IBOutlet private weak var betaImageView: NSImageView!
     // Labels
     @IBOutlet private weak var generalTextField: NSTextField!
@@ -31,7 +30,6 @@ final class CPYPreferencesWindowController: NSWindowController {
     @IBOutlet private weak var typeTextField: NSTextField!
     @IBOutlet private weak var excludeTextField: NSTextField!
     @IBOutlet private weak var shortcutsTextField: NSTextField!
-    @IBOutlet private weak var updatesTextField: NSTextField!
     @IBOutlet private weak var betaTextField: NSTextField!
     // Buttons
     @IBOutlet private weak var generalButton: NSButton!
@@ -39,7 +37,6 @@ final class CPYPreferencesWindowController: NSWindowController {
     @IBOutlet private weak var typeButton: NSButton!
     @IBOutlet private weak var excludeButton: NSButton!
     @IBOutlet private weak var shortcutsButton: NSButton!
-    @IBOutlet private weak var updatesButton: NSButton!
     @IBOutlet private weak var betaButton: NSButton!
     // ViewController
     private let viewController = [NSViewController(nibName: "CPYGeneralPreferenceViewController", bundle: nil),
@@ -47,7 +44,6 @@ final class CPYPreferencesWindowController: NSWindowController {
                                   CPYTypePreferenceViewController(nibName: "CPYTypePreferenceViewController", bundle: nil),
                                   CPYExcludeAppPreferenceViewController(nibName: "CPYExcludeAppPreferenceViewController", bundle: nil),
                                   CPYShortcutsPreferenceViewController(nibName: "CPYShortcutsPreferenceViewController", bundle: nil),
-                                  CPYUpdatesPreferenceViewController(nibName: "CPYUpdatesPreferenceViewController", bundle: nil),
                                   CPYBetaPreferenceViewController(nibName: "CPYBetaPreferenceViewController", bundle: nil)]
 
     // MARK: - Window Life Cycle
@@ -63,7 +59,6 @@ final class CPYPreferencesWindowController: NSWindowController {
         typeButton.sendAction(on: .leftMouseDown)
         excludeButton.sendAction(on: .leftMouseDown)
         shortcutsButton.sendAction(on: .leftMouseDown)
-        updatesButton.sendAction(on: .leftMouseDown)
         betaButton.sendAction(on: .leftMouseDown)
     }
 
@@ -94,21 +89,30 @@ extension CPYPreferencesWindowController: NSWindowDelegate {
 // MARK: - Layout
 private extension CPYPreferencesWindowController {
     func resetImages() {
-        generalImageView.image = NSImage(resource: .prefGeneral)
-        menuImageView.image = NSImage(resource: .prefMenu)
-        typeImageView.image = NSImage(resource: .prefType)
-        excludeImageView.image = NSImage(resource: .prefExcluded)
-        shortcutsImageView.image = NSImage(resource: .prefShortcut)
-        updatesImageView.image = NSImage(resource: .prefUpdate)
-        betaImageView.image = NSImage(resource: .prefBeta)
+        generalImageView.image = preferenceSymbol(named: "gearshape")
+        menuImageView.image = preferenceSymbol(named: "list.bullet")
+        typeImageView.image = preferenceSymbol(named: "doc.on.clipboard")
+        excludeImageView.image = preferenceSymbol(named: "nosign")
+        shortcutsImageView.image = preferenceSymbol(named: "keyboard")
+        betaImageView.image = preferenceSymbol(named: "wrench.and.screwdriver")
+
+        [generalImageView, menuImageView, typeImageView, excludeImageView,
+         shortcutsImageView, betaImageView].forEach {
+            $0?.contentTintColor = NSColor(resource: .tabTitle)
+        }
 
         generalTextField.textColor = NSColor(resource: .tabTitle)
         menuTextField.textColor = NSColor(resource: .tabTitle)
         typeTextField.textColor = NSColor(resource: .tabTitle)
         excludeTextField.textColor = NSColor(resource: .tabTitle)
         shortcutsTextField.textColor = NSColor(resource: .tabTitle)
-        updatesTextField.textColor = NSColor(resource: .tabTitle)
         betaTextField.textColor = NSColor(resource: .tabTitle)
+    }
+
+    func preferenceSymbol(named name: String) -> NSImage? {
+        let configuration = NSImage.SymbolConfiguration(pointSize: 20, weight: .regular)
+        return NSImage(systemSymbolName: name, accessibilityDescription: nil)?
+            .withSymbolConfiguration(configuration)
     }
 
     func selectedTab(_ index: Int) {
@@ -116,25 +120,22 @@ private extension CPYPreferencesWindowController {
 
         switch index {
         case 0:
-            generalImageView.image = NSImage(resource: .prefGeneralOn)
+            generalImageView.contentTintColor = NSColor(resource: .clipy)
             generalTextField.textColor = NSColor(resource: .clipy)
         case 1:
-            menuImageView.image = NSImage(resource: .prefMenuOn)
+            menuImageView.contentTintColor = NSColor(resource: .clipy)
             menuTextField.textColor = NSColor(resource: .clipy)
         case 2:
-            typeImageView.image = NSImage(resource: .prefTypeOn)
+            typeImageView.contentTintColor = NSColor(resource: .clipy)
             typeTextField.textColor = NSColor(resource: .clipy)
         case 3:
-            excludeImageView.image = NSImage(resource: .prefExcludedOn)
+            excludeImageView.contentTintColor = NSColor(resource: .clipy)
             excludeTextField.textColor = NSColor(resource: .clipy)
         case 4:
-            shortcutsImageView.image = NSImage(resource: .prefShortcutOn)
+            shortcutsImageView.contentTintColor = NSColor(resource: .clipy)
             shortcutsTextField.textColor = NSColor(resource: .clipy)
         case 5:
-            updatesImageView.image = NSImage(resource: .prefUpdateOn)
-            updatesTextField.textColor = NSColor(resource: .clipy)
-        case 6:
-            betaImageView.image = NSImage(resource: .prefBetaOn)
+            betaImageView.contentTintColor = NSColor(resource: .clipy)
             betaTextField.textColor = NSColor(resource: .clipy)
         default: break
         }

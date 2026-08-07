@@ -21,6 +21,13 @@ final class CPYSnippetsEditorWindowController: NSWindowController {
     // MARK: - Properties
     static let sharedController = CPYSnippetsEditorWindowController(windowNibName: "CPYSnippetsEditorWindowController")
     @IBOutlet private weak var splitView: CPYSplitView!
+    @IBOutlet weak var addSnippetButton: NSButton! // swiftlint:disable:this private_outlet
+    @IBOutlet weak var addFolderButton: NSButton! // swiftlint:disable:this private_outlet
+    @IBOutlet weak var deleteButton: NSButton! // swiftlint:disable:this private_outlet
+    @IBOutlet weak var changeStatusButton: NSButton! // swiftlint:disable:this private_outlet
+    @IBOutlet weak var importButton: NSButton! // swiftlint:disable:this private_outlet
+    @IBOutlet weak var exportButton: NSButton! // swiftlint:disable:this private_outlet
+    @IBOutlet weak var folderSettingImageView: NSImageView! // swiftlint:disable:this private_outlet
     @IBOutlet private weak var folderSettingView: NSView!
     @IBOutlet private weak var folderTitleTextField: NSTextField!
     @IBOutlet private weak var folderShortcutRecordView: RecordView! {
@@ -59,6 +66,7 @@ final class CPYSnippetsEditorWindowController: NSWindowController {
         self.window?.appearance = NSAppearance(named: .aqua)
         self.window?.backgroundColor = NSColor(white: 0.99, alpha: 1)
         self.window?.titlebarAppearsTransparent = true
+        configureSymbols()
         folders = snippetRepository.fetchFolderDetails().map(EditorSnippetFolder.init)
         outlineView.reloadData()
         // Select first folder

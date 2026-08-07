@@ -19,12 +19,10 @@ import RxSwift
 import Screeen
 import ServiceManagement
 import Sharing
-import Sparkle
 
 class AppDelegate: NSObject, NSMenuItemValidation {
 
     // MARK: - Properties
-    private(set) var updaterController: SPUStandardUpdaterController?
     private let screenshotObserver = ScreenShotObserver(searchDirectoryPaths: AppDelegate.screenshotSearchDirectoryPaths())
     private let disposeBag = DisposeBag()
 
@@ -153,15 +151,6 @@ extension AppDelegate: NSApplicationDelegate {
         if !AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.loginItem) && !AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.suppressAlertForLoginItem) {
             promptToAddLoginItems()
         }
-
-        // Sparkle
-        self.updaterController = SPUStandardUpdaterController(
-            startingUpdater: AppEnvironment.current.defaults.bool(forKey: Constants.Update.enableAutomaticCheck),
-            updaterDelegate: nil,
-            userDriverDelegate: nil
-        )
-        updaterController?.updater.updateCheckInterval = TimeInterval(AppEnvironment.current.defaults.integer(forKey: Constants.Update.checkInterval))
-        updaterController?.updater.clearFeedURLFromUserDefaults()
 
         // Binding Events
         bind()

@@ -70,12 +70,6 @@ final class CPYUtilities {
         defaultValues.updateValue(NSNumber(value: true), forKey: Constants.UserDefaults.showColorPreviewInTheMenu)
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.ignoreConcealedPasteboardType)
 
-        /* Updates */
-        // Off until ClipApp has its own Sparkle appcast and EdDSA keys; the old
-        // default pointed the updater at the upstream Clipy feed.
-        defaultValues.updateValue(NSNumber(value: false), forKey: Constants.Update.enableAutomaticCheck)
-        defaultValues.updateValue(NSNumber(value: 86400), forKey: Constants.Update.checkInterval)
-
         /* Beta */
         defaultValues.updateValue(NSNumber(value: true), forKey: Constants.Beta.pastePlainText)
         defaultValues.updateValue(NSNumber(value: 0), forKey: Constants.Beta.pastePlainTextModifier)

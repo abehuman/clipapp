@@ -32,8 +32,8 @@ final class MenuManager: NSObject {
         return item
     }()
     // Icon Cache
-    private let folderIcon = NSImage(resource: .iconFolder)
-    private let snippetIcon = NSImage(resource: .iconText)
+    private let folderIcon = NSImage(systemSymbolName: "folder", accessibilityDescription: nil) ?? NSImage()
+    private let snippetIcon = NSImage(systemSymbolName: "doc.plaintext", accessibilityDescription: nil) ?? NSImage()
     // Other
     private let disposeBag = DisposeBag()
     private let notificationCenter = NotificationCenter.default
