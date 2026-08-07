@@ -13,9 +13,7 @@ clipboard contents or snippet contents to external services.
 - ClipApp does not transmit clipboard text, clipboard images, snippets, or
   other copied contents to any server or third-party service.
 - As currently distributed, ClipApp performs **no network communication**:
-  automatic update support is not included, and the app ships without a
-  Firebase configuration file, so the inherited
-  Firebase Analytics / Crashlytics code paths are inactive.
+  automatic update, analytics, and crash-reporting SDKs are not included.
 
 ## Data Stored Locally
 
@@ -36,8 +34,8 @@ and using macOS security features appropriately.
 As currently distributed, ClipApp performs no intentional network
 communication.
 
-If a future version enables Sparkle update checks or Firebase
-analytics/crash reporting, this policy will be updated first to describe
+If a future version adds an update check, analytics, crash reporting, or
+another network-enabled feature, this policy will be updated first to describe
 what is sent and how to opt out.
 
 ## Changes

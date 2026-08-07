@@ -32,10 +32,6 @@ Note: macOS ties Accessibility permission to the app's code signature, so
 ad-hoc builds may re-prompt for Accessibility permission after every build.
 For distribution, sign with your own Developer ID certificate and notarize.
 
-If you want to use Firebase features, place your own `GoogleService-Info.plist`
-in `Clipy/GoogleService`. Without this file the Firebase code paths are inert
-and nothing is sent anywhere.
-
 ### Auto Update
 Automatic updates are NOT included. The inherited Sparkle integration, feed URL, and public keys have been removed.
 
@@ -44,6 +40,15 @@ Please see [PRIVACY.md](./PRIVACY.md).
 
 ### Licence
 ClipApp is available under the MIT license. See the LICENSE file for more info.
+
+Source and binary distributions must include [LICENSE](./LICENSE),
+[LICENSE_CLIPMENU](./LICENSE_CLIPMENU), and
+[THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES). To create a distributable ZIP
+from a signed and notarized app, run:
+
+```
+scripts/create-release-archive.sh /path/to/ClipApp.app <version> [output-directory]
+```
 
 ClipApp is based on amazing project [Clipy](https://github.com/Clipy/Clipy), copyright
 Clipy Project / Shunsuke Furubayashi, which is itself based on
