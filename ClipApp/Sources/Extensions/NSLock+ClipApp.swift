@@ -1,5 +1,5 @@
 //
-//  NSLock+Clipy.swift
+//  NSLock+ClipApp.swift
 //
 //  Clipy
 //  GitHub: https://github.com/clipy

@@ -40,7 +40,7 @@
 		C6A000000000000000000102 /* LICENSE_CLIPMENU in Resources */ = {isa = PBXBuildFile; fileRef = C6A000000000000000000202 /* LICENSE_CLIPMENU */; };
 		C6A000000000000000000103 /* THIRD_PARTY_NOTICES in Resources */ = {isa = PBXBuildFile; fileRef = C6A000000000000000000203 /* THIRD_PARTY_NOTICES */; };
 		C587AF512FBF4E040043D5E7 /* SQLiteData in Frameworks */ = {isa = PBXBuildFile; productRef = C587AF502FBF4E040043D5E7 /* SQLiteData */; };
-		C58E0A822FDAB5B100B3A901 /* ClipyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58E0A812FDAB5B100B3A901 /* ClipyApp.swift */; };
+		C58E0A822FDAB5B100B3A901 /* ClipApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58E0A812FDAB5B100B3A901 /* ClipApp.swift */; };
 		C5A67BC42FECF03C0015A0DE /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A67BC32FECF0380015A0DE /* Accessibility.swift */; };
 		C5A67BCC2FED00E10015A0DE /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C5A67BCB2FED00E10015A0DE /* DependenciesMacros */; };
 		C5D220A82FBD2655005CD45E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C5D220A72FBD2655005CD45E /* RealmSwift */; };
@@ -79,7 +79,7 @@
 		FA1DB4A61DDCB443007F95C8 /* MenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4A51DDCB443007F95C8 /* MenuType.swift */; };
 		FA1DB4B41DDCB452007F95C8 /* NSBundle+Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4A91DDCB452007F95C8 /* NSBundle+Version.swift */; };
 		FA1DB4B71DDCB452007F95C8 /* NSImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4AC1DDCB452007F95C8 /* NSImage+Resize.swift */; };
-		FA1DB4B81DDCB452007F95C8 /* NSLock+Clipy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4AD1DDCB452007F95C8 /* NSLock+Clipy.swift */; };
+		FA1DB4B81DDCB452007F95C8 /* NSLock+ClipApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4AD1DDCB452007F95C8 /* NSLock+ClipApp.swift */; };
 		FA1DB4B91DDCB452007F95C8 /* NSMenuItem+Initialize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4AE1DDCB452007F95C8 /* NSMenuItem+Initialize.swift */; };
 		FA1DB4BA1DDCB452007F95C8 /* NSUserDefaults+ArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4AF1DDCB452007F95C8 /* NSUserDefaults+ArchiveData.swift */; };
 		FA1DB4C91DDCB460007F95C8 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DB4C31DDCB460007F95C8 /* MenuManager.swift */; };
@@ -127,7 +127,7 @@
 			containerPortal = FAC43DBE1B35D8B100C06102 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = FAC43DC51B35D8B100C06102;
-			remoteInfo = Clipy;
+			remoteInfo = ClipApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -169,7 +169,7 @@
 		A07D83942FC384F100390DB2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/CPYTypePreferenceViewController.strings"; sourceTree = "<group>"; };
 		A07D83962FC384F100390DB2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/CPYSnippetsEditorWindowController.strings"; sourceTree = "<group>"; };
 		C50767022FDA7B52004EF448 /* SQLiteDataDatabase+TriggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLiteDataDatabase+TriggerTests.swift"; sourceTree = "<group>"; };
-		C5208B882FC6E7FF00BC4568 /* Clipy.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Clipy.xcconfig; sourceTree = "<group>"; };
+		C5208B882FC6E7FF00BC4568 /* ClipApp.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ClipApp.xcconfig; sourceTree = "<group>"; };
 		C5208B8D2FC6E88E00BC4568 /* CodeSigning.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CodeSigning.xcconfig; sourceTree = "<group>"; };
 		C5208B8E2FC6E8B000BC4568 /* CodeSigning-AdHoc.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "CodeSigning-AdHoc.xcconfig"; sourceTree = "<group>"; };
 		C522FB942FCBD69A00E61800 /* PasteboardAvailableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardAvailableType.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 		C574471E2FD09FC6000D64D3 /* CPYSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPYSnippet.swift; sourceTree = "<group>"; };
 		C57447252FD09FD9000D64D3 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		C576AD7B2FBD345000B71213 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		C58E0A812FDAB5B100B3A901 /* ClipyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipyApp.swift; sourceTree = "<group>"; };
+		C58E0A812FDAB5B100B3A901 /* ClipApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipApp.swift; sourceTree = "<group>"; };
 		C5A67BC32FECF0380015A0DE /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		C6A000000000000000000201 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
 		C6A000000000000000000202 /* LICENSE_CLIPMENU */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE_CLIPMENU; sourceTree = SOURCE_ROOT; };
@@ -230,7 +230,7 @@
 		FA1DB4A51DDCB443007F95C8 /* MenuType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuType.swift; sourceTree = "<group>"; };
 		FA1DB4A91DDCB452007F95C8 /* NSBundle+Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+Version.swift"; sourceTree = "<group>"; };
 		FA1DB4AC1DDCB452007F95C8 /* NSImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSImage+Resize.swift"; sourceTree = "<group>"; };
-		FA1DB4AD1DDCB452007F95C8 /* NSLock+Clipy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+Clipy.swift"; sourceTree = "<group>"; };
+		FA1DB4AD1DDCB452007F95C8 /* NSLock+ClipApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLock+ClipApp.swift"; sourceTree = "<group>"; };
 		FA1DB4AE1DDCB452007F95C8 /* NSMenuItem+Initialize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMenuItem+Initialize.swift"; sourceTree = "<group>"; };
 		FA1DB4AF1DDCB452007F95C8 /* NSUserDefaults+ArchiveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+ArchiveData.swift"; sourceTree = "<group>"; };
 		FA1DB4C31DDCB460007F95C8 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
@@ -266,7 +266,7 @@
 		FAC0DCEE1DE3255E00309C49 /* NSImage+NSColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSImage+NSColor.swift"; sourceTree = "<group>"; };
 		FAC0DCF01DE576F300309C49 /* PasteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasteService.swift; sourceTree = "<group>"; };
 		FAC43DC61B35D8B100C06102 /* ClipApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAC43DD81B35D8B100C06102 /* ClipyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAC43DD81B35D8B100C06102 /* ClipAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClipAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC43DDD1B35D8B100C06102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAC43E221B35DFC800C06102 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FAC43E241B35DFD000C06102 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -327,7 +327,7 @@
 			children = (
 				C5208B8D2FC6E88E00BC4568 /* CodeSigning.xcconfig */,
 				C5208B8E2FC6E8B000BC4568 /* CodeSigning-AdHoc.xcconfig */,
-				C5208B882FC6E7FF00BC4568 /* Clipy.xcconfig */,
+				C5208B882FC6E7FF00BC4568 /* ClipApp.xcconfig */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -516,7 +516,7 @@
 				FA1DB4CB1DDCB479007F95C8 /* Models */,
 				FA1DB4BE1DDCB460007F95C8 /* Managers */,
 				FA1DB4A71DDCB452007F95C8 /* Extensions */,
-				C58E0A812FDAB5B100B3A901 /* ClipyApp.swift */,
+				C58E0A812FDAB5B100B3A901 /* ClipApp.swift */,
 				FA1DB4A01DDCB433007F95C8 /* AppDelegate.swift */,
 				FA1DB4A11DDCB433007F95C8 /* Constants.swift */,
 			);
@@ -541,7 +541,7 @@
 				FAC0DCEE1DE3255E00309C49 /* NSImage+NSColor.swift */,
 				FA1DB4A91DDCB452007F95C8 /* NSBundle+Version.swift */,
 				FA1DB4AC1DDCB452007F95C8 /* NSImage+Resize.swift */,
-				FA1DB4AD1DDCB452007F95C8 /* NSLock+Clipy.swift */,
+				FA1DB4AD1DDCB452007F95C8 /* NSLock+ClipApp.swift */,
 				FA1DB4AE1DDCB452007F95C8 /* NSMenuItem+Initialize.swift */,
 				FA1DB4AF1DDCB452007F95C8 /* NSUserDefaults+ArchiveData.swift */,
 				FA431F011E6718CE00ACFF56 /* Collection+Safe.swift */,
@@ -673,8 +673,8 @@
 			isa = PBXGroup;
 			children = (
 				C5208B822FC6E74B00BC4568 /* Configurations */,
-				FAC43DC81B35D8B100C06102 /* Clipy */,
-				FAC43DDB1B35D8B100C06102 /* ClipyTests */,
+				FAC43DC81B35D8B100C06102 /* ClipApp */,
+				FAC43DDB1B35D8B100C06102 /* ClipAppTests */,
 				FAC43DC71B35D8B100C06102 /* Products */,
 				2CB0F71AAC48A392535FD3B0 /* Frameworks */,
 			);
@@ -684,22 +684,22 @@
 			isa = PBXGroup;
 			children = (
 				FAC43DC61B35D8B100C06102 /* ClipApp.app */,
-				FAC43DD81B35D8B100C06102 /* ClipyTests.xctest */,
+				FAC43DD81B35D8B100C06102 /* ClipAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FAC43DC81B35D8B100C06102 /* Clipy */ = {
+		FAC43DC81B35D8B100C06102 /* ClipApp */ = {
 			isa = PBXGroup;
 			children = (
 				FA06D2D21DD882BD002FB7C2 /* Resources */,
 				FA1DB49C1DDCB3FB007F95C8 /* Sources */,
 				FA1DB4911DDCB205007F95C8 /* Supporting Files */,
 			);
-			path = Clipy;
+			path = ClipApp;
 			sourceTree = "<group>";
 		};
-		FAC43DDB1B35D8B100C06102 /* ClipyTests */ = {
+		FAC43DDB1B35D8B100C06102 /* ClipAppTests */ = {
 			isa = PBXGroup;
 			children = (
 				C5348FAF30008FDF008DFEB3 /* TestSupport */,
@@ -712,7 +712,7 @@
 				FA6167931D3ACCB90049FA14 /* DraggedDataTests.swift */,
 				FAC43DDC1B35D8B100C06102 /* Supporting Files */,
 			);
-			path = ClipyTests;
+			path = ClipAppTests;
 			sourceTree = "<group>";
 		};
 		FAC43DDC1B35D8B100C06102 /* Supporting Files */ = {
@@ -726,9 +726,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FAC43DC51B35D8B100C06102 /* Clipy */ = {
+		FAC43DC51B35D8B100C06102 /* ClipApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAC43DE21B35D8B100C06102 /* Build configuration list for PBXNativeTarget "Clipy" */;
+			buildConfigurationList = FAC43DE21B35D8B100C06102 /* Build configuration list for PBXNativeTarget "ClipApp" */;
 			buildPhases = (
 				FAC43DC21B35D8B100C06102 /* Sources */,
 				FAC43DC31B35D8B100C06102 /* Frameworks */,
@@ -739,19 +739,19 @@
 			dependencies = (
 				C5A4B2022FC9D76000B71510 /* PBXTargetDependency */,
 			);
-			name = Clipy;
+			name = ClipApp;
 			packageProductDependencies = (
 				C5700B4B2FC5C3D500C8F965 /* Dependencies */,
 				C53FC6BF2FCCA1C400219A25 /* Collections */,
 				C5A67BCB2FED00E10015A0DE /* DependenciesMacros */,
 			);
-			productName = Clipy;
+			productName = ClipApp;
 			productReference = FAC43DC61B35D8B100C06102 /* ClipApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FAC43DD71B35D8B100C06102 /* ClipyTests */ = {
+		FAC43DD71B35D8B100C06102 /* ClipAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAC43DE51B35D8B100C06102 /* Build configuration list for PBXNativeTarget "ClipyTests" */;
+			buildConfigurationList = FAC43DE51B35D8B100C06102 /* Build configuration list for PBXNativeTarget "ClipAppTests" */;
 			buildPhases = (
 				FAC43DD41B35D8B100C06102 /* Sources */,
 				FAC43DD51B35D8B100C06102 /* Frameworks */,
@@ -763,12 +763,12 @@
 				C5A4B2032FC9D76000B71510 /* PBXTargetDependency */,
 				FAC43DDA1B35D8B100C06102 /* PBXTargetDependency */,
 			);
-			name = ClipyTests;
+			name = ClipAppTests;
 			packageProductDependencies = (
 				C5700B4D2FC5C3D500C8F965 /* DependenciesTestSupport */,
 			);
-			productName = ClipyTests;
-			productReference = FAC43DD81B35D8B100C06102 /* ClipyTests.xctest */;
+			productName = ClipAppTests;
+			productReference = FAC43DD81B35D8B100C06102 /* ClipAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -796,7 +796,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FAC43DC11B35D8B100C06102 /* Build configuration list for PBXProject "Clipy" */;
+			buildConfigurationList = FAC43DC11B35D8B100C06102 /* Build configuration list for PBXProject "ClipApp" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -828,8 +828,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FAC43DC51B35D8B100C06102 /* Clipy */,
-				FAC43DD71B35D8B100C06102 /* ClipyTests */,
+				FAC43DC51B35D8B100C06102 /* ClipApp */,
+				FAC43DD71B35D8B100C06102 /* ClipAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -874,7 +874,7 @@
 				FA3778931F3B691A003B5BAB /* AppEnvironment.swift in Sources */,
 				FAC0DCF11DE576F300309C49 /* PasteService.swift in Sources */,
 				FA1DB4E51DDCB49C007F95C8 /* CPYUtilities.swift in Sources */,
-				FA1DB4B81DDCB452007F95C8 /* NSLock+Clipy.swift in Sources */,
+				FA1DB4B81DDCB452007F95C8 /* NSLock+ClipApp.swift in Sources */,
 				C57235112FF24ADE002158F7 /* NSMenu+Highlight.swift in Sources */,
 				FA1DB4BA1DDCB452007F95C8 /* NSUserDefaults+ArchiveData.swift in Sources */,
 				C5700B412FC40ABF00C8F965 /* SnippetFolderDetail.swift in Sources */,
@@ -884,7 +884,7 @@
 				FA1DB4B41DDCB452007F95C8 /* NSBundle+Version.swift in Sources */,
 				FA1DB5171DDCB4C0007F95C8 /* CPYTypePreferenceViewController.swift in Sources */,
 				C5E8EE682FFA28DD00270F1F /* StringExtensions.swift in Sources */,
-				C58E0A822FDAB5B100B3A901 /* ClipyApp.swift in Sources */,
+				C58E0A822FDAB5B100B3A901 /* ClipApp.swift in Sources */,
 				FA1DB4A21DDCB433007F95C8 /* AppDelegate.swift in Sources */,
 				FA1DB5141DDCB4C0007F95C8 /* CPYBetaPreferenceViewController.swift in Sources */,
 				C522FB952FCBD6AA00E61800 /* PasteboardAvailableType.swift in Sources */,
@@ -1077,7 +1077,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		FAC43DE01B35D8B100C06102 /* Debug configuration for PBXProject "Clipy" */ = {
+		FAC43DE01B35D8B100C06102 /* Debug configuration for PBXProject "ClipApp" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1148,7 +1148,7 @@
 			};
 			name = Debug;
 		};
-		FAC43DE11B35D8B100C06102 /* Release configuration for PBXProject "Clipy" */ = {
+		FAC43DE11B35D8B100C06102 /* Release configuration for PBXProject "ClipApp" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1212,9 +1212,9 @@
 			};
 			name = Release;
 		};
-		FAC43DE31B35D8B100C06102 /* Debug configuration for PBXNativeTarget "Clipy" */ = {
+		FAC43DE31B35D8B100C06102 /* Debug configuration for PBXNativeTarget "ClipApp" */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5208B882FC6E7FF00BC4568 /* Clipy.xcconfig */;
+			baseConfigurationReference = C5208B882FC6E7FF00BC4568 /* ClipApp.xcconfig */;
 			buildSettings = {
 				AUTOMATION_APPLE_EVENTS = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1224,7 +1224,7 @@
 				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
-				INFOPLIST_FILE = "Clipy/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "ClipApp/Supporting Files/Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.aiv.clipApp.debug;
 				PRODUCT_NAME = ClipApp;
@@ -1237,9 +1237,9 @@
 			};
 			name = Debug;
 		};
-		FAC43DE41B35D8B100C06102 /* Release configuration for PBXNativeTarget "Clipy" */ = {
+		FAC43DE41B35D8B100C06102 /* Release configuration for PBXNativeTarget "ClipApp" */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C5208B882FC6E7FF00BC4568 /* Clipy.xcconfig */;
+			baseConfigurationReference = C5208B882FC6E7FF00BC4568 /* ClipApp.xcconfig */;
 			buildSettings = {
 				AUTOMATION_APPLE_EVENTS = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1249,7 +1249,7 @@
 				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
 				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
 				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
-				INFOPLIST_FILE = "Clipy/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "ClipApp/Supporting Files/Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.aiv.clipApp;
 				PRODUCT_NAME = ClipApp;
@@ -1262,11 +1262,11 @@
 			};
 			name = Release;
 		};
-		FAC43DE61B35D8B100C06102 /* Debug configuration for PBXNativeTarget "ClipyTests" */ = {
+		FAC43DE61B35D8B100C06102 /* Debug configuration for PBXNativeTarget "ClipAppTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ClipyTests/Info.plist;
+				INFOPLIST_FILE = ClipAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
@@ -1276,11 +1276,11 @@
 			};
 			name = Debug;
 		};
-		FAC43DE71B35D8B100C06102 /* Release configuration for PBXNativeTarget "ClipyTests" */ = {
+		FAC43DE71B35D8B100C06102 /* Release configuration for PBXNativeTarget "ClipAppTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ClipyTests/Info.plist;
+				INFOPLIST_FILE = ClipAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@loader_path/../Frameworks",
@@ -1293,27 +1293,27 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FAC43DC11B35D8B100C06102 /* Build configuration list for PBXProject "Clipy" */ = {
+		FAC43DC11B35D8B100C06102 /* Build configuration list for PBXProject "ClipApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FAC43DE01B35D8B100C06102 /* Debug configuration for PBXProject "Clipy" */,
-				FAC43DE11B35D8B100C06102 /* Release configuration for PBXProject "Clipy" */,
+				FAC43DE01B35D8B100C06102 /* Debug configuration for PBXProject "ClipApp" */,
+				FAC43DE11B35D8B100C06102 /* Release configuration for PBXProject "ClipApp" */,
 			);
 			defaultConfigurationName = Release;
 		};
-		FAC43DE21B35D8B100C06102 /* Build configuration list for PBXNativeTarget "Clipy" */ = {
+		FAC43DE21B35D8B100C06102 /* Build configuration list for PBXNativeTarget "ClipApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FAC43DE31B35D8B100C06102 /* Debug configuration for PBXNativeTarget "Clipy" */,
-				FAC43DE41B35D8B100C06102 /* Release configuration for PBXNativeTarget "Clipy" */,
+				FAC43DE31B35D8B100C06102 /* Debug configuration for PBXNativeTarget "ClipApp" */,
+				FAC43DE41B35D8B100C06102 /* Release configuration for PBXNativeTarget "ClipApp" */,
 			);
 			defaultConfigurationName = Release;
 		};
-		FAC43DE51B35D8B100C06102 /* Build configuration list for PBXNativeTarget "ClipyTests" */ = {
+		FAC43DE51B35D8B100C06102 /* Build configuration list for PBXNativeTarget "ClipAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FAC43DE61B35D8B100C06102 /* Debug configuration for PBXNativeTarget "ClipyTests" */,
-				FAC43DE71B35D8B100C06102 /* Release configuration for PBXNativeTarget "ClipyTests" */,
+				FAC43DE61B35D8B100C06102 /* Debug configuration for PBXNativeTarget "ClipAppTests" */,
+				FAC43DE71B35D8B100C06102 /* Release configuration for PBXNativeTarget "ClipAppTests" */,
 			);
 			defaultConfigurationName = Release;
 		};

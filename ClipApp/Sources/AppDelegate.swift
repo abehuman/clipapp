@@ -109,7 +109,7 @@ class AppDelegate: NSObject, NSMenuItemValidation {
     // MARK: - Login Item Methods
     private func promptToAddLoginItems() {
         let alert = NSAlert()
-        alert.messageText = String(localized: "Launch Clipy on system startup?")
+        alert.messageText = String(localized: "Launch ClipApp on system startup?")
         alert.informativeText = String(localized: "You can change this setting in the Preferences if you want")
         alert.addButton(withTitle: String(localized: "Launch on system startup"))
         alert.addButton(withTitle: String(localized: "Don't Launch"))

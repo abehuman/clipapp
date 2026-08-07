@@ -38,7 +38,7 @@ jobs:
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
           -scheme ClipApp \
-          -project Clipy.xcodeproj \
+          -project ClipApp.xcodeproj \
           -clonedSourcePackagesDirPath "$GITHUB_WORKSPACE/.spm-cache/SourcePackages" \
           -packageCachePath "$GITHUB_WORKSPACE/.spm-cache/PackageCache" \
           -skipPackagePluginValidation \
@@ -54,7 +54,7 @@ jobs:
           ARCHS=arm64 \
           ONLY_ACTIVE_ARCH=NO \
           -scheme ClipApp \
-          -project Clipy.xcodeproj \
+          -project ClipApp.xcodeproj \
           -configuration Release \
           -derivedDataPath "$GITHUB_WORKSPACE/build" \
           -clonedSourcePackagesDirPath "$GITHUB_WORKSPACE/.spm-cache/SourcePackages" \

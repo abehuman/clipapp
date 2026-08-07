@@ -120,23 +120,23 @@ private extension CPYPreferencesWindowController {
 
         switch index {
         case 0:
-            generalImageView.contentTintColor = NSColor(resource: .clipy)
-            generalTextField.textColor = NSColor(resource: .clipy)
+            generalImageView.contentTintColor = NSColor(resource: .clipApp)
+            generalTextField.textColor = NSColor(resource: .clipApp)
         case 1:
-            menuImageView.contentTintColor = NSColor(resource: .clipy)
-            menuTextField.textColor = NSColor(resource: .clipy)
+            menuImageView.contentTintColor = NSColor(resource: .clipApp)
+            menuTextField.textColor = NSColor(resource: .clipApp)
         case 2:
-            typeImageView.contentTintColor = NSColor(resource: .clipy)
-            typeTextField.textColor = NSColor(resource: .clipy)
+            typeImageView.contentTintColor = NSColor(resource: .clipApp)
+            typeTextField.textColor = NSColor(resource: .clipApp)
         case 3:
-            excludeImageView.contentTintColor = NSColor(resource: .clipy)
-            excludeTextField.textColor = NSColor(resource: .clipy)
+            excludeImageView.contentTintColor = NSColor(resource: .clipApp)
+            excludeTextField.textColor = NSColor(resource: .clipApp)
         case 4:
-            shortcutsImageView.contentTintColor = NSColor(resource: .clipy)
-            shortcutsTextField.textColor = NSColor(resource: .clipy)
+            shortcutsImageView.contentTintColor = NSColor(resource: .clipApp)
+            shortcutsTextField.textColor = NSColor(resource: .clipApp)
         case 5:
-            betaImageView.contentTintColor = NSColor(resource: .clipy)
-            betaTextField.textColor = NSColor(resource: .clipy)
+            betaImageView.contentTintColor = NSColor(resource: .clipApp)
+            betaTextField.textColor = NSColor(resource: .clipApp)
         default: break
         }
     }

@@ -17,20 +17,18 @@ bar menu still follows the user's inline/folder menu preferences. See
 
 ### Project Structure
 
-The repository retains several `Clipy` names from the upstream project. The
-application built by this project is `ClipApp.app`; the names below refer to
-source and Xcode project directories only.
+The application target, project, and source directories use the `ClipApp` name.
 
 ```
-Clipy/                 ClipApp application target
+ClipApp/               ClipApp application target
   Sources/             Swift source, grouped by responsibility
   Resources/           Assets and localizations
   Supporting Files/    Target metadata, including Info.plist
-ClipyTests/            Unit tests for the application target
+ClipAppTests/          Unit tests for the application target
 Configurations/        Shared build and code-signing configuration
 docs/                  Design and implementation notes
 scripts/               Local release and maintenance scripts
-Clipy.xcodeproj/       Xcode project (build the ClipApp scheme)
+ClipApp.xcodeproj/     Xcode project (build the ClipApp scheme)
 ```
 
 __Requirement__: macOS 13 Ventura or later
@@ -40,7 +38,7 @@ __Requirement__: macOS 13 Ventura or later
 * Xcode 26.5
 
 ### How to Build
-1. Open `Clipy.xcodeproj` in Xcode.
+1. Open `ClipApp.xcodeproj` in Xcode.
 2. For local builds without a Developer ID, use ad-hoc signing:
     1. Open `Configurations/CodeSigning.xcconfig`.
     2. Make sure `#include "Configurations/CodeSigning-AdHoc.xcconfig"` is uncommented.

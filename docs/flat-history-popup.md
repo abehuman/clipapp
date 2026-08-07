@@ -28,17 +28,17 @@ popups and a preferences window.
 
 | Area | File | Role |
 |---|---|---|
-| App entry | `Clipy/Sources/ClipyApp.swift` | SwiftUI `@main` shell; bootstraps the SQLite DB, hosts the AppKit `AppDelegate` |
-| App lifecycle | `Clipy/Sources/AppDelegate.swift` | Registers default settings, starts services, handles menu item actions (`selectClipMenuItem` → paste) |
-| Menu construction | `Clipy/Sources/Managers/MenuManager.swift` | Builds the `NSMenu`s (status bar / popup / history / snippet) and pops them up |
-| Global hotkeys | `Clipy/Sources/Services/HotKeyService.swift` | Registers hotkeys via the [Magnet](https://github.com/Clipy/Magnet) framework |
-| Hotkey ↔ menu mapping | `Clipy/Sources/Enums/MenuType.swift` | `.main` / `.history` / `.snippet` → selector + UserDefaults key |
-| Clipboard monitoring | `Clipy/Sources/Services/ClipService.swift` | Watches `NSPasteboard`, writes history to the repository |
-| History storage | `Clipy/Sources/Repositories/PasteboardHistoryRepository.swift` | SQLiteData-backed store (migrated from Realm) |
-| Pasting | `Clipy/Sources/Services/PasteService.swift` | Puts a clip on the pasteboard and synthesizes ⌘V |
-| Settings keys | `Clipy/Sources/Constants.swift` | All `UserDefaults` key names |
-| Default settings | `Clipy/Sources/Utility/CPYUtilities.swift` (`registerUserDefaultKeys`) | Default values registered at launch |
-| Preferences UI | `Clipy/Sources/Preferences/` | Window + panels; the **Menu** panel is a bindings-only XIB (plain `NSViewController`, no Swift class) |
+| App entry | `ClipApp/Sources/ClipApp.swift` | SwiftUI `@main` shell; bootstraps the SQLite DB, hosts the AppKit `AppDelegate` |
+| App lifecycle | `ClipApp/Sources/AppDelegate.swift` | Registers default settings, starts services, handles menu item actions (`selectClipMenuItem` → paste) |
+| Menu construction | `ClipApp/Sources/Managers/MenuManager.swift` | Builds the `NSMenu`s (status bar / popup / history / snippet) and pops them up |
+| Global hotkeys | `ClipApp/Sources/Services/HotKeyService.swift` | Registers hotkeys via the [Magnet](https://github.com/Clipy/Magnet) framework |
+| Hotkey ↔ menu mapping | `ClipApp/Sources/Enums/MenuType.swift` | `.main` / `.history` / `.snippet` → selector + UserDefaults key |
+| Clipboard monitoring | `ClipApp/Sources/Services/ClipService.swift` | Watches `NSPasteboard`, writes history to the repository |
+| History storage | `ClipApp/Sources/Repositories/PasteboardHistoryRepository.swift` | SQLiteData-backed store (migrated from Realm) |
+| Pasting | `ClipApp/Sources/Services/PasteService.swift` | Puts a clip on the pasteboard and synthesizes ⌘V |
+| Settings keys | `ClipApp/Sources/Constants.swift` | All `UserDefaults` key names |
+| Default settings | `ClipApp/Sources/Utility/CPYUtilities.swift` (`registerUserDefaultKeys`) | Default values registered at launch |
+| Preferences UI | `ClipApp/Sources/Preferences/` | Window + panels; the **Menu** panel is a bindings-only XIB (plain `NSViewController`, no Swift class) |
 
 ### Flow when you press ⌘⇧V
 
@@ -174,7 +174,7 @@ prefixes instead, or go to the search palette (§4 D).
 
 ## 6. Testing
 
-- **Unit:** `ClipyTests/HotKeyServiceTests.swift` covers combo registration and
+- **Unit:** `ClipAppTests/HotKeyServiceTests.swift` covers combo registration and
   is unaffected. Menu layout has no tests today; a useful first one would
   assert that a menu built with `forcesFlatHistory: true` contains N clip items,
   zero submenu items, and bare-digit key equivalents on the first 10.

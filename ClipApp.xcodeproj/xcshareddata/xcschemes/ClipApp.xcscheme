@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FAC43DC51B35D8B100C06102"
                BuildableName = "ClipApp.app"
-               BlueprintName = "Clipy"
-               ReferencedContainer = "container:Clipy.xcodeproj">
+               BlueprintName = "ClipApp"
+               ReferencedContainer = "container:ClipApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FAC43DD71B35D8B100C06102"
-               BuildableName = "ClipyTests.xctest"
-               BlueprintName = "ClipyTests"
-               ReferencedContainer = "container:Clipy.xcodeproj">
+               BuildableName = "ClipAppTests.xctest"
+               BlueprintName = "ClipAppTests"
+               ReferencedContainer = "container:ClipApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FAC43DC51B35D8B100C06102"
             BuildableName = "ClipApp.app"
-            BlueprintName = "Clipy"
-            ReferencedContainer = "container:Clipy.xcodeproj">
+            BlueprintName = "ClipApp"
+            ReferencedContainer = "container:ClipApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -56,9 +56,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FAC43DD71B35D8B100C06102"
-               BuildableName = "ClipyTests.xctest"
-               BlueprintName = "ClipyTests"
-               ReferencedContainer = "container:Clipy.xcodeproj">
+               BuildableName = "ClipAppTests.xctest"
+               BlueprintName = "ClipAppTests"
+               ReferencedContainer = "container:ClipApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -79,8 +79,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FAC43DC51B35D8B100C06102"
             BuildableName = "ClipApp.app"
-            BlueprintName = "Clipy"
-            ReferencedContainer = "container:Clipy.xcodeproj">
+            BlueprintName = "ClipApp"
+            ReferencedContainer = "container:ClipApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -96,8 +96,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FAC43DC51B35D8B100C06102"
             BuildableName = "ClipApp.app"
-            BlueprintName = "Clipy"
-            ReferencedContainer = "container:Clipy.xcodeproj">
+            BlueprintName = "ClipApp"
+            ReferencedContainer = "container:ClipApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

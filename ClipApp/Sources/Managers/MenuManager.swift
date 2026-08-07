@@ -213,7 +213,7 @@ private extension MenuManager {
         menu.addItem(NSMenuItem(title: String(localized: "Edit Snippets"), action: #selector(AppDelegate.showSnippetEditorWindow)))
         menu.addItem(NSMenuItem(title: String(localized: "Preferences"), action: #selector(AppDelegate.showPreferenceWindow)))
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: String(localized: "Quit Clipy"), action: #selector(AppDelegate.terminate)))
+        menu.addItem(NSMenuItem(title: String(localized: "Quit ClipApp"), action: #selector(AppDelegate.terminate)))
 
         return menu
     }

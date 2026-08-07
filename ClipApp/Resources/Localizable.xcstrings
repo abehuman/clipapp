@@ -354,7 +354,7 @@
         }
       }
     },
-    "Launch Clipy on system startup?" : {
+    "Launch ClipApp on system startup?" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -617,7 +617,7 @@
         }
       }
     },
-    "Quit Clipy" : {
+    "Quit ClipApp" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {

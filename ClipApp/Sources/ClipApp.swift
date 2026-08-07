@@ -1,5 +1,5 @@
 //
-//  ClipyApp.swift
+//  ClipApp.swift
 //
 //  Clipy
 //  GitHub: https://github.com/clipy
@@ -14,7 +14,7 @@ import Dependencies
 import SwiftUI
 
 @main
-struct ClipyApp: App {
+struct ClipApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     private let migration = DatabaseMigration()

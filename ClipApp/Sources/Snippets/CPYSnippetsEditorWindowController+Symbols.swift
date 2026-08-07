@@ -15,7 +15,7 @@ extension CPYSnippetsEditorWindowController {
         setSymbol("square.and.arrow.up", on: exportButton)
 
         folderSettingImageView.image = symbol(named: "folder.fill")
-        folderSettingImageView.contentTintColor = NSColor(resource: .clipy)
+        folderSettingImageView.contentTintColor = NSColor(resource: .clipApp)
     }
 }
 
@@ -23,7 +23,7 @@ private extension CPYSnippetsEditorWindowController {
     func setSymbol(_ name: String, on button: NSButton) {
         button.image = symbol(named: name)
         button.alternateImage = nil
-        button.contentTintColor = NSColor(resource: .clipy)
+        button.contentTintColor = NSColor(resource: .clipApp)
     }
 
     func symbol(named name: String) -> NSImage? {

@@ -55,7 +55,7 @@ final class CPYSnippetsEditorCell: NSTextFieldCell {
             imageFrame.size = NSSize(width: 16, height: 13)
 
             if let drawImage = NSImage(systemSymbolName: "folder.fill", accessibilityDescription: nil) {
-                let tintColor = isHighlighted ? NSColor.white : NSColor(resource: .clipy)
+                let tintColor = isHighlighted ? NSColor.white : NSColor(resource: .clipApp)
                 NSGraphicsContext.saveGraphicsState()
                 drawImage.draw(in: imageFrame, from: .zero, operation: .sourceOver, fraction: 1, respectFlipped: true, hints: nil)
                 tintColor.set()
