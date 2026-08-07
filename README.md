@@ -15,6 +15,24 @@ bar menu still follows the user's inline/folder menu preferences. See
 
 ---
 
+### Project Structure
+
+The repository retains several `Clipy` names from the upstream project. The
+application built by this project is `ClipApp.app`; the names below refer to
+source and Xcode project directories only.
+
+```
+Clipy/                 ClipApp application target
+  Sources/             Swift source, grouped by responsibility
+  Resources/           Assets and localizations
+  Supporting Files/    Target metadata, including Info.plist
+ClipyTests/            Unit tests for the application target
+Configurations/        Shared build and code-signing configuration
+docs/                  Design and implementation notes
+scripts/               Local release and maintenance scripts
+Clipy.xcodeproj/       Xcode project (build the ClipApp scheme)
+```
+
 __Requirement__: macOS 13 Ventura or later
 
 ### Development Environment
