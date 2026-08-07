@@ -51,5 +51,5 @@ scripts/create-release-archive.sh /path/to/ClipApp.app <version> [output-directo
 ```
 
 ClipApp is based on amazing project [Clipy](https://github.com/Clipy/Clipy), copyright
-Clipy Project / Shunsuke Furubayashi, which is itself based on
+Clipy Project, which is itself based on
 [ClipMenu](https://github.com/naotaka/ClipMenu). See LICENSE and LICENSE_CLIPMENU.
