@@ -3,10 +3,11 @@
 ClipApp is a clipboard extension app for macOS, forked from
 [Clipy](https://github.com/Clipy/Clipy) (MIT License).
 
-The main difference from Clipy: pressing the main popup hotkey (default
-`Cmd + Shift + V`) shows the clipboard history as one flat list with bare
-numeric key equivalents, so you can see every clip immediately and paste
-item N by pressing its number — no folder submenus to navigate.
+I love Clipy but one thing i did not like much is it requires many steps to paste. It does not fit my workflow.
+
+The main difference from Clipy:
+- Clipy requires 4 steps `Cmd+Shift+V` -> `↓` -> `→` -> `Enter` to paste the latest clip because it has numbered subfolders in clipboad menu.
+- ClipApp only requires 2 steps `Cmd+Shift+V` -> `Enter`.
 
 The status
 bar menu still follows the user's inline/folder menu preferences. See
