@@ -1,3 +1,5 @@
+This AGENTS.md is persistent project context and is read in every AI coding-agent conversation. When you discover stable, broadly reusable codebase information that agents would otherwise need to investigate at the start of each task, update it when appropriate. Keep entries to one concise line; if more detail is needed, move it to `docs/agents/` and leave only a one-line reference here. Do not record task-specific or temporary information.
+
 This is a mac app project called ClipApp which is originally forked from Clipy.
 
 I love Clipy but one thing i did not like much is it requires many steps to paste. It does not fit my workflow.
