@@ -2,9 +2,6 @@
 /* Class = "NSTextFieldCell"; title = "pixel"; ObjectID = "2Ra-jY-ADW"; */
 "2Ra-jY-ADW.title" = "Pixel";
 
-/* Class = "NSTextFieldCell"; title = "items"; ObjectID = "4dH-7h-Ssv"; */
-"4dH-7h-Ssv.title" = "Einträge";
-
 /* Class = "NSTextFieldCell"; title = "chars"; ObjectID = "67F-2m-Txz"; */
 "67F-2m-Txz.title" = "Zeichen";
 
@@ -13,12 +10,6 @@
 
 /* Class = "NSButtonCell"; title = "Show Image"; ObjectID = "Drj-kg-Km5"; */
 "Drj-kg-Km5.title" = "Bild anzeigen";
-
-/* Class = "NSTextFieldCell"; title = "Number of items place inside a folder:"; ObjectID = "FP7-VI-YVJ"; */
-"FP7-VI-YVJ.title" = "Anzahl der Einträge in einem Ordner:";
-
-/* Class = "NSTextFieldCell"; title = "items"; ObjectID = "Ovp-if-Azp"; */
-"Ovp-if-Azp.title" = "Einträge";
 
 /* Class = "NSTextFieldCell"; title = "Max length of tool tip string:"; ObjectID = "QFO-xC-Z3p"; */
 "QFO-xC-Z3p.title" = "Maximale Länge der Kurzinfo:";
@@ -37,9 +28,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Number of characters in the menu:"; ObjectID = "hBb-sd-DcP"; */
 "hBb-sd-DcP.title" = "Anzahl der Zeichen im Menü:";
-
-/* Class = "NSButtonCell"; title = "Add key equivalents to numeric keys"; ObjectID = "hE2-DL-MKl"; */
-"hE2-DL-MKl.title" = "Tastenäquivalent für Nummerntasten hinzufügen";
 
 /* Class = "NSButtonCell"; title = "Show color code preview"; ObjectID = "hgW-RK-5oy"; */
 "hgW-RK-5oy.title" = "Farbcode-Vorschau anzeigen";
@@ -61,9 +49,6 @@
 
 /* Class = "NSButtonCell"; title = "Menu items' title starts with 0"; ObjectID = "seq-HO-d27"; */
 "seq-HO-d27.title" = "Mit 0 anfangen";
-
-/* Class = "NSTextFieldCell"; title = "Number of items place inline:"; ObjectID = "wef-NB-6p6"; */
-"wef-NB-6p6.title" = "Anzahl der Einträge die innerhalb angezeigt werden:";
 
 /* Class = "NSButtonCell"; title = "Display icons in menu items"; ObjectID = "yrU-qO-OwD"; */
 "yrU-qO-OwD.title" = "Icons in Menüeinträgen anzeigen";
