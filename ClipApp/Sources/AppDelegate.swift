@@ -26,6 +26,11 @@ class AppDelegate: NSObject, NSMenuItemValidation {
     private let screenshotObserver = ScreenShotObserver(searchDirectoryPaths: AppDelegate.screenshotSearchDirectoryPaths())
     private let disposeBag = DisposeBag()
 
+    private var isLoginItemLaunch: Bool {
+        NSAppleEventManager.shared().currentAppleEvent?
+            .paramDescriptor(forKeyword: AEKeyword(keyAELaunchedAsLogInItem)) != nil
+    }
+
     @Dependency(\.context)
     var context
     @Dependency(\.continuousClock)
@@ -131,6 +136,17 @@ class AppDelegate: NSObject, NSMenuItemValidation {
 
 // MARK: - NSApplication Delegate
 extension AppDelegate: NSApplicationDelegate {
+
+    func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
+        guard !isLoginItemLaunch else { return false }
+        showPreferenceWindow()
+        return true
+    }
+
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showPreferenceWindow()
+        return true
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Environments

@@ -56,6 +56,7 @@ struct Constants {
         static let loginItem = "loginItem"
         static let suppressAlertForLoginItem = "suppressAlertForLoginItem"
         static let showStatusItem = "kCPYPrefShowStatusItemKey"
+        static let didShowMenuBarHiddenNotice = "didShowMenuBarHiddenNotice"
         static let thumbnailWidth = "thumbnailWidth"
         static let thumbnailHeight = "thumbnailHeight"
         static let overwriteSameHistory = "kCPYPrefOverwriteSameHistroy"

@@ -17,6 +17,33 @@ final class HotKeyServiceTests {
     }
 
     @Test
+    func migratesLegacyMenuBarIconStylesToVisibility() throws {
+        let visibleSuiteName = "HotKeyServiceTests.menuBar.visible.\(UUID().uuidString)"
+        let hiddenSuiteName = "HotKeyServiceTests.menuBar.hidden.\(UUID().uuidString)"
+        let defaultSuiteName = "HotKeyServiceTests.menuBar.default.\(UUID().uuidString)"
+        defer {
+            UserDefaults.standard.removePersistentDomain(forName: visibleSuiteName)
+            UserDefaults.standard.removePersistentDomain(forName: hiddenSuiteName)
+            UserDefaults.standard.removePersistentDomain(forName: defaultSuiteName)
+        }
+
+        let visibleDefaults = try #require(UserDefaults(suiteName: visibleSuiteName))
+        visibleDefaults.set(2, forKey: Constants.UserDefaults.showStatusItem)
+        CPYUtilities.registerUserDefaultKeys(visibleDefaults)
+        #expect(visibleDefaults.bool(forKey: Constants.UserDefaults.showStatusItem))
+
+        let hiddenDefaults = try #require(UserDefaults(suiteName: hiddenSuiteName))
+        hiddenDefaults.set(0, forKey: Constants.UserDefaults.showStatusItem)
+        CPYUtilities.registerUserDefaultKeys(hiddenDefaults)
+        #expect(!hiddenDefaults.bool(forKey: Constants.UserDefaults.showStatusItem))
+
+        let defaultDefaults = try #require(UserDefaults(suiteName: defaultSuiteName))
+        CPYUtilities.registerUserDefaultKeys(defaultDefaults)
+        #expect(defaultDefaults.bool(forKey: Constants.UserDefaults.showStatusItem))
+        #expect(!defaultDefaults.bool(forKey: Constants.UserDefaults.didShowMenuBarHiddenNotice))
+    }
+
+    @Test
     func migrateDefaultSettings() throws {
         let service = HotKeyService()
         #expect(service.mainKeyCombo == nil)

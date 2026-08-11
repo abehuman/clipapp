@@ -26,6 +26,9 @@ final class MenuManager: NSObject {
     // StatusMenu
     private lazy var statusBarItem: NSStatusItem = {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        let image = NSImage(resource: .statusbarMenuBlack)
+        image.isTemplate = true
+        item.button?.image = image
         item.button?.toolTip = "\(Constants.Application.name)\(Bundle.main.appVersion ?? "")"
         item.menu = clipMenu
         return item
@@ -46,11 +49,6 @@ final class MenuManager: NSObject {
     private var mainQueue
     private var cancellables: Set<AnyCancellable> = []
     private var snippetFolderDetails = [SnippetFolderDetail]()
-
-    // MARK: - Enum Values
-    enum StatusType: Int {
-        case none, black, white
-    }
 
     // MARK: - Initialize
     override init() {
@@ -115,12 +113,12 @@ private extension MenuManager {
                 self?.createClipMenu()
             }
             .store(in: &cancellables)
-        // Menu icon
-        AppEnvironment.current.defaults.rx.observe(Int.self, Constants.UserDefaults.showStatusItem, retainSelf: false)
+        // Menu bar visibility
+        AppEnvironment.current.defaults.rx.observe(Bool.self, Constants.UserDefaults.showStatusItem, retainSelf: false)
             .compactMap { $0 }
             .asDriver(onErrorDriveWith: .empty())
-            .drive(onNext: { [weak self] key in
-                self?.changeStatusItem(StatusType(rawValue: key) ?? .black)
+            .drive(onNext: { [weak self] isVisible in
+                self?.changeStatusItem(isVisible)
             })
             .disposed(by: disposeBag)
         // Sort clips
@@ -338,21 +336,8 @@ private extension MenuManager {
 
 // MARK: - Status Item
 private extension MenuManager {
-    func changeStatusItem(_ type: StatusType) {
-        switch type {
-        case .black:
-            let image = NSImage(resource: .statusbarMenuBlack)
-            image.isTemplate = true
-            statusBarItem.button?.image = image
-            statusBarItem.isVisible = true
-        case .white:
-            let image = NSImage(resource: .statusbarMenuWhite)
-            image.isTemplate = true
-            statusBarItem.button?.image = image
-            statusBarItem.isVisible = true
-        case .none:
-            statusBarItem.isVisible = false
-        }
+    func changeStatusItem(_ isVisible: Bool) {
+        statusBarItem.isVisible = isVisible
     }
 }
 

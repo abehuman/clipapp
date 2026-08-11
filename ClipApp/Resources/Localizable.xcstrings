@@ -320,6 +320,74 @@
         }
       }
     },
+    "Hide" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausblenden"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非表示"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏"
+          }
+        }
+      }
+    },
+    "Hide ClipApp from the menu bar?" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ClipApp aus der Menüleiste ausblenden?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nascondere ClipApp dalla barra dei menu?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ClipAppをメニューバーから非表示にしますか？"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar o ClipApp da barra de menus?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从菜单栏中隐藏 ClipApp？"
+          }
+        }
+      }
+    },
     "History" : {
       "localizations" : {
         "de" : {
@@ -768,6 +836,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To do this action please allow Accessibility in Security & Privacy preferences, located in System Preferences."
+          }
+        }
+      }
+    },
+    "You can still open your clipboard history with your keyboard shortcut. To show ClipApp in the menu bar again, open ClipApp from Spotlight or the Applications folder, then enable it in Preferences." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können den Zwischenablageverlauf weiterhin mit Ihrem Tastaturkurzbefehl öffnen. Um ClipApp wieder in der Menüleiste anzuzeigen, öffnen Sie ClipApp über Spotlight oder den Programme-Ordner und aktivieren Sie die Option in den Einstellungen."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puoi continuare ad aprire la cronologia degli appunti con la scorciatoia da tastiera. Per mostrare nuovamente ClipApp nella barra dei menu, apri ClipApp da Spotlight o dalla cartella Applicazioni, quindi abilita l'opzione nelle Preferenze."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非表示にしても、キーボードショートカットでクリップボード履歴を開けます。再表示するには、SpotlightまたはアプリケーションフォルダからClipAppを開き、環境設定で有効にしてください。"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você ainda pode abrir o histórico da área de transferência com o atalho de teclado. Para mostrar o ClipApp novamente na barra de menus, abra-o pelo Spotlight ou pela pasta Aplicativos e ative a opção nas Preferências."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐藏后，你仍可使用键盘快捷键打开剪贴板历史。若要让 ClipApp 重新显示在菜单栏中，请从聚焦搜索或“应用程序”文件夹打开 ClipApp，然后在偏好设置中启用该选项。"
           }
         }
       }

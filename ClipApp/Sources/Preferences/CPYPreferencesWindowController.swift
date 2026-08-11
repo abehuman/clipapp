@@ -39,7 +39,7 @@ final class CPYPreferencesWindowController: NSWindowController {
     @IBOutlet private weak var shortcutsButton: NSButton!
     @IBOutlet private weak var betaButton: NSButton!
     // ViewController
-    private let viewController = [NSViewController(nibName: "CPYGeneralPreferenceViewController", bundle: nil),
+    private let viewController = [CPYGeneralPreferenceViewController(nibName: "CPYGeneralPreferenceViewController", bundle: nil),
                                   NSViewController(nibName: "CPYMenuPreferenceViewController", bundle: nil),
                                   CPYTypePreferenceViewController(nibName: "CPYTypePreferenceViewController", bundle: nil),
                                   CPYExcludeAppPreferenceViewController(nibName: "CPYExcludeAppPreferenceViewController", bundle: nil),
@@ -65,6 +65,39 @@ final class CPYPreferencesWindowController: NSWindowController {
     override func showWindow(_ sender: Any?) {
         super.showWindow(sender)
         window?.orderFrontRegardless()
+    }
+}
+
+final class CPYGeneralPreferenceViewController: NSViewController {
+
+    @IBOutlet private weak var showInMenuBarButton: NSButton!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        showInMenuBarButton.state = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.showStatusItem) ? .on : .off
+    }
+
+    @IBAction private func showInMenuBarChanged(_ sender: NSButton) {
+        let defaults = AppEnvironment.current.defaults
+        let shouldShow = sender.state == .on
+
+        if !shouldShow && !defaults.bool(forKey: Constants.UserDefaults.didShowMenuBarHiddenNotice) {
+            let alert = NSAlert()
+            alert.alertStyle = .informational
+            alert.messageText = String(localized: "Hide ClipApp from the menu bar?")
+            alert.informativeText = String(localized: "You can still open your clipboard history with your keyboard shortcut. To show ClipApp in the menu bar again, open ClipApp from Spotlight or the Applications folder, then enable it in Preferences.")
+            alert.addButton(withTitle: String(localized: "Hide"))
+            alert.addButton(withTitle: String(localized: "Cancel"))
+
+            guard alert.runModal() == .alertFirstButtonReturn else {
+                sender.state = .on
+                return
+            }
+            defaults.set(true, forKey: Constants.UserDefaults.didShowMenuBarHiddenNotice)
+        }
+
+        defaults.set(shouldShow, forKey: Constants.UserDefaults.showStatusItem)
+        defaults.synchronize()
     }
 }
 

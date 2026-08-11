@@ -35,6 +35,10 @@ final class CPYUtilities {
     }()
 
     static func registerUserDefaultKeys(_ defaults: UserDefaults) {
+        // Older versions stored the menu bar preference as an icon style:
+        // 0 = hidden, 1 = black, 2 = white. Preserve visibility while moving
+        // the preference to a simple Boolean toggle.
+        let legacyStatusItemValue = defaults.object(forKey: Constants.UserDefaults.showStatusItem) as? NSNumber
         var defaultValues = [String: Any]()
 
         defaultValues.updateValue(HotKeyService.defaultKeyCombos, forKey: Constants.UserDefaults.hotKeys)
@@ -42,7 +46,8 @@ final class CPYUtilities {
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.loginItem)
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.suppressAlertForLoginItem)
         defaultValues.updateValue(NSNumber(value: 30), forKey: Constants.UserDefaults.maxHistorySize)
-        defaultValues.updateValue(NSNumber(value: 1), forKey: Constants.UserDefaults.showStatusItem)
+        defaultValues.updateValue(NSNumber(value: true), forKey: Constants.UserDefaults.showStatusItem)
+        defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.didShowMenuBarHiddenNotice)
         let storeTypes = PasteboardAvailableType.allCases.reduce(into: [:]) { $0[$1.rawValue] = NSNumber(value: true) }
         defaultValues.updateValue(storeTypes, forKey: Constants.UserDefaults.storeTypes)
         defaultValues.updateValue(NSNumber(value: true), forKey: Constants.UserDefaults.inputPasteCommand)
@@ -75,6 +80,9 @@ final class CPYUtilities {
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.Beta.observerScreenshot)
 
         defaults.register(defaults: defaultValues)
+        if let legacyStatusItemValue {
+            defaults.set(legacyStatusItemValue.intValue != 0, forKey: Constants.UserDefaults.showStatusItem)
+        }
         defaults.synchronize()
     }
 
