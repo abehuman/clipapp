@@ -17,3 +17,4 @@ PROVISIONING_PROFILE_SPECIFIER[config=Debug] =
 PROVISIONING_PROFILE_SPECIFIER[config=Release] =
 
 #include "Configurations/CodeSigning-AdHoc.xcconfig"
+#include? "Configurations/CodeSigning-Local.xcconfig"

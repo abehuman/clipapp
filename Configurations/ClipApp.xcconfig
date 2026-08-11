@@ -9,4 +9,7 @@
 //  Copyright © 2015-2026 Clipy Project.
 //
 
+MARKETING_VERSION = 1.4.0
+CURRENT_PROJECT_VERSION = 1.4.0
+
 #include "Configurations/CodeSigning.xcconfig"

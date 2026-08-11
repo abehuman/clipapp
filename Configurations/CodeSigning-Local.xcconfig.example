@@ -1,0 +1,7 @@
+// Copy this file to CodeSigning-Local.xcconfig and replace the placeholder.
+// The local file is ignored by Git and is loaded after the shared defaults.
+
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+
+// Optional: use a stable development signature for Accessibility testing.
+// CODE_SIGN_IDENTITY[config=Debug] = Apple Development

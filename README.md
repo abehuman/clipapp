@@ -39,14 +39,22 @@ __Requirement__: macOS 13 Ventura or later
 
 ### How to Build
 1. Open `ClipApp.xcodeproj` in Xcode.
-2. For local builds without a Developer ID, use ad-hoc signing:
-    1. Open `Configurations/CodeSigning.xcconfig`.
-    2. Make sure `#include "Configurations/CodeSigning-AdHoc.xcconfig"` is uncommented.
-3. Build the `ClipApp` scheme (the product is `ClipApp.app`).
+2. Build the `ClipApp` scheme (the product is `ClipApp.app`). Debug builds use
+   ad-hoc signing by default.
 
 Note: macOS ties Accessibility permission to the app's code signature, so
 ad-hoc builds may re-prompt for Accessibility permission after every build.
-For distribution, sign with your own Developer ID certificate and notarize.
+For stable development signing, copy
+`Configurations/CodeSigning-Local.xcconfig.example` to
+`Configurations/CodeSigning-Local.xcconfig` and set your own Team ID. The local
+file is ignored by Git. For distribution, sign with your own Developer ID
+certificate and notarize.
+
+### Release
+
+Release builds use the `Developer ID Application` identity. See
+[docs/releasing.md](./docs/releasing.md) for the Xcode archive, notarization,
+verification, packaging, and GitHub Release workflow.
 
 ### Auto Update
 Automatic updates are NOT included. The inherited Sparkle integration, feed URL, and public keys have been removed.

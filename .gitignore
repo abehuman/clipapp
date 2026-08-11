@@ -158,3 +158,6 @@ build-iPhoneSimulator/
 
 # Firebase
 GoogleService-Info.plist
+
+# Local code-signing overrides
+Configurations/CodeSigning-Local.xcconfig
