@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Last updated: July 23, 2026
+Last updated: August 12, 2026
 
 ClipApp is a clipboard extension app for macOS, forked from Clipy. Clipboard
 data can contain sensitive information, so ClipApp will never transmit
@@ -12,8 +12,8 @@ clipboard contents or snippet contents to external services.
   information, or other directly identifying personal information.
 - ClipApp does not transmit clipboard text, clipboard images, snippets, or
   other copied contents to any server or third-party service.
-- As currently distributed, ClipApp performs **no network communication**:
-  automatic update, analytics, and crash-reporting SDKs are not included.
+- ClipApp communicates with GitHub only to check for and download application
+  updates. Analytics and crash-reporting SDKs are not included.
 
 ## Data Stored Locally
 
@@ -31,12 +31,19 @@ and using macOS security features appropriately.
 
 ## Network Communication
 
-As currently distributed, ClipApp performs no intentional network
-communication.
+ClipApp uses Sparkle to retrieve a signed update feed from GitHub Pages and to
+download signed application archives from GitHub Releases. You can check
+manually from **Check for Updates…**. Sparkle asks before enabling scheduled
+update checks.
 
-If a future version adds an update check, analytics, crash reporting, or
-another network-enabled feature, this policy will be updated first to describe
-what is sent and how to opt out.
+Sparkle system profiling is disabled. ClipApp does not add hardware details,
+clipboard contents, snippets, or other app data to update requests. As with an
+ordinary web request, GitHub may receive network metadata such as your IP
+address and user agent under GitHub's own privacy practices.
+
+ClipApp does not include analytics or crash-reporting services. If a future
+version adds another network-enabled feature, this policy will be updated first
+to describe what is sent and how to control it.
 
 ## Changes
 

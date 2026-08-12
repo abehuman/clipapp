@@ -5,6 +5,13 @@ notice applies to the source package versions pinned in `Package.resolved`.
 Build- and test-time packages are listed as well, so their notices remain
 available when they are also included transitively in a distributed build.
 
+## Sparkle 2.9.5
+
+ClipApp uses Sparkle for signed application updates. Sparkle and the external
+components it incorporates are distributed under the notices reproduced in
+`LICENSE_SPARKLE`. That file is included in both the application bundle and
+the general distribution archive.
+
 ## MIT License
 
 The following packages are available under the MIT License. Their copyright

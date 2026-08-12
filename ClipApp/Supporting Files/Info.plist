@@ -32,5 +32,15 @@
 	<string>Copyright © 2026 AbeShunyah. Based on Clipy © Shunsuke Furubayashi (MIT License).</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUEnableSystemProfiling</key>
+	<false/>
+	<key>SUFeedURL</key>
+	<string>https://abehuman.github.io/clipapp/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>h/GYHnHAtp0h7/Sfif2YDP7Zae+zYHgceW/v0Ik4fBg=</string>
+	<key>SURequireSignedFeed</key>
+	<true/>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
 </dict>
 </plist>

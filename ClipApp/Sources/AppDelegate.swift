@@ -19,10 +19,12 @@ import RxSwift
 import Screeen
 import ServiceManagement
 import Sharing
+import Sparkle
 
 class AppDelegate: NSObject, NSMenuItemValidation {
 
     // MARK: - Properties
+    private(set) var updaterController: SPUStandardUpdaterController?
     private let screenshotObserver = ScreenShotObserver(searchDirectoryPaths: AppDelegate.screenshotSearchDirectoryPaths())
     private let disposeBag = DisposeBag()
 
@@ -47,6 +49,9 @@ class AppDelegate: NSObject, NSMenuItemValidation {
         if menuItem.action == #selector(AppDelegate.clearAllHistory) {
             return pasteboardHistoryRepository.hasHistories()
         }
+        if menuItem.action == #selector(AppDelegate.checkForUpdates(_:)) {
+            return updaterController?.updater.canCheckForUpdates ?? false
+        }
         return true
     }
 
@@ -59,6 +64,10 @@ class AppDelegate: NSObject, NSMenuItemValidation {
     @objc func showSnippetEditorWindow() {
         NSApp.activate(ignoringOtherApps: true)
         CPYSnippetsEditorWindowController.sharedController.showWindow(self)
+    }
+
+    @objc func checkForUpdates(_ sender: Any?) {
+        updaterController?.checkForUpdates(sender)
     }
 
     @objc func terminate() {
@@ -164,6 +173,13 @@ extension AppDelegate: NSApplicationDelegate {
             promptToAddLoginItems()
         }
 
+        // Automatic Updates
+        updaterController = SPUStandardUpdaterController(
+            startingUpdater: true,
+            updaterDelegate: nil,
+            userDriverDelegate: self
+        )
+
         // Binding Events
         bind()
 
@@ -191,6 +207,38 @@ extension AppDelegate: NSApplicationDelegate {
         }
     }
 
+}
+
+// MARK: - Sparkle Update Reminders
+extension AppDelegate: SPUStandardUserDriverDelegate {
+    var supportsGentleScheduledUpdateReminders: Bool {
+        true
+    }
+
+    func standardUserDriverShouldHandleShowingScheduledUpdate(
+        _ update: SUAppcastItem,
+        andInImmediateFocus immediateFocus: Bool
+    ) -> Bool {
+        immediateFocus
+    }
+
+    func standardUserDriverWillHandleShowingUpdate(
+        _ handleShowingUpdate: Bool,
+        forUpdate update: SUAppcastItem,
+        state: SPUUserUpdateState
+    ) {
+        AppEnvironment.current.menuManager.setAvailableUpdateVersion(
+            handleShowingUpdate ? nil : update.displayVersionString
+        )
+    }
+
+    func standardUserDriverDidReceiveUserAttention(forUpdate update: SUAppcastItem) {
+        AppEnvironment.current.menuManager.setAvailableUpdateVersion(nil)
+    }
+
+    func standardUserDriverWillFinishUpdateSession() {
+        AppEnvironment.current.menuManager.setAvailableUpdateVersion(nil)
+    }
 }
 
 // MARK: - Bind

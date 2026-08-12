@@ -57,7 +57,10 @@ Release builds use the `Developer ID Application` identity. See
 verification, packaging, and GitHub Release workflow.
 
 ### Auto Update
-Automatic updates are NOT included. The inherited Sparkle integration, feed URL, and public keys have been removed.
+ClipApp uses Sparkle 2 to install signed updates published through GitHub
+Releases. Choose **Check for Updates…** from the ClipApp menu at any time.
+Sparkle asks before enabling scheduled update checks; system profiling is
+disabled, so update checks do not include device profile information.
 
 ### Privacy Policy
 Please see [PRIVACY.md](./PRIVACY.md).
@@ -66,7 +69,8 @@ Please see [PRIVACY.md](./PRIVACY.md).
 ClipApp is available under the MIT license. See the LICENSE file for more info.
 
 Source and binary distributions must include [LICENSE](./LICENSE),
-[LICENSE_CLIPMENU](./LICENSE_CLIPMENU), and
+[LICENSE_CLIPMENU](./LICENSE_CLIPMENU),
+[LICENSE_SPARKLE](./LICENSE_SPARKLE), and
 [THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES). To create a distributable ZIP
 from a signed and notarized app, run:
 

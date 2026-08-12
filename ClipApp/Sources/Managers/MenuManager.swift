@@ -23,6 +23,7 @@ final class MenuManager: NSObject {
     private var clipMenu: NSMenu?
     private var historyMenu: NSMenu?
     private var snippetMenu: NSMenu?
+    private var availableUpdateVersion: String?
     // StatusMenu
     private lazy var statusBarItem: NSStatusItem = {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -61,6 +62,11 @@ final class MenuManager: NSObject {
 
     func setup() {
         bind()
+    }
+
+    func setAvailableUpdateVersion(_ version: String?) {
+        availableUpdateVersion = version
+        createClipMenu()
     }
 
 }
@@ -196,11 +202,24 @@ private extension MenuManager {
         }
 
         menu.addItem(NSMenuItem(title: String(localized: "Edit Snippets"), action: #selector(AppDelegate.showSnippetEditorWindow)))
+        menu.addItem(makeUpdateMenuItem())
         menu.addItem(NSMenuItem(title: String(localized: "Preferences"), action: #selector(AppDelegate.showPreferenceWindow)))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: String(localized: "Quit ClipApp"), action: #selector(AppDelegate.terminate)))
 
         return menu
+    }
+
+    func makeUpdateMenuItem() -> NSMenuItem {
+        let title: String
+        if let availableUpdateVersion {
+            let format = String(localized: "Version %@ Available — Check for Updates…")
+            title = String(format: format, availableUpdateVersion)
+        } else {
+            title = String(localized: "Check for Updates…")
+        }
+
+        return NSMenuItem(title: title, action: #selector(AppDelegate.checkForUpdates(_:)))
     }
 
     func menuItemTitle(_ title: String, listNumber: NSInteger, isMarkWithNumber: Bool) -> String {
