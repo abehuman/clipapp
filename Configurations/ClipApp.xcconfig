@@ -12,4 +12,7 @@
 MARKETING_VERSION = 1.4.0
 CURRENT_PROJECT_VERSION = 1.4.0
 
+// Reuse compiler results for identical inputs in Xcode 26 and later.
+COMPILATION_CACHE_ENABLE_CACHING = YES
+
 #include "Configurations/CodeSigning.xcconfig"
