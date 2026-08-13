@@ -45,6 +45,7 @@ final class CPYUtilities {
         /* General */
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.loginItem)
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.suppressAlertForLoginItem)
+        defaultValues.updateValue(NSNumber(value: true), forKey: Constants.UserDefaults.playSoundOnCopy)
         defaultValues.updateValue(NSNumber(value: 30), forKey: Constants.UserDefaults.maxHistorySize)
         defaultValues.updateValue(NSNumber(value: true), forKey: Constants.UserDefaults.showStatusItem)
         defaultValues.updateValue(NSNumber(value: false), forKey: Constants.UserDefaults.didShowMenuBarHiddenNotice)

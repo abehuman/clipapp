@@ -55,6 +55,7 @@ struct Constants {
         static let maxLengthOfToolTip = "maxLengthOfToolTipKey"
         static let loginItem = "loginItem"
         static let suppressAlertForLoginItem = "suppressAlertForLoginItem"
+        static let playSoundOnCopy = "kCPYPrefPlaySoundOnCopyKey"
         static let showStatusItem = "kCPYPrefShowStatusItemKey"
         static let didShowMenuBarHiddenNotice = "didShowMenuBarHiddenNotice"
         static let thumbnailWidth = "thumbnailWidth"

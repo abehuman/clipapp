@@ -1,3 +1,4 @@
+import AppKit
 import Carbon
 import Dependencies
 import DependenciesTestSupport
@@ -40,7 +41,40 @@ final class HotKeyServiceTests {
         let defaultDefaults = try #require(UserDefaults(suiteName: defaultSuiteName))
         CPYUtilities.registerUserDefaultKeys(defaultDefaults)
         #expect(defaultDefaults.bool(forKey: Constants.UserDefaults.showStatusItem))
+        #expect(defaultDefaults.bool(forKey: Constants.UserDefaults.playSoundOnCopy))
         #expect(!defaultDefaults.bool(forKey: Constants.UserDefaults.didShowMenuBarHiddenNotice))
+    }
+
+    @Test
+    func copySoundRespectsPreferenceAndIgnoresInternalPasteboardWrites() throws {
+        let suiteName = "HotKeyServiceTests.copySound.\(UUID().uuidString)"
+        defer { UserDefaults.standard.removePersistentDomain(forName: suiteName) }
+
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        CPYUtilities.registerUserDefaultKeys(defaults)
+        var playCount = 0
+        let service = ClipService(
+            copySoundPlayer: { playCount += 1 },
+            defaults: { defaults }
+        )
+        let pasteboard = NSPasteboard(name: NSPasteboard.Name("ClipAppTests.copySound.\(UUID().uuidString)"))
+        pasteboard.clearContents()
+        pasteboard.setString("external", forType: .string)
+
+        service.playCopySoundIfNeeded(for: Int.max, pasteboard: pasteboard)
+        #expect(playCount == 1)
+
+        defaults.set(false, forKey: Constants.UserDefaults.playSoundOnCopy)
+        service.playCopySoundIfNeeded(for: Int.max, pasteboard: pasteboard)
+        #expect(playCount == 1)
+
+        defaults.set(true, forKey: Constants.UserDefaults.playSoundOnCopy)
+        service.performInternalPasteboardWrite(to: pasteboard) {
+            pasteboard.clearContents()
+            pasteboard.setString("internal", forType: .string)
+        }
+        service.playCopySoundIfNeeded(for: pasteboard.changeCount, pasteboard: pasteboard)
+        #expect(playCount == 1)
     }
 
     @Test

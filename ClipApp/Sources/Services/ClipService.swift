@@ -19,20 +19,33 @@ import RxCocoa
 final class ClipService {
 
     // MARK: - Properties
+    private static let copySound = NSSound(named: NSSound.Name("Tink"))
+
     fileprivate var cachedChangeCount = BehaviorRelay<Int>(value: 0)
     fileprivate var storeTypes = [String: NSNumber]()
     fileprivate let scheduler = SerialDispatchQueueScheduler(qos: .userInteractive)
     fileprivate let lock = NSRecursiveLock(name: "jp.co.aiv.clipApp.ClipUpdatable")
     fileprivate var disposeBag = DisposeBag()
+    private var copySoundSuppressedChangeCounts: ClosedRange<Int>?
+    private let copySoundPlayer: () -> Void
+    private let defaults: () -> UserDefaults
 
     @Dependency(\.pasteboardHistoryRepository)
     private var pasteboardHistoryRepository
     @Dependency(\.textRecognizer)
     private var textRecognizer
 
+    init(copySoundPlayer: (() -> Void)? = nil,
+         defaults: @escaping () -> UserDefaults = { AppEnvironment.current.defaults }) {
+        self.copySoundPlayer = copySoundPlayer ?? Self.playSystemCopySound
+        self.defaults = defaults
+    }
+
     // MARK: - Clips
     func startMonitoring() {
         disposeBag = DisposeBag()
+        let initialChangeCount = NSPasteboard.general.changeCount
+        suppressCopySound(for: initialChangeCount...initialChangeCount)
         // Pasteboard observe timer
         Observable<Int>.interval(.milliseconds(500), scheduler: scheduler)
             .map { _ in NSPasteboard.general.changeCount }
@@ -40,6 +53,7 @@ final class ClipService {
             .filter { $0 != $1 }
             .subscribe(onNext: { [weak self] changeCount, _ in
                 self?.cachedChangeCount.accept(changeCount)
+                self?.playCopySoundIfNeeded(for: changeCount)
                 self?.create()
             })
             .disposed(by: disposeBag)
@@ -69,6 +83,48 @@ final class ClipService {
         cachedChangeCount.accept(cachedChangeCount.value + 1)
     }
 
+    func performInternalPasteboardWrite(to pasteboard: NSPasteboard, _ write: () -> Void) {
+        lock.lock(); defer { lock.unlock() }
+
+        let previousChangeCount = pasteboard.changeCount
+        write()
+        let currentChangeCount = pasteboard.changeCount
+        guard currentChangeCount > previousChangeCount else { return }
+        suppressCopySound(for: (previousChangeCount + 1)...currentChangeCount)
+    }
+
+    func playCopySoundIfNeeded(for changeCount: Int, pasteboard: NSPasteboard = .general) {
+        lock.lock(); defer { lock.unlock() }
+
+        if let suppressedChangeCounts = copySoundSuppressedChangeCounts {
+            if suppressedChangeCounts.contains(changeCount) {
+                if changeCount == suppressedChangeCounts.upperBound {
+                    copySoundSuppressedChangeCounts = nil
+                }
+                return
+            }
+            copySoundSuppressedChangeCounts = nil
+        }
+
+        guard defaults().bool(forKey: Constants.UserDefaults.playSoundOnCopy),
+              !(pasteboard.types ?? []).isEmpty else { return }
+        copySoundPlayer()
+    }
+
+}
+
+private extension ClipService {
+    static func playSystemCopySound() {
+        DispatchQueue.main.async {
+            copySound?.stop()
+            copySound?.play()
+        }
+    }
+
+    func suppressCopySound(for changeCounts: ClosedRange<Int>) {
+        lock.lock(); defer { lock.unlock() }
+        copySoundSuppressedChangeCounts = changeCounts
+    }
 }
 
 // MARK: - Create Clip

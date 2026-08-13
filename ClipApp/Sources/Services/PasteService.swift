@@ -93,8 +93,10 @@ extension PasteService {
         lock.lock(); defer { lock.unlock() }
 
         let pasteboard = NSPasteboard.general
-        pasteboard.declareTypes([.string], owner: nil)
-        pasteboard.setString(string, forType: .string)
+        AppEnvironment.current.clipService.performInternalPasteboardWrite(to: pasteboard) {
+            pasteboard.declareTypes([.string], owner: nil)
+            pasteboard.setString(string, forType: .string)
+        }
     }
 
     private func copyToPasteboard(with content: PasteboardContent) {
@@ -106,7 +108,9 @@ extension PasteService {
         }
 
         let pasteboard = NSPasteboard.general
-        content.writeObjects(to: pasteboard)
+        AppEnvironment.current.clipService.performInternalPasteboardWrite(to: pasteboard) {
+            content.writeObjects(to: pasteboard)
+        }
     }
 }
 

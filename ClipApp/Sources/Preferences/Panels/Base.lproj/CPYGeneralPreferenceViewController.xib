@@ -40,6 +40,17 @@
                         <binding destination="Rq0-bo-cst" name="value" keyPath="values.kCPYPrefInputPasteCommandKey" id="8bQ-Th-8DI"/>
                     </connections>
                 </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W2x-qP-6sD" customClass="CPYDesignableButton" customModule="Clipy" customModuleProvider="target">
+                    <rect key="frame" x="59" y="160" width="340" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Play a sound when copying" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="QyB-sK-2zF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="Rq0-bo-cst" name="value" keyPath="values.kCPYPrefPlaySoundOnCopyKey" id="h7R-pm-E9w"/>
+                    </connections>
+                </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="Aum-MH-ep1">
                     <rect key="frame" x="59" y="230" width="210" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>

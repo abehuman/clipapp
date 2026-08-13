@@ -2,6 +2,9 @@
 /* Class = "NSButtonCell"; title = "Input \"⌘ + V\" after menu item selection"; ObjectID = "0yt-u0-ROt"; */
 "0yt-u0-ROt.title" = "选中菜单项后输入”⌘ + V“";
 
+/* Class = "NSButtonCell"; title = "Play a sound when copying"; ObjectID = "QyB-sK-2zF"; */
+"QyB-sK-2zF.title" = "复制时播放声音";
+
 /* Class = "NSTextFieldCell"; title = "Appearance"; ObjectID = "FM4-mw-DCx"; */
 "FM4-mw-DCx.title" = "外观";
 
