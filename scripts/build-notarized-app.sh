@@ -89,7 +89,8 @@ if [[ $marketing_version != $version || $build_version != $version ]]; then
   exit 65
 fi
 
-ditto -c -k --sequesterRsrc --keepParent "$app_path" "$notary_archive"
+"$project_root/scripts/verify-release-app.sh" "$app_path"
+ditto -c -k --keepParent "$app_path" "$notary_archive"
 
 set +e
 xcrun notarytool submit "$notary_archive" \
@@ -120,20 +121,6 @@ if (( submit_status != 0 )) || [[ $notary_status != Accepted ]]; then
 fi
 
 xcrun stapler staple "$app_path"
-xcrun stapler validate "$app_path"
-codesign --verify --deep --strict --verbose=2 "$app_path"
-spctl --assess --type execute --verbose=4 "$app_path"
-
-if [[ ! -d $app_path/Contents/Frameworks/Sparkle.framework ]]; then
-  print -u2 "Sparkle.framework is missing from the exported app."
-  exit 66
-fi
-
-architectures=$(lipo -archs "$app_path/Contents/MacOS/ClipApp")
-if [[ " $architectures " != *' arm64 '* || " $architectures " != *' x86_64 '* ]]; then
-  print -u2 "Release must contain arm64 and x86_64 slices; found: $architectures"
-  exit 65
-fi
+"$project_root/scripts/verify-release-app.sh" "$app_path" --require-notarization
 
 print "Created notarized app: $app_path"
-print "Architectures: $architectures"

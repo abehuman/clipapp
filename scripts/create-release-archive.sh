@@ -31,7 +31,7 @@ if [[ ! -d "$output_directory" ]]; then
 fi
 
 mkdir -p "$staging_dir"
-cp -R "$app_path" "$staging_dir/ClipApp.app"
+ditto "$app_path" "$staging_dir/ClipApp.app"
 cp "$project_root/LICENSE" "$project_root/LICENSE_CLIPMENU" \
   "$project_root/LICENSE_SPARKLE" "$project_root/THIRD_PARTY_NOTICES" \
   "$staging_dir/"
@@ -43,7 +43,7 @@ fi
 
 (
   cd "$staging_root"
-  ditto -c -k --sequesterRsrc --keepParent "${staging_dir:t}" "$archive_path"
+  ditto -c -k --keepParent "${staging_dir:t}" "$archive_path"
 )
 
 print "Created $archive_path"

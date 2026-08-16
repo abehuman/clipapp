@@ -187,8 +187,9 @@ jobs:
           "$KEYCHAIN_PATH"
         security list-keychains -d user -s "$KEYCHAIN_PATH"
 
-        if ! security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep -q 'Developer ID Application'; then
-          echo 'Developer ID Application identity was not imported.' >&2
+        developer_id_count=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep -c 'Developer ID Application' || true)
+        if [[ $developer_id_count != 1 ]]; then
+          echo "Expected exactly one Developer ID Application identity; found $developer_id_count." >&2
           exit 78
         fi
 
@@ -230,6 +231,14 @@ jobs:
 
         scripts/create-release-archive.sh "$app_path" "$VERSION" "$DISTRIBUTION_DIR"
         scripts/create-update-archive.sh "$app_path" "$VERSION" "$UPDATES_DIR"
+        scripts/verify-release-archive.sh \
+          "$DISTRIBUTION_DIR/ClipApp-$VERSION-distribution.zip" \
+          "$VERSION" \
+          distribution
+        scripts/verify-release-archive.sh \
+          "$UPDATES_DIR/ClipApp-$VERSION.zip" \
+          "$VERSION" \
+          update
         scripts/generate-appcast.sh \
           "$UPDATES_DIR" \
           "$VERSION" \
@@ -342,9 +351,16 @@ jobs:
           for checksum in ./*.sha256(N); do
             shasum -a 256 -c "$checksum"
           done
-          unzip -t "ClipApp-$VERSION-distribution.zip"
-          unzip -t "ClipApp-$VERSION.zip"
         )
+
+        scripts/verify-release-archive.sh \
+          "$download_directory/ClipApp-$VERSION-distribution.zip" \
+          "$VERSION" \
+          distribution
+        scripts/verify-release-archive.sh \
+          "$download_directory/ClipApp-$VERSION.zip" \
+          "$VERSION" \
+          update
 
     - name: Publish GitHub Release
       shell: zsh {0}

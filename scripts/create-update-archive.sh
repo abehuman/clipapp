@@ -30,6 +30,6 @@ fi
 
 # Sparkle recommends an update archive containing only the application bundle.
 # The app already embeds all required license and third-party notice files.
-ditto -c -k --sequesterRsrc --keepParent "$app_path" "$archive_path"
+ditto -c -k --keepParent "$app_path" "$archive_path"
 
 print "Created $archive_path"

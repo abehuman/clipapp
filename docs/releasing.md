@@ -77,6 +77,8 @@ mainへpush
 - 公開済みRelease assetを別内容で置き換えない。変更が必要ならバージョンを
   上げ、再ビルド、再署名、再Notarizationする。
 - push済みのバージョンタグを移動または再利用しない。
+- ZIPはAppleの推奨どおり`ditto -c -k --keepParent`で作成し、
+  `--sequesterRsrc`を使用しない。
 - GitHub Actionsの成功だけで完了とせず、公開物をMacへダウンロードして確認する。
 
 ## 初回だけ行う準備
@@ -409,6 +411,8 @@ Review deployments > release > Approve and deploy
 1. **Validate release**: version、main、公開appcast、テストを検証する。
 2. **Sign, notarize, and publish**: 一時Keychainへ証明書を読み込み、署名、
    Notarization、staple、ZIP、Sparkle署名、Draft検証、Release公開を行う。
+   2種類のZIPは作成直後とDraftから再取得した後の両方で展開され、arm64 / x86_64
+   署名、stapled ticket、Gatekeeper判定、versionが検証される。
 3. **Publish Sparkle feed**: 署名済みappcastをGitHub Pagesへdeployする。
 4. **Record published appcast**: 公開済みappcastを`main`へbot commitする。
 
@@ -457,7 +461,7 @@ ZIPを展開し、`ClipApp.app`を`/Applications`へ移動して通常どおり�
 
 ```sh
 app_path=/Applications/ClipApp.app
-codesign --verify --deep --strict --verbose=2 "$app_path"
+codesign --verify --deep --strict --all-architectures --verbose=4 "$app_path"
 xcrun stapler validate "$app_path"
 spctl --assess --type execute --verbose=4 "$app_path"
 lipo -archs "$app_path/Contents/MacOS/ClipApp"
@@ -524,7 +528,22 @@ patch versionを作る。
 - `APPLE_DEVELOPER_ID_P12_BASE64`
 - `APPLE_DEVELOPER_ID_P12_PASSWORD`
 
-既存Secretsを更新してから新versionで署名を確認する。
+有効期限内で秘密鍵も残っている既存のDeveloper ID Application証明書は、そのまま
+使ってよい。理由なく新しい証明書へ切り替えない。
+
+証明書を交換するときは、既存Secretsを更新する前に同じMac上で署名・Notarization
+済みのRelease buildを作成し、`scripts/create-update-archive.sh`でZIP化した後、
+次を通す。
+
+```sh
+scripts/verify-release-archive.sh \
+  /path/to/ClipApp-<version>.zip \
+  <version> \
+  update
+```
+
+さらに、別のMacまたはクリーンな利用者環境でも展開後のappを確認する。新しい
+証明書での配布物が確認できるまで、既知の正常な旧証明書をrevokeしない。
 
 ### App Store Connect Team API Key
 
@@ -587,10 +606,21 @@ scripts/create-release-archive.sh \
   "$app_path" "$version" "$distribution_dir"
 scripts/create-update-archive.sh \
   "$app_path" "$version" "$updates_dir"
+
+scripts/verify-release-archive.sh \
+  "$distribution_dir/ClipApp-$version-distribution.zip" \
+  "$version" \
+  distribution
+scripts/verify-release-archive.sh \
+  "$updates_dir/ClipApp-$version.zip" \
+  "$version" \
+  update
 ```
 
 `distribution_dir`にはライセンス同梱の手動配布ZIP、`updates_dir`にはSparkle用の
 app-only ZIPを置く。`*-distribution.zip`をSparkle archives directoryへ入れない。
+検証スクリプトはZIPを実際に展開し、両アーキテクチャのDeveloper ID署名、stapled
+ticket、Gatekeeper判定、versionを確認する。
 
 ### 4. 署名済みappcastを生成する
 
@@ -618,6 +648,7 @@ scripts/generate-appcast.sh "$updates_dir" "$version"
 - [Apple: Developer ID certificates](https://developer.apple.com/help/account/certificates/create-developer-id-certificates/)
 - [Apple: Share signing certificates with another Mac](https://developer.apple.com/documentation/xcode/sharing-your-teams-signing-certificates)
 - [Apple: Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
+- [Apple: Packaging Mac software for distribution](https://developer.apple.com/documentation/xcode/packaging-mac-software-for-distribution)
 - [Apple: Customizing the notarization workflow](https://developer.apple.com/documentation/security/customizing-the-notarization-workflow)
 - [Apple: App Store Connect API](https://developer.apple.com/help/app-store-connect/get-started/app-store-connect-api/)
 - [GitHub: Deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments)
