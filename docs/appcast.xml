@@ -1,8 +1,22 @@
-<?xml version="1.0" standalone="yes"?><!-- sparkle-sign-warning:
+<?xml version="1.0" standalone="yes"?>
+<!-- sparkle-sign-warning:
 IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
---><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+-->
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>ClipApp</title>
+        <item>
+            <title>1.4.1</title>
+            <pubDate>Sun, 16 Aug 2026 08:49:59 +0000</pubDate>
+            <link>https://github.com/abehuman/clipapp</link>
+            <sparkle:version>1.4.1</sparkle:version>
+            <sparkle:shortVersionString>1.4.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.1/ClipApp-1.4.1.zip" length="13165033" type="application/octet-stream" sparkle:edSignature="PKSGw4hFEl1RiF5E+lAD2O6rITzwlTErayFHrI3zMtonVvz7f97/T/buabm6/HYvga4Cg/4EhLzfflSrclkACA=="/>
+            <sparkle:deltas>
+                <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.1/ClipApp1.4.1-1.4.0.delta" sparkle:deltaFrom="1.4.0" length="942542" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="977840" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="I0bgvw9MGi6PmXibCe17WNvMgL3JotnQK7LvZki4l6hXYiw36RI4VQ6SoNnJ1KF10ZysKxrU8YZdUjI5DRimDg=="/>
+            </sparkle:deltas>
+        </item>
         <item>
             <title>1.4.0</title>
             <pubDate>Wed, 12 Aug 2026 14:15:51 +0900</pubDate>
@@ -10,10 +24,11 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
             <sparkle:version>1.4.0</sparkle:version>
             <sparkle:shortVersionString>1.4.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.0/ClipApp-1.4.0.zip" length="13226392" type="application/octet-stream" sparkle:edSignature="J6Caj/D9LmmAMJdHnBnp2Y7VocNLjSFUcLTUhmjd37OfZz02O8F8hFYZ6gnUv5XcdewgPyF12obFIiRsWVfMAg=="></enclosure>
+            <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.1/ClipApp-1.4.0.zip" length="13226392" type="application/octet-stream" sparkle:edSignature="J6Caj/D9LmmAMJdHnBnp2Y7VocNLjSFUcLTUhmjd37OfZz02O8F8hFYZ6gnUv5XcdewgPyF12obFIiRsWVfMAg=="/>
         </item>
     </channel>
-</rss><!-- sparkle-signatures:
-edSignature: q8BWeFlQWVGodXCI5wunq5M5/sXlxI4mrYqDsQXxuV+y2PbtYoZXP91ERIihBhTgeIppNrXPNPj9dBev/RyZAg==
-length: 1104
+</rss>
+<!-- sparkle-signatures:
+edSignature: lMObE3SIlhA21lfKjldVRKQ5aXFmg5KLMO6RnJdBoWuafrAS2WzqVDjYHvKP68Lomh4cMMyN0TWrdZja2j8eBQ==
+length: 2229
 -->
