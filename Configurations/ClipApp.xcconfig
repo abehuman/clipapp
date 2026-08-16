@@ -9,8 +9,8 @@
 //  Copyright © 2015-2026 Clipy Project.
 //
 
-MARKETING_VERSION = 1.4.1
-CURRENT_PROJECT_VERSION = 1.4.1
+MARKETING_VERSION = 1.4.2
+CURRENT_PROJECT_VERSION = 1.4.2
 
 // Reuse compiler results for identical inputs in Xcode 26 and later.
 COMPILATION_CACHE_ENABLE_CACHING = YES
