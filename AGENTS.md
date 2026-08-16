@@ -30,3 +30,4 @@ Main difference from Clipy:
 
 - `origin` is the ClipApp fork and `upstream` is the original Clipy repository. Confirm remote URLs before pushing and never push changes to `upstream`.
 - Include a detailed message in commits.
+- Tagged releases use `.github/workflows/release.yml` with the protected `release` environment; see `docs/releasing.md` for signing, notarization, Sparkle, and Pages setup.

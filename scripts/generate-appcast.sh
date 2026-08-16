@@ -46,18 +46,29 @@ if [[ ! -x "$generate_appcast" ]]; then
 fi
 
 # Reuse the canonical signed feed so older releases and deltas remain available.
-if [[ -f "$canonical_appcast" && "$canonical_appcast" != "$working_appcast" ]]; then
+if [[ ! -f "$working_appcast" && -f "$canonical_appcast" && "$canonical_appcast" != "$working_appcast" ]]; then
   cp "$canonical_appcast" "$working_appcast"
+fi
+
+generate_appcast_arguments=(
+  --download-url-prefix "$download_url"
+  --link https://github.com/abehuman/clipapp
+  -o appcast.xml
+)
+
+if [[ -n ${SPARKLE_PRIVATE_KEY_FILE:-} ]]; then
+  if [[ ! -f $SPARKLE_PRIVATE_KEY_FILE ]]; then
+    print -u2 "Sparkle private key was not found: $SPARKLE_PRIVATE_KEY_FILE"
+    exit 66
+  fi
+  generate_appcast_arguments=(--ed-key-file "$SPARKLE_PRIVATE_KEY_FILE" "${generate_appcast_arguments[@]}")
+else
+  generate_appcast_arguments=(--account jp.co.aiv.clipApp "${generate_appcast_arguments[@]}")
 fi
 
 (
   cd "$archives_directory"
-  "$generate_appcast" \
-    --account jp.co.aiv.clipApp \
-    --download-url-prefix "$download_url" \
-    --link https://github.com/abehuman/clipapp \
-    -o appcast.xml \
-    .
+  "$generate_appcast" "${generate_appcast_arguments[@]}" .
 )
 
 cp "$working_appcast" "$canonical_appcast"
