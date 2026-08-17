@@ -302,11 +302,6 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-    - name: Upload GitHub Pages artifact
-      uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
-      with:
-        path: docs
-
     - name: Create or update draft release
       shell: zsh {0}
       env:
@@ -379,35 +374,14 @@ jobs:
         rm -f "$CERTIFICATE_PATH" "$ASC_KEY_PATH" "$SPARKLE_KEY_PATH"
         security delete-keychain "$KEYCHAIN_PATH"
 
-  deploy_pages:
-    name: Publish Sparkle feed
+  persist_appcast:
+    name: Record and publish Sparkle feed
     needs: release
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-    - name: Configure GitHub Pages
-      uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
-
-    - name: Deploy GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
-
-  persist_appcast:
-    name: Record published appcast
-    needs:
-    - release
-    - deploy_pages
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 15
     permissions:
       contents: write
+      actions: write
     steps:
     - name: Checkout latest main
       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -422,6 +396,7 @@ jobs:
         path: release-feed
 
     - name: Commit published appcast
+      id: record
       env:
         RELEASE_SHA: ${{ needs.release.outputs.release_sha }}
         VERSION: ${{ needs.release.outputs.version }}
@@ -435,13 +410,52 @@ jobs:
         cp release-feed/appcast.xml docs/appcast.xml
         if git diff --quiet -- docs/appcast.xml; then
           echo 'Published appcast is already recorded on main.'
-          exit 0
+        else
+          git diff --check
+          git add -- docs/appcast.xml
+          git diff --cached --check
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m "Publish ClipApp $VERSION update feed"
+          git push origin HEAD:main
         fi
 
-        git diff --check
-        git add -- docs/appcast.xml
-        git diff --cached --check
-        git config user.name github-actions[bot]
-        git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-        git commit -m "Publish ClipApp $VERSION update feed"
-        git push origin HEAD:main
+        published_sha=$(git rev-parse HEAD)
+        echo "published_sha=$published_sha" >> "$GITHUB_OUTPUT"
+
+    - name: Dispatch Pages deployment from main
+      env:
+        GH_TOKEN: ${{ github.token }}
+        PUBLISHED_SHA: ${{ steps.record.outputs.published_sha }}
+        VERSION: ${{ needs.release.outputs.version }}
+      run: |
+        set -euo pipefail
+        gh workflow run pages.yml \
+          --repo "$GITHUB_REPOSITORY" \
+          --ref main \
+          -f expected_sha="$PUBLISHED_SHA" \
+          -f expected_version="$VERSION"
+
+    - name: Verify published Sparkle feed
+      env:
+        VERSION: ${{ needs.release.outputs.version }}
+      run: |
+        set -euo pipefail
+        live_appcast="$RUNNER_TEMP/live-appcast.xml"
+
+        for attempt in {1..60}; do
+          cache_buster="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT-$attempt"
+          if curl --fail --location --silent --show-error --retry 2 \
+            --header 'Cache-Control: no-cache' \
+            --output "$live_appcast" \
+            "https://abehuman.github.io/clipapp/appcast.xml?release=$VERSION&verify=$cache_buster"; then
+            if cmp --silent release-feed/appcast.xml "$live_appcast"; then
+              echo "Published Sparkle feed matches ClipApp $VERSION."
+              exit 0
+            fi
+          fi
+          sleep 10
+        done
+
+        echo "Published Sparkle feed did not match ClipApp $VERSION within 10 minutes." >&2
+        exit 1

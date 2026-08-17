@@ -1,0 +1,98 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+    - 'docs/**'
+    - '.github/workflows/pages.yml'
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Commit expected to contain the published appcast
+        required: false
+        type: string
+      expected_version:
+        description: ClipApp version expected at the top of the appcast
+        required: false
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy Pages from main
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - name: Checkout main
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
+
+    - name: Validate Pages source
+      env:
+        EXPECTED_SHA: ${{ inputs.expected_sha }}
+        EXPECTED_VERSION: ${{ inputs.expected_version }}
+      run: |
+        set -euo pipefail
+        if [[ -n "$EXPECTED_SHA" && "$GITHUB_SHA" != "$EXPECTED_SHA" ]]; then
+          echo "Expected Pages source $EXPECTED_SHA, but workflow checked out $GITHUB_SHA." >&2
+          exit 65
+        fi
+
+        python3 - "$EXPECTED_VERSION" <<'PY'
+        import os
+        import sys
+        import xml.etree.ElementTree as ET
+
+        appcast = "docs/appcast.xml"
+        expected_version = sys.argv[1]
+        sparkle_namespace = "http://www.andymatuschak.org/xml-namespaces/sparkle"
+        root = ET.parse(appcast).getroot()
+        item = root.find("./channel/item")
+        if item is None:
+            raise SystemExit("appcast does not contain an item")
+
+        version = item.findtext(f"{{{sparkle_namespace}}}shortVersionString")
+        enclosure = item.find("enclosure")
+        signature = None if enclosure is None else enclosure.get(f"{{{sparkle_namespace}}}edSignature")
+        if not version or enclosure is None or not signature:
+            raise SystemExit("appcast latest item is incomplete")
+
+        if expected_version:
+            expected_url = (
+                f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/download/"
+                f"v{expected_version}/ClipApp-{expected_version}.zip"
+            )
+            if version != expected_version or enclosure.get("url") != expected_url:
+                raise SystemExit(
+                    f"appcast latest item does not match {expected_version}: "
+                    f"version={version!r} url={enclosure.get('url')!r}"
+                )
+
+        print(f"Validated Pages appcast version {version}")
+        PY
+
+    - name: Configure GitHub Pages
+      uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+    - name: Upload GitHub Pages artifact
+      uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+      with:
+        path: docs
+
+    - name: Deploy GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

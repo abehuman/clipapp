@@ -2,8 +2,9 @@
 
 この文書は、ClipAppをMac App Storeを使わずにGitHub Releasesから配布し、
 Sparkleで自動更新を届けるための正本である。通常は
-`.github/workflows/release.yml`を使い、GitHub-hosted macOS runner上で署名、
-Apple Notarization、Release公開、GitHub Pagesへのappcast配信まで自動化する。
+`.github/workflows/release.yml`と`.github/workflows/pages.yml`を使い、
+GitHub-hosted runner上で署名、Apple Notarization、Release公開、GitHub Pagesへの
+appcast配信まで自動化する。
 
 ## 普段あなたがやることは3つだけ
 
@@ -34,8 +35,9 @@ mainへpush
   → Apple Notarization
   → Draft Releaseの検証
   → GitHub Release公開
-  → GitHub Pagesへappcast公開
   → appcastをmainへ記録
+  → 新しいmain commitからGitHub Pagesへappcast公開
+  → 公開appcastが生成物と一致することを検証
 ```
 
 通常の`main`へのpushだけではリリースされない。`v1.4.1`のようなタグを
@@ -85,9 +87,9 @@ mainへpush
 
 ### 1. Release workflowを`main`へ導入する
 
-`.github/workflows/release.yml`、リリース用スクリプト、設定ファイル、この文書を
-コミットして`origin/main`へpushする。workflowがGitHubに存在する前にタグを
-pushしない。
+`.github/workflows/release.yml`、`.github/workflows/pages.yml`、リリース用
+スクリプト、設定ファイル、この文書をコミットして`origin/main`へpushする。
+workflowがGitHubに存在する前にタグをpushしない。
 
 push前に必ず対象を確認する。
 
@@ -270,7 +272,10 @@ Settings > Pages > Build and deployment > Source
 ```
 
 Sourceを**GitHub Actions**へ変更する。Release workflowはGitHub Release assetsを
-公開した後、`docs/`をPages artifactとして明示的にdeployする。
+公開して署名済みappcastを`main`へ記録した後、Pages workflowを`main`から起動する。
+Pages workflowは`docs/`をartifactとしてdeployする。タグ上の同じcommit SHAから
+Pagesを再deployすると以前のartifactが再利用される場合があるため、Releaseの
+タグSHAからPagesを直接deployしない。
 
 変更直後に既存appcastが引き続き取得できることを確認する。
 
@@ -406,15 +411,18 @@ Review deployments > release > Approve and deploy
 承認すると、Secretsを使った署名、AppleへのNotarization送信、GitHub Releaseの
 一般公開まで自動で進む。
 
-### 9. 4つのjobが完了するまで待つ
+### 9. Releaseの3つのjobとPages workflowが完了するまで待つ
 
 1. **Validate release**: version、main、公開appcast、テストを検証する。
 2. **Sign, notarize, and publish**: 一時Keychainへ証明書を読み込み、署名、
    Notarization、staple、ZIP、Sparkle署名、Draft検証、Release公開を行う。
    2種類のZIPは作成直後とDraftから再取得した後の両方で展開され、arm64 / x86_64
    署名、stapled ticket、Gatekeeper判定、versionが検証される。
-3. **Publish Sparkle feed**: 署名済みappcastをGitHub Pagesへdeployする。
-4. **Record published appcast**: 公開済みappcastを`main`へbot commitする。
+3. **Record and publish Sparkle feed**: 署名済みappcastを`main`へbot commitし、
+   その新しいcommit SHAからPages workflowを起動する。公開appcastが生成物と
+   byte単位で一致するまで確認する。
+
+別の**Pages / Deploy Pages from main** jobが`docs/`をGitHub Pagesへdeployする。
 
 workflowは公開済みRelease assetsを上書きしない。GitHub-hosted runner上の
 `.p12`、`.p8`、Sparkle秘密鍵、一時Keychainはjob終了時に削除され、runner自体も
@@ -508,8 +516,9 @@ lipo -archs "$app_path/Contents/MacOS/ClipApp"
 | Validateで失敗 | Secrets未使用、Releaseなし | version、main、テスト、appcastを修正する。code変更が必要なら新しいversionとtagを使う |
 | 署名またはNotarizationで失敗 | Releaseなし | notary logと証明書/API Keyを確認する。公開しない |
 | Draft asset検証で失敗 | Draftのみ | 原因が一時的なら`Re-run failed jobs`。code変更が必要なら新versionを作る |
-| Release公開後にPagesが失敗 | Releaseは公開済み、旧appcastのまま | **Re-run failed jobs**だけを実行する |
-| Pages成功後にappcast commitが失敗 | live appcastは新しいがmain未記録 | **Re-run failed jobs**だけを実行する |
+| appcast記録またはPages起動に失敗 | Releaseは公開済み、旧appcastのまま | Release workflowの**Re-run failed jobs**だけを実行する |
+| Pages workflowが失敗 | Releaseは公開済み、mainには新appcast、liveは旧appcast | Release workflowの失敗した`Record and publish Sparkle feed`を再実行するか、Pages workflowを`main`から手動実行する |
+| Pages成功後も公開appcastが一致しない | Releaseは公開済み、mainには新appcast、liveは旧appcast | 同じタグの署名jobは再実行せず、Pages workflowを`main`から再実行する |
 | 公開後にアプリ不具合を発見 | Releaseとappcastは公開済み | assetを差し替えず、versionを上げて新しいReleaseを作る |
 
 公開済みReleaseが存在するときに**Re-run all jobs**を実行すると、workflowは
@@ -565,10 +574,11 @@ Sparkle秘密鍵は既存インストールが信頼する公開鍵と対にな�
 
 ### GitHubのbranch protection
 
-`Record published appcast` jobは`GITHUB_TOKEN`で`main`へcommitをpushする。
-後から`main`へbranch protectionやrulesetを追加する場合は、workflowによる
-appcast pushが許可されるか確認する。許可されない場合、ReleaseとPagesは成功しても
-appcast記録jobだけが失敗する。
+`Record and publish Sparkle feed` jobは`GITHUB_TOKEN`で`main`へcommitをpushし、
+Pages workflowをdispatchする。後から`main`へbranch protectionやrulesetを
+追加する場合は、workflowによるappcast pushとActions workflowのdispatchが
+許可されるか確認する。許可されない場合、Releaseは公開されてもappcast公開jobが
+失敗し、live appcastは旧versionのままになる。
 
 ## 手動リリースへの復旧
 
@@ -640,7 +650,7 @@ scripts/generate-appcast.sh "$updates_dir" "$version"
 4. GitHub Releaseを公開する。
 5. Release assetsのURLが取得できることを確認する。
 6. `docs/appcast.xml`をcommitし、`origin/main`へpushする。
-7. GitHub Pagesのlive appcastとRelease URLを確認する。
+7. Pages workflowの完了後、live appcastとRelease URLを確認する。
 8. 旧版からSparkle updateを実行する。
 
 ## 公式参考資料
@@ -655,5 +665,7 @@ scripts/generate-appcast.sh "$updates_dir" "$version"
 - [GitHub: Using secrets in GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
 - [GitHub: Installing an Apple certificate on macOS runners](https://docs.github.com/en/actions/how-tos/deploy/deploy-to-third-party-platforms/sign-xcode-applications)
 - [GitHub: Using custom workflows with GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
+- [GitHub: REST API endpoints for GitHub Pages](https://docs.github.com/en/rest/pages/pages)
+- [GitHub deploy-pages: release eventで同じbuild versionが再利用される問題](https://github.com/actions/deploy-pages/issues/383)
 - [Sparkle documentation](https://sparkle-project.org/documentation/)
 - [Sparkle: Publishing an update](https://sparkle-project.org/documentation/publishing/)
