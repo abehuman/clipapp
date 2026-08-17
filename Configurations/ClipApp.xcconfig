@@ -11,6 +11,7 @@
 
 MARKETING_VERSION = 1.4.2
 CURRENT_PROJECT_VERSION = 1.4.2
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
 
 // Reuse compiler results for identical inputs in Xcode 26 and later.
 COMPILATION_CACHE_ENABLE_CACHING = YES

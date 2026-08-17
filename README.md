@@ -1,5 +1,9 @@
 # ClipApp
 
+<p align="center">
+  <img src="./ClipApp/Resources/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" width="160" alt="ClipApp app icon">
+</p>
+
 ClipApp is a clipboard extension app for macOS, forked from
 [Clipy](https://github.com/Clipy/Clipy) (MIT License).
 
