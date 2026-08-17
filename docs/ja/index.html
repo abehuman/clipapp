@@ -283,6 +283,20 @@
       line-height: 1.65;
     }
 
+    .shortcut-preview {
+      max-width: 866px;
+      margin: clamp(42px, 6vw, 64px) auto 0;
+    }
+
+    .shortcut-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: clamp(16px, 3vw, 26px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    }
+
     .features {
       width: min(1080px, calc(100% - 40px));
       margin: 0 auto;
