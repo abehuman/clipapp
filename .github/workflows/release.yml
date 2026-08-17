@@ -102,7 +102,6 @@ jobs:
         printf '%s\n' \
           "RELEASE_ROOT=$RUNNER_TEMP/clipapp-release" \
           "NOTARIZED_ROOT=$RUNNER_TEMP/clipapp-notarized" \
-          "DISTRIBUTION_DIR=$RUNNER_TEMP/clipapp-release/distribution" \
           "UPDATES_DIR=$RUNNER_TEMP/clipapp-release/updates" \
           "KEYCHAIN_PATH=$RUNNER_TEMP/clipapp-release.keychain-db" \
           "CERTIFICATE_PATH=$RUNNER_TEMP/developer-id.p12" \
@@ -162,7 +161,7 @@ jobs:
         SPARKLE_PRIVATE_KEY_BASE64: ${{ secrets.SPARKLE_PRIVATE_KEY_BASE64 }}
       run: |
         set -euo pipefail
-        mkdir -p "$RELEASE_ROOT" "$NOTARIZED_ROOT" "$DISTRIBUTION_DIR" "$UPDATES_DIR"
+        mkdir -p "$RELEASE_ROOT" "$NOTARIZED_ROOT" "$UPDATES_DIR"
 
         printf '%s' "$APPLE_DEVELOPER_ID_P12_BASE64" | base64 --decode > "$CERTIFICATE_PATH"
         printf '%s' "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > "$ASC_KEY_PATH"
@@ -209,7 +208,7 @@ jobs:
           "$NOTARIZED_ROOT" \
           "$GITHUB_WORKSPACE/.spm-cache/SourcePackages"
 
-    - name: Create release archives and signed appcast
+    - name: Create release archive and signed appcast
       shell: zsh {0}
       env:
         SPARKLE_PRIVATE_KEY_FILE: ${{ runner.temp }}/sparkle-private-key
@@ -229,12 +228,7 @@ jobs:
             "$previous_update_url"
         fi
 
-        scripts/create-release-archive.sh "$app_path" "$VERSION" "$DISTRIBUTION_DIR"
         scripts/create-update-archive.sh "$app_path" "$VERSION" "$UPDATES_DIR"
-        scripts/verify-release-archive.sh \
-          "$DISTRIBUTION_DIR/ClipApp-$VERSION-distribution.zip" \
-          "$VERSION" \
-          distribution
         scripts/verify-release-archive.sh \
           "$UPDATES_DIR/ClipApp-$VERSION.zip" \
           "$VERSION" \
@@ -267,32 +261,20 @@ jobs:
           exit 65
         fi
 
-        distribution_archive="ClipApp-$VERSION-distribution.zip"
         update_archive="ClipApp-$VERSION.zip"
-        (
-          cd "$DISTRIBUTION_DIR"
-          shasum -a 256 "$distribution_archive" > "$distribution_archive.sha256"
-        )
-        (
-          cd "$UPDATES_DIR"
-          shasum -a 256 "$update_archive" > "$update_archive.sha256"
-          for delta in ./*.delta(N); do
-            shasum -a 256 "${delta#./}" > "${delta#./}.sha256"
-          done
-        )
-
-        unzip -t "$DISTRIBUTION_DIR/$distribution_archive"
         unzip -t "$UPDATES_DIR/$update_archive"
 
         release_assets=(
-          "$DISTRIBUTION_DIR/$distribution_archive"
-          "$DISTRIBUTION_DIR/$distribution_archive.sha256"
           "$UPDATES_DIR/$update_archive"
-          "$UPDATES_DIR/$update_archive.sha256"
           "$UPDATES_DIR"/*.delta(N)
-          "$UPDATES_DIR"/*.delta.sha256(N)
         )
         print -rl -- $release_assets > "$RELEASE_ROOT/release-assets.txt"
+        (
+          cd "$UPDATES_DIR"
+          for asset in "${release_assets[@]}"; do
+            shasum -a 256 "${asset:t}"
+          done
+        ) > "$RELEASE_ROOT/release-assets.sha256"
 
     - name: Save generated appcast
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
@@ -308,6 +290,30 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         set -euo pipefail
+        download_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/ClipApp-$VERSION.zip"
+        release_intro=$(cat <<EOF
+        ## Download
+
+        [**Download ClipApp $VERSION for macOS**]($download_url)
+
+        Requires macOS 13 Ventura or later.
+
+        1. Download and unzip \`ClipApp-$VERSION.zip\`.
+        2. Move \`ClipApp.app\` to the Applications folder.
+        3. Open ClipApp and grant Accessibility permission if macOS asks.
+
+        Existing ClipApp users can also choose **Check for Updates…** from the app menu.
+
+        <details>
+        <summary>What are the other assets?</summary>
+
+        - \`*.delta\` files are used automatically by Sparkle for smaller updates. You do not need to download them.
+        - Source code archives are generated automatically by GitHub for developers.
+
+        </details>
+        EOF
+        )
+
         release_state=$(gh release view "$GITHUB_REF_NAME" --json isDraft --jq .isDraft 2>/dev/null || true)
         if [[ -n $release_state && $release_state != true ]]; then
           print -u2 "A published release already exists for $GITHUB_REF_NAME; published assets must never be replaced."
@@ -319,7 +325,8 @@ jobs:
             --draft \
             --verify-tag \
             --title "ClipApp $VERSION" \
-            --generate-notes
+            --generate-notes \
+            --notes "$release_intro"
         else
           existing_assets=("${(@f)$(gh release view "$GITHUB_REF_NAME" --json assets --jq '.assets[].name')}")
           for asset in $existing_assets; do
@@ -343,15 +350,9 @@ jobs:
 
         (
           cd "$download_directory"
-          for checksum in ./*.sha256(N); do
-            shasum -a 256 -c "$checksum"
-          done
+          shasum -a 256 -c "$RELEASE_ROOT/release-assets.sha256"
         )
 
-        scripts/verify-release-archive.sh \
-          "$download_directory/ClipApp-$VERSION-distribution.zip" \
-          "$VERSION" \
-          distribution
         scripts/verify-release-archive.sh \
           "$download_directory/ClipApp-$VERSION.zip" \
           "$VERSION" \

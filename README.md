@@ -9,6 +9,21 @@ The main difference from Clipy:
 - Clipy requires 4 steps `Command+Shift+V` -> `↓` -> `→` -> `↩` to paste the latest clip because it has numbered subfolders in clipboad menu.
 - ClipApp only requires 2 steps `Command+Shift+V` -> `↩`.
 
+### Download
+
+[**Download the latest ClipApp release**](https://github.com/abehuman/clipapp/releases/latest)
+
+ClipApp requires macOS 13 Ventura or later. Under **Assets**, download
+`ClipApp-<version>.zip`; do not download the automatically generated
+**Source code** archives.
+
+1. Unzip `ClipApp-<version>.zip`.
+2. Move `ClipApp.app` to the Applications folder.
+3. Open ClipApp and grant Accessibility permission if macOS asks.
+
+Files ending in `.delta` are used automatically for smaller Sparkle updates and
+are not manual downloads.
+
 The status
 bar menu still follows the user's inline/folder menu preferences. See
 [docs/flat-history-popup.md](./docs/flat-history-popup.md) for design notes.
@@ -31,8 +46,6 @@ scripts/               Local release and maintenance scripts
 ClipApp.xcodeproj/     Xcode project (build the ClipApp scheme)
 ```
 
-__Requirement__: macOS 13 Ventura or later
-
 ### Development Environment
 * macOS 26 Tahoe
 * Xcode 26.5
@@ -54,7 +67,8 @@ certificate and notarize.
 
 Release builds use the `Developer ID Application` identity. See
 [docs/releasing.md](./docs/releasing.md) for the Xcode archive, notarization,
-verification, packaging, and GitHub Release workflow.
+verification, packaging, and GitHub Release workflow. The official
+`ClipApp-<version>.zip` is used for both manual installation and Sparkle updates.
 
 ### Auto Update
 ClipApp uses Sparkle 2 to install signed updates published through GitHub
@@ -71,8 +85,9 @@ ClipApp is available under the MIT license. See the LICENSE file for more info.
 Source and binary distributions must include [LICENSE](./LICENSE),
 [LICENSE_CLIPMENU](./LICENSE_CLIPMENU),
 [LICENSE_SPARKLE](./LICENSE_SPARKLE), and
-[THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES). To create a distributable ZIP
-from a signed and notarized app, run:
+[THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES). The official app bundle embeds all
+four files. To create a standalone distribution that also exposes them beside
+the app at the ZIP root, run:
 
 ```
 scripts/create-release-archive.sh /path/to/ClipApp.app <version> [output-directory]

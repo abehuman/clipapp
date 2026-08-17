@@ -416,8 +416,9 @@ Review deployments > release > Approve and deploy
 1. **Validate release**: version、main、公開appcast、テストを検証する。
 2. **Sign, notarize, and publish**: 一時Keychainへ証明書を読み込み、署名、
    Notarization、staple、ZIP、Sparkle署名、Draft検証、Release公開を行う。
-   2種類のZIPは作成直後とDraftから再取得した後の両方で展開され、arm64 / x86_64
-   署名、stapled ticket、Gatekeeper判定、versionが検証される。
+   手動インストールとSparkle更新で共用するZIPは、作成直後とDraftから再取得した
+   後の両方で展開され、arm64 / x86_64署名、stapled ticket、Gatekeeper判定、
+   version、4つのライセンス・通知ファイルが検証される。
 3. **Record and publish Sparkle feed**: 署名済みappcastを`main`へbot commitし、
    その新しいcommit SHAからPages workflowを起動する。公開appcastが生成物と
    byte単位で一致するまで確認する。
@@ -433,13 +434,14 @@ workflowは公開済みRelease assetsを上書きしない。GitHub-hosted runne
 Releaseに最低限、次が存在することを確認する。
 
 ```text
-ClipApp-1.4.1-distribution.zip
-ClipApp-1.4.1-distribution.zip.sha256
 ClipApp-1.4.1.zip
-ClipApp-1.4.1.zip.sha256
 ```
 
-`.delta`が生成された場合は、その`.delta`と`.sha256`も存在することを確認する。
+`.delta`が生成された場合は、その`.delta`も存在することを確認する。SHA-256は
+workflow内部でアップロード前後を比較し、Release assetとしては公開しない。
+Release本文の先頭に一般ユーザー向けダウンロードリンクとインストール手順が
+表示されることも確認する。GitHubが自動生成する`Source code (zip)`と
+`Source code (tar.gz)`はインストール用ではなく、Releaseから非表示にはできない。
 
 ```sh
 gh release view v1.4.1 --repo abehuman/clipapp
@@ -457,10 +459,10 @@ Publish ClipApp 1.4.1 update feed
 
 ## 公開後のMac実機確認
 
-### 1. ブラウザから配布ZIPをダウンロードする
+### 1. ブラウザからClipApp ZIPをダウンロードする
 
 GitHub Releaseページをブラウザで開き、
-`ClipApp-<version>-distribution.zip`をダウンロードする。ブラウザ経由にすることで
+`ClipApp-<version>.zip`をダウンロードする。ブラウザ経由にすることで
 macOSのquarantine属性を含む、実ユーザーに近い状態を確認できる。
 
 ZIPを展開し、`ClipApp.app`を`/Applications`へ移動して通常どおり開く。
@@ -604,33 +606,26 @@ commitしない。
 5. Apple NotarizationがAcceptedになるまで待ち、notary logを確認する。
 6. Notarization済みappをexportする。送信前のappを配布しない。
 
-### 3. 配布ZIPとSparkle ZIPを作成する
+### 3. 手動インストール・Sparkle共用ZIPを作成する
 
 ```sh
 version=1.4.1
 app_path=/path/to/notarized/ClipApp.app
-distribution_dir=/path/to/release/distribution
 updates_dir=/path/to/release/sparkle-archives
 
-scripts/create-release-archive.sh \
-  "$app_path" "$version" "$distribution_dir"
 scripts/create-update-archive.sh \
   "$app_path" "$version" "$updates_dir"
 
-scripts/verify-release-archive.sh \
-  "$distribution_dir/ClipApp-$version-distribution.zip" \
-  "$version" \
-  distribution
 scripts/verify-release-archive.sh \
   "$updates_dir/ClipApp-$version.zip" \
   "$version" \
   update
 ```
 
-`distribution_dir`にはライセンス同梱の手動配布ZIP、`updates_dir`にはSparkle用の
-app-only ZIPを置く。`*-distribution.zip`をSparkle archives directoryへ入れない。
-検証スクリプトはZIPを実際に展開し、両アーキテクチャのDeveloper ID署名、stapled
-ticket、Gatekeeper判定、versionを確認する。
+公式Releaseでは、必要なライセンスを内包した`ClipApp.app`だけのZIPを手動
+インストールとSparkle更新で共用する。検証スクリプトはZIPを実際に展開し、
+両アーキテクチャのDeveloper ID署名、stapled ticket、Gatekeeper判定、versionを
+確認し、アプリ内の4つのライセンス・通知ファイルが欠けていれば失敗する。
 
 ### 4. 署名済みappcastを生成する
 
@@ -645,7 +640,7 @@ scripts/generate-appcast.sh "$updates_dir" "$version"
 ### 5. 公開順序を守る
 
 1. Draft GitHub Releaseを作る。
-2. 2種類のZIP、SHA-256、deltaとそのSHA-256を添付する。
+2. `ClipApp-<version>.zip`と、生成された場合はdeltaを添付する。
 3. Draft assetsをダウンロードして検証する。
 4. GitHub Releaseを公開する。
 5. Release assetsのURLが取得できることを確認する。

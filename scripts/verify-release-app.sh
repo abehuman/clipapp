@@ -33,6 +33,19 @@ if [[ ! -d $app_path/Contents/Frameworks/Sparkle.framework ]]; then
   exit 66
 fi
 
+required_notices=(
+  LICENSE
+  LICENSE_CLIPMENU
+  LICENSE_SPARKLE
+  THIRD_PARTY_NOTICES
+)
+for notice in $required_notices; do
+  if [[ ! -f $app_path/Contents/Resources/$notice ]]; then
+    print -u2 "Required license or notice is missing from the app: $notice"
+    exit 66
+  fi
+done
+
 bundle_identifier=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$info_plist")
 if [[ $bundle_identifier != "jp.co.aiv.clipApp" ]]; then
   print -u2 "Unexpected bundle identifier: $bundle_identifier"
