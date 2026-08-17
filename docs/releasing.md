@@ -15,7 +15,7 @@ appcast配信まで自動化する。
 3. GitHub Actionsの`release`承認ボタンを押し、完了後にダウンロードしたClipAppを
    起動して動作を確認する。
 
-バージョン変更、テスト、commit、tag作成、署名、Notarization、ZIP作成、GitHub
+バージョン変更、テスト、commit、tag作成、署名、Notarization、DMG作成、GitHub
 Release、Sparkle appcastの更新はCodexとGitHub Actionsが行う。証明書やAPI Keyの
 更新を求められない限り、以下の詳細手順を毎回読む必要はない。
 
@@ -40,7 +40,7 @@ mainへpush
   → 公開appcastが生成物と一致することを検証
 ```
 
-通常の`main`へのpushだけではリリースされない。`v1.4.1`のようなタグを
+通常の`main`へのpushだけではリリースされない。`v1.4.3`のようなタグを
 `origin`へpushしたときだけRelease workflowが開始される。
 
 ## 用語
@@ -79,8 +79,8 @@ mainへpush
 - 公開済みRelease assetを別内容で置き換えない。変更が必要ならバージョンを
   上げ、再ビルド、再署名、再Notarizationする。
 - push済みのバージョンタグを移動または再利用しない。
-- ZIPはAppleの推奨どおり`ditto -c -k --keepParent`で作成し、
-  `--sequesterRsrc`を使用しない。
+- 公式配布DMGはAPFS形式からLZFSE圧縮で作成し、Developer ID Applicationで署名、
+  Notarization、stapleする。内部のappも署名、Notarization、staple済みにする。
 - GitHub Actionsの成功だけで完了とせず、公開物をMacへダウンロードして確認する。
 
 ## 初回だけ行う準備
@@ -291,7 +291,7 @@ xmllint --noout /tmp/clipapp-appcast.xml
 
 ## 毎回の自動リリース手順
 
-以下では`1.4.1`を例にする。実際には現在公開中のバージョンより大きいsemantic
+以下では`1.4.3`を例にする。実際には現在公開中のバージョンより大きいsemantic
 versionを使う。
 
 ### 1. リリース対象を確定する
@@ -312,8 +312,8 @@ git diff --check
 `Configurations/ClipApp.xcconfig`の2項目を同じ値にする。
 
 ```text
-MARKETING_VERSION = 1.4.1
-CURRENT_PROJECT_VERSION = 1.4.1
+MARKETING_VERSION = 1.4.3
+CURRENT_PROJECT_VERSION = 1.4.3
 ```
 
 両方とも現在のappcastより新しい`<major>.<minor>.<patch>`形式にする。
@@ -332,7 +332,7 @@ xcodebuild \
   -skipMacroValidation \
   test
 
-scripts/validate-release-version.sh v1.4.1
+scripts/validate-release-version.sh v1.4.3
 git diff --check
 ```
 
@@ -345,7 +345,7 @@ git status --short
 git add Configurations/ClipApp.xcconfig
 git diff --cached
 git diff --cached --check
-git commit -m "Prepare ClipApp 1.4.1 release"
+git commit -m "Prepare ClipApp 1.4.3 release"
 git push origin main
 ```
 
@@ -367,7 +367,7 @@ worktreeがcleanで、ローカル`HEAD`と`origin/main`が一致してからタ
 ### 6. annotated version tagをpushする
 
 ```sh
-version=1.4.1
+version=1.4.3
 git tag -a "v$version" -m "Release ClipApp $version"
 git push origin "v$version"
 ```
@@ -380,7 +380,7 @@ git push origin "v$version"
 GitHubで次を開く。
 
 ```text
-Actions > Release > 対象のv1.4.1 run
+Actions > Release > 対象のv1.4.3 run
 ```
 
 `Validate release` jobはSecretsを使う前に次を確認する。
@@ -415,10 +415,11 @@ Review deployments > release > Approve and deploy
 
 1. **Validate release**: version、main、公開appcast、テストを検証する。
 2. **Sign, notarize, and publish**: 一時Keychainへ証明書を読み込み、署名、
-   Notarization、staple、ZIP、Sparkle署名、Draft検証、Release公開を行う。
-   手動インストールとSparkle更新で共用するZIPは、作成直後とDraftから再取得した
-   後の両方で展開され、arm64 / x86_64署名、stapled ticket、Gatekeeper判定、
-   version、4つのライセンス・通知ファイルが検証される。
+   appとDMGのNotarization、staple、Sparkle署名、Draft検証、Release公開を行う。
+   手動インストールとSparkle更新で共用するDMGは、作成直後とDraftから再取得した
+   後の両方でmountされ、Finderレイアウト、Applicationsへのリンク、DMGとappの
+   署名・stapled ticket・Gatekeeper判定、arm64 / x86_64、version、4つの
+   ライセンス・通知ファイルが検証される。
 3. **Record and publish Sparkle feed**: 署名済みappcastを`main`へbot commitし、
    その新しいcommit SHAからPages workflowを起動する。公開appcastが生成物と
    byte単位で一致するまで確認する。
@@ -434,8 +435,10 @@ workflowは公開済みRelease assetsを上書きしない。GitHub-hosted runne
 Releaseに最低限、次が存在することを確認する。
 
 ```text
-ClipApp-1.4.1.zip
+ClipApp-<version>.dmg
 ```
+
+DMG配布への切り替え前に公開したv1.4.2以前のZIPは変更または削除しない。
 
 `.delta`が生成された場合は、その`.delta`も存在することを確認する。SHA-256は
 workflow内部でアップロード前後を比較し、Release assetとしては公開しない。
@@ -444,28 +447,29 @@ Release本文の先頭に一般ユーザー向けダウンロードリンクと�
 `Source code (tar.gz)`はインストール用ではなく、Releaseから非表示にはできない。
 
 ```sh
-gh release view v1.4.1 --repo abehuman/clipapp
+gh release view v1.4.3 --repo abehuman/clipapp
 curl --fail --location \
   https://abehuman.github.io/clipapp/appcast.xml \
-  --output /tmp/clipapp-appcast-1.4.1.xml
-xmllint --noout /tmp/clipapp-appcast-1.4.1.xml
+  --output /tmp/clipapp-appcast-1.4.3.xml
+xmllint --noout /tmp/clipapp-appcast-1.4.3.xml
 ```
 
 さらに`main`へ次の形式のbot commitが追加されていることを確認する。
 
 ```text
-Publish ClipApp 1.4.1 update feed
+Publish ClipApp 1.4.3 update feed
 ```
 
 ## 公開後のMac実機確認
 
-### 1. ブラウザからClipApp ZIPをダウンロードする
+### 1. ブラウザからClipApp DMGをダウンロードする
 
 GitHub Releaseページをブラウザで開き、
-`ClipApp-<version>.zip`をダウンロードする。ブラウザ経由にすることで
+`ClipApp-<version>.dmg`をダウンロードする。ブラウザ経由にすることで
 macOSのquarantine属性を含む、実ユーザーに近い状態を確認できる。
 
-ZIPを展開し、`ClipApp.app`を`/Applications`へ移動して通常どおり開く。
+DMGを開き、Finderウィンドウの案内どおり`ClipApp`を`Applications`へドラッグし、
+Applicationsから通常どおり開く。
 
 ### 2. 署名、Notarization、CPU architectureを確認する
 
@@ -509,7 +513,7 @@ lipo -archs "$app_path/Contents/MacOS/ClipApp"
 - 更新後の署名とNotarizationが有効である。
 - 既存設定、履歴、Accessibility behaviorが維持される。
 
-例として最初の自動リリースが`1.4.1`なら、`1.4.0 → 1.4.1`を確認する。
+次のリリースが`1.4.3`なら、`1.4.2 → 1.4.3`を確認する。
 
 ## 失敗時の対応
 
@@ -543,14 +547,16 @@ patch versionを作る。
 使ってよい。理由なく新しい証明書へ切り替えない。
 
 証明書を交換するときは、既存Secretsを更新する前に同じMac上で署名・Notarization
-済みのRelease buildを作成し、`scripts/create-update-archive.sh`でZIP化した後、
-次を通す。
+済みのRelease buildを作成する。新しい証明書を利用できるKeychainとNotarization用
+環境変数を設定したうえでDMGを作成し、次を通す。
 
 ```sh
-scripts/verify-release-archive.sh \
-  /path/to/ClipApp-<version>.zip \
-  <version> \
-  update
+scripts/create-release-dmg.sh \
+  /path/to/ClipApp.app <version> /path/to/output
+scripts/notarize-release-dmg.sh \
+  /path/to/output/ClipApp-<version>.dmg
+scripts/verify-release-dmg.sh \
+  /path/to/output/ClipApp-<version>.dmg <version>
 ```
 
 さらに、別のMacまたはクリーンな利用者環境でも展開後のappを確認する。新しい
@@ -606,26 +612,35 @@ commitしない。
 5. Apple NotarizationがAcceptedになるまで待ち、notary logを確認する。
 6. Notarization済みappをexportする。送信前のappを配布しない。
 
-### 3. 手動インストール・Sparkle共用ZIPを作成する
+### 3. 手動インストール・Sparkle共用DMGを作成する
 
 ```sh
-version=1.4.1
+version=1.4.3
 app_path=/path/to/notarized/ClipApp.app
 updates_dir=/path/to/release/sparkle-archives
 
-scripts/create-update-archive.sh \
+scripts/create-release-dmg.sh \
   "$app_path" "$version" "$updates_dir"
 
-scripts/verify-release-archive.sh \
-  "$updates_dir/ClipApp-$version.zip" \
-  "$version" \
-  update
+scripts/notarize-release-dmg.sh \
+  "$updates_dir/ClipApp-$version.dmg"
+
+scripts/verify-release-dmg.sh \
+  "$updates_dir/ClipApp-$version.dmg" \
+  "$version"
 ```
 
-公式Releaseでは、必要なライセンスを内包した`ClipApp.app`だけのZIPを手動
-インストールとSparkle更新で共用する。検証スクリプトはZIPを実際に展開し、
-両アーキテクチャのDeveloper ID署名、stapled ticket、Gatekeeper判定、versionを
-確認し、アプリ内の4つのライセンス・通知ファイルが欠けていれば失敗する。
+`notarize-release-dmg.sh`の実行前に、`APP_STORE_CONNECT_API_KEY_ID`、
+`APP_STORE_CONNECT_API_ISSUER_ID`、`APP_STORE_CONNECT_API_KEY_PATH`を設定し、
+`DEVELOPER_ID_APPLICATION_IDENTITY`へ使用するDeveloper ID Application identityの
+SHA-1 fingerprintを設定する。identityが複数あるMacでは証明書名だけで選択しない。
+GitHub Actionsでは、一時Keychainにimportした唯一のidentityを自動選択する。
+
+公式Releaseでは、ClipAppとApplicationsへのリンクを配置したDMGを手動
+インストールとSparkle更新で共用する。検証スクリプトはDMGを実際にmountし、
+Finderレイアウト、DMGとappの署名、stapled ticket、Gatekeeper判定、両
+アーキテクチャ、versionを確認し、アプリ内の4つのライセンス・通知ファイルが
+欠けていれば失敗する。
 
 ### 4. 署名済みappcastを生成する
 
@@ -633,14 +648,16 @@ scripts/verify-release-archive.sh \
 scripts/generate-appcast.sh "$updates_dir" "$version"
 ```
 
-必要に応じて古い`ClipApp-<version>.zip`も`updates_dir`へ置き、deltaを生成する。
+必要に応じて古い`ClipApp-<version>.zip`または`.dmg`も`updates_dir`へ置き、
+deltaを生成する。ZIPからDMGへ移行する最初のリリースでも、前版ZIPを一緒に
+処理して旧版からの更新経路を維持する。
 `docs/appcast.xml`や署名済みrelease notesを手編集せず、変更後はgeneratorを
 再実行する。
 
 ### 5. 公開順序を守る
 
 1. Draft GitHub Releaseを作る。
-2. `ClipApp-<version>.zip`と、生成された場合はdeltaを添付する。
+2. `ClipApp-<version>.dmg`と、生成された場合はdeltaを添付する。
 3. Draft assetsをダウンロードして検証する。
 4. GitHub Releaseを公開する。
 5. Release assetsのURLが取得できることを確認する。

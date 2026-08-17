@@ -192,6 +192,14 @@ jobs:
           exit 78
         fi
 
+        developer_id_identity=$(
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH" |
+            awk '/Developer ID Application/ { print $2 }'
+        )
+        echo "::add-mask::$developer_id_identity"
+        printf 'DEVELOPER_ID_APPLICATION_IDENTITY=%s\n' \
+          "$developer_id_identity" >> "$GITHUB_ENV"
+
         rm -f "$CERTIFICATE_PATH"
 
     - name: Build and notarize app
@@ -208,9 +216,12 @@ jobs:
           "$NOTARIZED_ROOT" \
           "$GITHUB_WORKSPACE/.spm-cache/SourcePackages"
 
-    - name: Create release archive and signed appcast
+    - name: Create notarized DMG and signed appcast
       shell: zsh {0}
       env:
+        APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+        APP_STORE_CONNECT_API_KEY_PATH: ${{ runner.temp }}/app-store-connect-api-key.p8
         SPARKLE_PRIVATE_KEY_FILE: ${{ runner.temp }}/sparkle-private-key
       run: |
         set -euo pipefail
@@ -228,11 +239,11 @@ jobs:
             "$previous_update_url"
         fi
 
-        scripts/create-update-archive.sh "$app_path" "$VERSION" "$UPDATES_DIR"
-        scripts/verify-release-archive.sh \
-          "$UPDATES_DIR/ClipApp-$VERSION.zip" \
-          "$VERSION" \
-          update
+        scripts/create-release-dmg.sh "$app_path" "$VERSION" "$UPDATES_DIR"
+        scripts/notarize-release-dmg.sh "$UPDATES_DIR/ClipApp-$VERSION.dmg"
+        scripts/verify-release-dmg.sh \
+          "$UPDATES_DIR/ClipApp-$VERSION.dmg" \
+          "$VERSION"
         scripts/generate-appcast.sh \
           "$UPDATES_DIR" \
           "$VERSION" \
@@ -253,7 +264,7 @@ jobs:
             'string(/*[local-name()="rss"]/*[local-name()="channel"]/*[local-name()="item"][1]/*[local-name()="enclosure"]/@*[local-name()="edSignature"])' \
             docs/appcast.xml
         )
-        expected_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/ClipApp-$VERSION.zip"
+        expected_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/ClipApp-$VERSION.dmg"
 
         if [[ $generated_version != $VERSION || $generated_url != $expected_url || -z $generated_signature ]]; then
           print -u2 "Generated appcast entry is invalid."
@@ -261,8 +272,8 @@ jobs:
           exit 65
         fi
 
-        update_archive="ClipApp-$VERSION.zip"
-        unzip -t "$UPDATES_DIR/$update_archive"
+        update_archive="ClipApp-$VERSION.dmg"
+        hdiutil verify "$UPDATES_DIR/$update_archive"
 
         release_assets=(
           "$UPDATES_DIR/$update_archive"
@@ -290,7 +301,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
       run: |
         set -euo pipefail
-        download_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/ClipApp-$VERSION.zip"
+        download_url="https://github.com/$GITHUB_REPOSITORY/releases/download/$GITHUB_REF_NAME/ClipApp-$VERSION.dmg"
         release_intro=$(cat <<EOF
         ## Download
 
@@ -298,9 +309,9 @@ jobs:
 
         Requires macOS 13 Ventura or later.
 
-        1. Download and unzip \`ClipApp-$VERSION.zip\`.
-        2. Move \`ClipApp.app\` to the Applications folder.
-        3. Open ClipApp and grant Accessibility permission if macOS asks.
+        1. Download and open \`ClipApp-$VERSION.dmg\`.
+        2. Drag \`ClipApp\` to the Applications folder in the window.
+        3. Open ClipApp from Applications and grant Accessibility permission if macOS asks.
 
         Existing ClipApp users can also choose **Check for Updates…** from the app menu.
 
@@ -353,10 +364,9 @@ jobs:
           shasum -a 256 -c "$RELEASE_ROOT/release-assets.sha256"
         )
 
-        scripts/verify-release-archive.sh \
-          "$download_directory/ClipApp-$VERSION.zip" \
-          "$VERSION" \
-          update
+        scripts/verify-release-dmg.sh \
+          "$download_directory/ClipApp-$VERSION.dmg" \
+          "$VERSION"
 
     - name: Publish GitHub Release
       shell: zsh {0}

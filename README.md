@@ -13,13 +13,14 @@ The main difference from Clipy:
 
 [**Download the latest ClipApp release**](https://github.com/abehuman/clipapp/releases/latest)
 
-ClipApp requires macOS 13 Ventura or later. Under **Assets**, download
-`ClipApp-<version>.zip`; do not download the automatically generated
-**Source code** archives.
+ClipApp requires macOS 13 Ventura or later. Beginning with v1.4.3, download
+`ClipApp-<version>.dmg` under **Assets**; do not download the automatically
+generated **Source code** archives. The existing v1.4.2 release predates DMG
+packaging, so use `ClipApp-1.4.2.zip` for that release.
 
-1. Unzip `ClipApp-<version>.zip`.
-2. Move `ClipApp.app` to the Applications folder.
-3. Open ClipApp and grant Accessibility permission if macOS asks.
+1. Open `ClipApp-<version>.dmg`.
+2. Drag `ClipApp` to the Applications folder shown in the installer window.
+3. Open ClipApp from Applications and grant Accessibility permission if macOS asks.
 
 Files ending in `.delta` are used automatically for smaller Sparkle updates and
 are not manual downloads.
@@ -68,7 +69,7 @@ certificate and notarize.
 Release builds use the `Developer ID Application` identity. See
 [docs/releasing.md](./docs/releasing.md) for the Xcode archive, notarization,
 verification, packaging, and GitHub Release workflow. The official
-`ClipApp-<version>.zip` is used for both manual installation and Sparkle updates.
+`ClipApp-<version>.dmg` is used for both manual installation and Sparkle updates.
 
 ### Auto Update
 ClipApp uses Sparkle 2 to install signed updates published through GitHub
@@ -86,12 +87,7 @@ Source and binary distributions must include [LICENSE](./LICENSE),
 [LICENSE_CLIPMENU](./LICENSE_CLIPMENU),
 [LICENSE_SPARKLE](./LICENSE_SPARKLE), and
 [THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES). The official app bundle embeds all
-four files. To create a standalone distribution that also exposes them beside
-the app at the ZIP root, run:
-
-```
-scripts/create-release-archive.sh /path/to/ClipApp.app <version> [output-directory]
-```
+four files, including when it is distributed in the official DMG.
 
 ClipApp is based on amazing project [Clipy](https://github.com/Clipy/Clipy), copyright
 Clipy Project, which is itself based on

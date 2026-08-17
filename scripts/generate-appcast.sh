@@ -14,7 +14,7 @@ source_packages_directory=${3:-$project_root/build/SourcePackages}
 generate_appcast=${source_packages_directory:A}/artifacts/sparkle/Sparkle/bin/generate_appcast
 canonical_appcast=$project_root/docs/appcast.xml
 working_appcast=$archives_directory/appcast.xml
-update_archive=$archives_directory/ClipApp-${version}.zip
+update_archive=$archives_directory/ClipApp-${version}.dmg
 download_url=https://github.com/abehuman/clipapp/releases/download/v${version}/
 
 if [[ ! -d "$archives_directory" ]]; then
@@ -25,12 +25,6 @@ fi
 if [[ ! -f "$update_archive" ]]; then
   print -u2 "Update archive was not found: $update_archive"
   exit 66
-fi
-
-distribution_archives=("$archives_directory"/*-distribution.zip(N))
-if (( ${#distribution_archives} > 0 )); then
-  print -u2 "Keep distribution ZIPs outside the Sparkle archives directory."
-  exit 65
 fi
 
 if [[ ! -x "$generate_appcast" ]]; then
