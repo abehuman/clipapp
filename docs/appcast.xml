@@ -6,13 +6,25 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <channel>
         <title>ClipApp</title>
         <item>
+            <title>1.4.3</title>
+            <pubDate>Sun, 23 Aug 2026 09:33:44 +0000</pubDate>
+            <link>https://github.com/abehuman/clipapp</link>
+            <sparkle:version>1.4.3</sparkle:version>
+            <sparkle:shortVersionString>1.4.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.3/ClipApp-1.4.3.dmg" length="15181408" type="application/octet-stream" sparkle:edSignature="3B8t3vtHb/cL/+9njrowIC3bxyqR5F4m6pTpx9LFydml5Xxpxig+GiwhgQlaCYnGYO9pgOMB7/xtKSQLRHJYCw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.3/ClipApp1.4.3-1.4.2.delta" sparkle:deltaFrom="1.4.2" length="1802654" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="977840" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="ci7mmz3Zt+aESPYCXyuWRrF7dkNazgeBaWF1dm8JNxzcM/F6lnFT3w+oeCTPzFGM11wo175RkSxeWoqbshItBA=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>1.4.2</title>
             <pubDate>Mon, 17 Aug 2026 04:25:21 +0000</pubDate>
             <link>https://github.com/abehuman/clipapp</link>
             <sparkle:version>1.4.2</sparkle:version>
             <sparkle:shortVersionString>1.4.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.2/ClipApp-1.4.2.zip" length="13165113" type="application/octet-stream" sparkle:edSignature="1chkf7H00Ukf7V80UtKZfUFMS6byli/7+OtU/U+uvCTGqSqVKl2dRsv0Rlq9qzXYCWtfoCzEzVaFSqOhtyAfAw=="/>
+            <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.3/ClipApp-1.4.2.zip" length="13165113" type="application/octet-stream" sparkle:edSignature="1chkf7H00Ukf7V80UtKZfUFMS6byli/7+OtU/U+uvCTGqSqVKl2dRsv0Rlq9qzXYCWtfoCzEzVaFSqOhtyAfAw=="/>
             <sparkle:deltas>
                 <enclosure url="https://github.com/abehuman/clipapp/releases/download/v1.4.2/ClipApp1.4.2-1.4.0.delta" sparkle:deltaFrom="1.4.0" length="941490" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="977840" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="cFWcTX5B8ynn80e21e+twxVGBsCidU2T/6+ZdpqLWSg7ND9amigCRJeI9oh+uim0/XnZMylCo6QhliWhxpfvCQ=="/>
             </sparkle:deltas>
@@ -29,6 +41,6 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     </channel>
 </rss>
 <!-- sparkle-signatures:
-edSignature: TIibZAKU+8yqylfeFbIJhLrOt/v9hzRM8zupsRtIY5cDYrh/WqdQ2BjIUZBuF8F3tlRc/gaioz7S8RitmgyvDA==
-length: 2229
+edSignature: mftdBU1h+sPNV63x6Wp3HW8ocHlA9m88jDQfoxmOaqalsRwW4ZjPhspo7MQnqoq7r9b2DetJ54f/gJ6azsL6CA==
+length: 3363
 -->
