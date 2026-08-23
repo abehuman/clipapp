@@ -74,7 +74,7 @@ jobs:
         if expected_version:
             expected_url = (
                 f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/releases/download/"
-                f"v{expected_version}/ClipApp-{expected_version}.zip"
+                f"v{expected_version}/ClipApp-{expected_version}.dmg"
             )
             if version != expected_version or enclosure.get("url") != expected_url:
                 raise SystemExit(
