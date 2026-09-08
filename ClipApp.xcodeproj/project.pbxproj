@@ -72,6 +72,11 @@
 		C5F1AD0130190005AA110001 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AD0230190005AA110002 /* TextRecognizer.swift */; };
 		C5F1AD0430190005AA110004 /* TextRecognizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AD0530190005AA110005 /* TextRecognizerTests.swift */; };
 		C5F1AE0130191006AA120001 /* CPYSnippetsEditorWindowController+Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AE0230191006AA120002 /* CPYSnippetsEditorWindowController+Symbols.swift */; };
+		C5F000012F00000000000001 /* ClipAppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F000022F00000000000002 /* ClipAppSettingsView.swift */; };
+		C5F000032F00000000000003 /* Settings.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C5F000042F00000000000004 /* Settings.xcstrings */; };
+		C5F000052F00000000000005 /* ClipAppSettingsCaptureAdvanced.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F000062F00000000000006 /* ClipAppSettingsCaptureAdvanced.swift */; };
+		C5F000072F00000000000007 /* ClipAppSettingsHistoryMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F000082F00000000000008 /* ClipAppSettingsHistoryMenu.swift */; };
+		C5F000092F00000000000009 /* ClipAppSettingsShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0000A2F0000000000000A /* ClipAppSettingsShortcuts.swift */; };
 		C5F1B7331FF74A2D00D2DA83 /* NSPasteboard+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1B7321FF74A2D00D2DA83 /* NSPasteboard+Deprecated.swift */; };
 		FA08EDF81D1FED7D000D1D13 /* HotKeyServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA08EDF71D1FED7D000D1D13 /* HotKeyServiceTests.swift */; };
 		FA0D5CE81DDCC61600AC9052 /* ClipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D5CE71DDCC61600AC9052 /* ClipService.swift */; };
@@ -200,6 +205,11 @@
 		C574471E2FD09FC6000D64D3 /* CPYSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPYSnippet.swift; sourceTree = "<group>"; };
 		C57447252FD09FD9000D64D3 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		C576AD7B2FBD345000B71213 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		C5F000022F00000000000002 /* ClipAppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipAppSettingsView.swift; sourceTree = "<group>"; };
+		C5F000042F00000000000004 /* Settings.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Settings.xcstrings; sourceTree = "<group>"; };
+		C5F000062F00000000000006 /* ClipAppSettingsCaptureAdvanced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipAppSettingsCaptureAdvanced.swift; sourceTree = "<group>"; };
+		C5F000082F00000000000008 /* ClipAppSettingsHistoryMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipAppSettingsHistoryMenu.swift; sourceTree = "<group>"; };
+		C5F0000A2F0000000000000A /* ClipAppSettingsShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipAppSettingsShortcuts.swift; sourceTree = "<group>"; };
 		C58E0A812FDAB5B100B3A901 /* ClipApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipApp.swift; sourceTree = "<group>"; };
 		C5A67BC32FECF0380015A0DE /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		C6A000000000000000000201 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
@@ -478,6 +488,7 @@
 			isa = PBXGroup;
 			children = (
 				C576AD7B2FBD345000B71213 /* Localizable.xcstrings */,
+				C5F000042F00000000000004 /* Settings.xcstrings */,
 				C6A000000000000000000201 /* LICENSE */,
 				C6A000000000000000000202 /* LICENSE_CLIPMENU */,
 				C6A000000000000000000204 /* LICENSE_SPARKLE */,
@@ -635,6 +646,10 @@
 			isa = PBXGroup;
 			children = (
 				FA1DB4ED1DDCB4C0007F95C8 /* CPYPreferencesWindowController.swift */,
+				C5F000022F00000000000002 /* ClipAppSettingsView.swift */,
+				C5F000062F00000000000006 /* ClipAppSettingsCaptureAdvanced.swift */,
+				C5F000082F00000000000008 /* ClipAppSettingsHistoryMenu.swift */,
+				C5F0000A2F0000000000000A /* ClipAppSettingsShortcuts.swift */,
 				FA1DB4EE1DDCB4C0007F95C8 /* CPYPreferencesWindowController.xib */,
 				FA1DB4F11DDCB4C0007F95C8 /* Panels */,
 			);
@@ -847,6 +862,7 @@
 		FAC43DC41B35D8B100C06102 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				C5F000032F00000000000003 /* Settings.xcstrings in Resources */,
 				FA1DB5131DDCB4C0007F95C8 /* CPYPreferencesWindowController.xib in Resources */,
 				FA6DD5141C7DEDB600317E73 /* (null) in Resources */,
 				FA1DB51E1DDCB4C0007F95C8 /* CPYTypePreferenceViewController.xib in Resources */,
@@ -876,6 +892,10 @@
 		FAC43DC21B35D8B100C06102 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
+				C5F000012F00000000000001 /* ClipAppSettingsView.swift in Sources */,
+				C5F000052F00000000000005 /* ClipAppSettingsCaptureAdvanced.swift in Sources */,
+				C5F000072F00000000000007 /* ClipAppSettingsHistoryMenu.swift in Sources */,
+				C5F000092F00000000000009 /* ClipAppSettingsShortcuts.swift in Sources */,
 				FAC0DCEF1DE3255E00309C49 /* NSImage+NSColor.swift in Sources */,
 				FA1DB4A61DDCB443007F95C8 /* MenuType.swift in Sources */,
 				C5A67BC42FECF03C0015A0DE /* Accessibility.swift in Sources */,

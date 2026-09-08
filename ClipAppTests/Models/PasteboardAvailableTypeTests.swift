@@ -194,3 +194,32 @@ struct PasteboardAvailableTypeTests {
         #expect(availableTypes.isEmpty)
     }
 }
+
+@MainActor
+@Suite
+struct ClipboardSettingsModelTests {
+    @Test
+    func updatingPartialStoreTypesKeepsMissingTypesDisabled() throws {
+        let suiteName = "ClipboardSettingsModelTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+        defaults.set([PasteboardAvailableType.string.rawValue: false], forKey: Constants.UserDefaults.storeTypes)
+
+        let model = ClipboardTypeSettingsModel(defaults: defaults)
+        #expect(model.values[PasteboardAvailableType.pdf.rawValue] == false)
+
+        model.binding(for: .string).wrappedValue = true
+
+        let storedValues = try #require(defaults.dictionary(forKey: Constants.UserDefaults.storeTypes))
+        #expect((storedValues[PasteboardAvailableType.string.rawValue] as? NSNumber)?.boolValue == true)
+        #expect((storedValues[PasteboardAvailableType.pdf.rawValue] as? NSNumber)?.boolValue == false)
+    }
+
+    @Test
+    func excludedApplicationIdentityIncludesName() {
+        let first = ExcludedApplicationSettingsID(identifier: "com.example.app", name: "Example")
+        let renamed = ExcludedApplicationSettingsID(identifier: "com.example.app", name: "Example Beta")
+
+        #expect(first != renamed)
+    }
+}
