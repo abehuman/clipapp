@@ -52,12 +52,14 @@ struct DatabaseMigration {
 
                 // If multiple histories contain the same data, keep only the latest history.
                 let id = PasteboardHistory.ID(rawValue: content.hash)
+                let thumbnail = thumbnailsByHistoryID[id] ?? thumbnailAsset(from: content, id: id)
                 if historiesByID[id]?.updateAt ?? Int.min < clip.updateTime {
                     historiesByID[id] = PasteboardHistory(
                         id: id,
                         title: clip.title,
                         ocrText: nil,
                         pasteboardTypes: content.types,
+                        payloadByteCount: content.payloadByteCount + Int64(thumbnail?.data.count ?? 0),
                         createdAt: clip.updateTime,
                         updateAt: clip.updateTime,
                         deviceID: CPYUtilities.deviceID
@@ -74,7 +76,7 @@ struct DatabaseMigration {
                         )
                     }
                 }
-                if thumbnailsByHistoryID[id] == nil, let thumbnail = thumbnailAsset(from: content, id: id) {
+                if thumbnailsByHistoryID[id] == nil, let thumbnail {
                     thumbnailsByHistoryID[id] = thumbnail
                 }
             }

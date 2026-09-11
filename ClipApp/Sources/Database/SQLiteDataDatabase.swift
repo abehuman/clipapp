@@ -45,6 +45,12 @@ extension DependencyValues {
         @Dependency(\.context) var context
 
         var configuration = Configuration()
+        configuration.prepareDatabase { database in
+            guard !database.configuration.readonly else { return }
+            // This takes effect before tables are created for new databases. Existing databases
+            // are converted by PasteboardHistoryRepository.reclaimUnusedStorage(force:).
+            try database.execute(sql: "PRAGMA auto_vacuum = INCREMENTAL")
+        }
         #if DEBUG
         configuration.prepareDatabase {
             switch context {

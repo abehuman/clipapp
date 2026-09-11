@@ -24,6 +24,7 @@ struct PasteboardContent: Equatable {
     let types: [NSPasteboard.PasteboardType]
     let assets: [Asset]
     let hash: String
+    let payloadByteCount: Int64
 
     var isOnlyStringType: Bool {
         types == [.string] || types == [.deprecatedString]
@@ -71,12 +72,16 @@ struct PasteboardContent: Equatable {
         guard !assets.isEmpty else { return nil }
         self.types = assets.map(\.type)
         self.assets = assets
-        var data = Data()
-        assets.forEach { asset in
-            data.append(value: Data(asset.type.rawValue.utf8))
-            data.append(value: asset.data)
+        self.payloadByteCount = assets.reduce(into: Int64(0)) { byteCount, asset in
+            let (sum, overflow) = byteCount.addingReportingOverflow(Int64(asset.data.count))
+            byteCount = overflow ? .max : sum
         }
-        self.hash = SHA256.hash(data: data)
+        var hasher = SHA256()
+        assets.forEach { asset in
+            hasher.update(lengthPrefixed: Data(asset.type.rawValue.utf8))
+            hasher.update(lengthPrefixed: asset.data)
+        }
+        self.hash = hasher.finalize()
             .map { String(format: "%02x", $0) }
             .joined()
     }
@@ -150,12 +155,12 @@ private extension [PasteboardContent.Asset] {
     }
 }
 
-private extension Data {
-    mutating func append(value: Data) {
-        var length = UInt64(value.count).bigEndian
+private extension SHA256 {
+    mutating func update(lengthPrefixed data: Data) {
+        var length = UInt64(data.count).bigEndian
         Swift.withUnsafeBytes(of: &length) {
-            append(contentsOf: $0)
+            update(data: Data($0))
         }
-        append(value)
+        update(data: data)
     }
 }

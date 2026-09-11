@@ -25,6 +25,7 @@
 		C57100012FCAE00000C8F965 /* SnippetRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57100002FCAE00000C8F965 /* SnippetRepositoryTests.swift */; };
 		C57100032FCEB00000C8F965 /* PasteboardHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57100022FCEB00000C8F965 /* PasteboardHistoryRepository.swift */; };
 		C57100052FCEB01000C8F965 /* PasteboardHistoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57100042FCEB01000C8F965 /* PasteboardHistoryRepositoryTests.swift */; };
+		480593DA64E946088B8C32BA /* PasteboardHistoryStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F19866262438484F9D81E /* PasteboardHistoryStorageTests.swift */; };
 		C57100072FCEB02000C8F965 /* PasteboardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57100062FCEB02000C8F965 /* PasteboardContent.swift */; };
 		C571000A2FCEB03000C8F965 /* PasteboardContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C571000B2FCEB03000C8F965 /* PasteboardContentTests.swift */; };
 		C57100112FCEB45000C8F965 /* NSImage+ResizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57100102FCEB45000C8F965 /* NSImage+ResizeTests.swift */; };
@@ -69,6 +70,8 @@
 		C5A9D002301A000100ABCDEF /* NSMenuHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A9D001301A000100ABCDEF /* NSMenuHighlightTests.swift */; };
 		C5F1AC0130190004AA110001 /* SQLiteDataMigrator+V4.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AC0230190004AA110002 /* SQLiteDataMigrator+V4.swift */; };
 		C5F1AC0330190004AA110003 /* SQLiteDataMigratorTests+V4.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AC0430190004AA110004 /* SQLiteDataMigratorTests+V4.swift */; };
+		C5B10001302A000100ABCDEF /* SQLiteDataMigrator+V5.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B10002302A000100ABCDEF /* SQLiteDataMigrator+V5.swift */; };
+		C5B10003302A000100ABCDEF /* SQLiteDataMigratorTests+V5.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B10004302A000100ABCDEF /* SQLiteDataMigratorTests+V5.swift */; };
 		C5F1AD0130190005AA110001 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AD0230190005AA110002 /* TextRecognizer.swift */; };
 		C5F1AD0430190005AA110004 /* TextRecognizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AD0530190005AA110005 /* TextRecognizerTests.swift */; };
 		C5F1AE0130191006AA120001 /* CPYSnippetsEditorWindowController+Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F1AE0230191006AA120002 /* CPYSnippetsEditorWindowController+Symbols.swift */; };
@@ -194,6 +197,7 @@
 		C57100002FCAE00000C8F965 /* SnippetRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetRepositoryTests.swift; sourceTree = "<group>"; };
 		C57100022FCEB00000C8F965 /* PasteboardHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardHistoryRepository.swift; sourceTree = "<group>"; };
 		C57100042FCEB01000C8F965 /* PasteboardHistoryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardHistoryRepositoryTests.swift; sourceTree = "<group>"; };
+		709F19866262438484F9D81E /* PasteboardHistoryStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardHistoryStorageTests.swift; sourceTree = "<group>"; };
 		C57100062FCEB02000C8F965 /* PasteboardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardContent.swift; sourceTree = "<group>"; };
 		C571000B2FCEB03000C8F965 /* PasteboardContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardContentTests.swift; sourceTree = "<group>"; };
 		C57100102FCEB45000C8F965 /* NSImage+ResizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+ResizeTests.swift"; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 		C5A9D001301A000100ABCDEF /* NSMenuHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuHighlightTests.swift; sourceTree = "<group>"; };
 		C5F1AC0230190004AA110002 /* SQLiteDataMigrator+V4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLiteDataMigrator+V4.swift"; sourceTree = "<group>"; };
 		C5F1AC0430190004AA110004 /* SQLiteDataMigratorTests+V4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLiteDataMigratorTests+V4.swift"; sourceTree = "<group>"; };
+		C5B10002302A000100ABCDEF /* SQLiteDataMigrator+V5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLiteDataMigrator+V5.swift"; sourceTree = "<group>"; };
+		C5B10004302A000100ABCDEF /* SQLiteDataMigratorTests+V5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SQLiteDataMigratorTests+V5.swift"; sourceTree = "<group>"; };
 		C5F1AD0230190005AA110002 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
 		C5F1AD0530190005AA110005 /* TextRecognizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizerTests.swift; sourceTree = "<group>"; };
 		C5F1AE0230191006AA120002 /* CPYSnippetsEditorWindowController+Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPYSnippetsEditorWindowController+Symbols.swift"; sourceTree = "<group>"; };
@@ -391,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				C57100042FCEB01000C8F965 /* PasteboardHistoryRepositoryTests.swift */,
+				709F19866262438484F9D81E /* PasteboardHistoryStorageTests.swift */,
 				C57100002FCAE00000C8F965 /* SnippetRepositoryTests.swift */,
 			);
 			path = Repositories;
@@ -452,6 +459,7 @@
 				C5D41A032FDB4A0300EF30FB /* SQLiteDataMigrator+V2.swift */,
 				C5D41A042FDB4A0400EF30FB /* SQLiteDataMigrator+V3.swift */,
 				C5F1AC0230190004AA110002 /* SQLiteDataMigrator+V4.swift */,
+				C5B10002302A000100ABCDEF /* SQLiteDataMigrator+V5.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -464,6 +472,7 @@
 				C5D41A0A2FDB4A0A00EF30FB /* SQLiteDataMigratorTests+V2.swift */,
 				C5D41A0B2FDB4A0B00EF30FB /* SQLiteDataMigratorTests+V3.swift */,
 				C5F1AC0430190004AA110004 /* SQLiteDataMigratorTests+V4.swift */,
+				C5B10004302A000100ABCDEF /* SQLiteDataMigratorTests+V5.swift */,
 			);
 			path = Migrations;
 			sourceTree = "<group>";
@@ -954,6 +963,7 @@
 				C5D41A062FDB4A0600EF30FB /* SQLiteDataMigrator+V2.swift in Sources */,
 				C5D41A072FDB4A0700EF30FB /* SQLiteDataMigrator+V3.swift in Sources */,
 				C5F1AC0130190004AA110001 /* SQLiteDataMigrator+V4.swift in Sources */,
+				C5B10001302A000100ABCDEF /* SQLiteDataMigrator+V5.swift in Sources */,
 				FA3778951F3B6920003B5BAB /* Environment.swift in Sources */,
 			);
 		};
@@ -966,6 +976,7 @@
 				C5D41A0D2FDB4A0D00EF30FB /* SQLiteDataMigratorTests+V2.swift in Sources */,
 				C5D41A0E2FDB4A0E00EF30FB /* SQLiteDataMigratorTests+V3.swift in Sources */,
 				C5F1AC0330190004AA110003 /* SQLiteDataMigratorTests+V4.swift in Sources */,
+				C5B10003302A000100ABCDEF /* SQLiteDataMigratorTests+V5.swift in Sources */,
 				C5348FB130008FE4008DFEB3 /* WaitUntil.swift in Sources */,
 				FA08EDF81D1FED7D000D1D13 /* HotKeyServiceTests.swift in Sources */,
 				C5F1AD0430190005AA110004 /* TextRecognizerTests.swift in Sources */,
@@ -977,6 +988,7 @@
 				C5E8EE722FFA46F400270F1F /* StringExtensionsTests.swift in Sources */,
 				C5A9D002301A000100ABCDEF /* NSMenuHighlightTests.swift in Sources */,
 				C57100052FCEB01000C8F965 /* PasteboardHistoryRepositoryTests.swift in Sources */,
+				480593DA64E946088B8C32BA /* PasteboardHistoryStorageTests.swift in Sources */,
 				C50767032FDA7B52004EF448 /* SQLiteDataDatabase+TriggerTests.swift in Sources */,
 				C522FB992FCC019100E61800 /* PasteboardAvailableTypeTests.swift in Sources */,
 				C57100012FCAE00000C8F965 /* SnippetRepositoryTests.swift in Sources */,

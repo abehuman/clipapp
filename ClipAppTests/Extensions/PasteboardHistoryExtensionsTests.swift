@@ -153,6 +153,7 @@ private extension PasteboardHistoryExtensionsTests {
             title: title,
             ocrText: nil,
             pasteboardTypes: pasteboardTypes,
+            payloadByteCount: Int64(title.utf8.count),
             createdAt: 1,
             updateAt: 1,
             deviceID: nil

@@ -29,6 +29,7 @@ struct PasteboardContentTests {
             )
         )
         #expect(content.types == [.rtf, .string, .pdf])
+        #expect(content.payloadByteCount == 11)
     }
 
     @Test

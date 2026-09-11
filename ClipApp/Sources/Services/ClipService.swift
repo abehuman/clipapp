@@ -71,6 +71,10 @@ final class ClipService {
 
     func clearAll() {
         pasteboardHistoryRepository.deleteAll()
+        let repository = pasteboardHistoryRepository
+        DispatchQueue.global(qos: .utility).async {
+            repository.reclaimUnusedStorage(force: true)
+        }
         // Clear legacy Realm-backed history caches used through v1.2.1.
         try? FileManager.default.removeItem(atPath: CPYUtilities.applicationSupportFolder())
     }
@@ -174,7 +178,24 @@ extension ClipService {
 
         let unixTime = Int(Date().timeIntervalSince1970)
         let id = PasteboardHistory.ID(rawValue: savedHash)
-        pasteboardHistoryRepository.save(id: id, content: content, updateAt: unixTime)
-        textRecognizer.recognizeTextIfNeeded(id: id)
+        let maxHistorySize = AppEnvironment.current.defaults.integer(forKey: Constants.UserDefaults.maxHistorySize)
+        let reorderClipsAfterPasting = AppEnvironment.current.defaults.bool(forKey: Constants.UserDefaults.reorderClipsAfterPasting)
+        let result = pasteboardHistoryRepository.save(
+            id: id,
+            content: content,
+            updateAt: unixTime,
+            sortsByCreatedAt: !reorderClipsAfterPasting,
+            maxHistorySize: maxHistorySize
+        )
+        switch result {
+        case .saved:
+            textRecognizer.recognizeTextIfNeeded(id: id)
+        case let .rejectedItemTooLarge(maximumBytes):
+            DispatchQueue.main.async {
+                AppEnvironment.current.menuManager.setCaptureLimitNotice(maximumBytes: maximumBytes)
+            }
+        case .historyDisabled, .failed:
+            break
+        }
     }
 }

@@ -27,6 +27,10 @@ class AppDelegate: NSObject, NSMenuItemValidation {
     private(set) var updaterController: SPUStandardUpdaterController?
     private let screenshotObserver = ScreenShotObserver(searchDirectoryPaths: AppDelegate.screenshotSearchDirectoryPaths())
     private let disposeBag = DisposeBag()
+    private let historyMaintenanceQueue = DispatchQueue(
+        label: "jp.co.aiv.clipApp.history-maintenance",
+        qos: .utility
+    )
 
     private var isLoginItemLaunch: Bool {
         NSAppleEventManager.shared().currentAppleEvent?
@@ -193,16 +197,13 @@ extension AppDelegate: NSApplicationDelegate {
         // Screenshot
         screenshotObserver.delegate = self
 
-        // Periodically trim excess history using the current size limit and sort preference.
+        // Enforce both count and byte limits once at launch, then keep a lightweight fallback
+        // running in case settings or data changed outside the normal save path.
+        scheduleHistoryMaintenance()
         Task(priority: .utility) { [weak self] in
             guard let self else { return }
             for await _ in continuousClock.timer(interval: .seconds(60)) {
-                let maxHistorySize = appStorage.integer(forKey: Constants.UserDefaults.maxHistorySize)
-                let reorderClipsAfterPasting = appStorage.bool(forKey: Constants.UserDefaults.reorderClipsAfterPasting)
-                pasteboardHistoryRepository.deleteOverflowingHistories(
-                    sortsByCreatedAt: !reorderClipsAfterPasting,
-                    maxHistorySize: maxHistorySize
-                )
+                scheduleHistoryMaintenance()
             }
         }
     }
@@ -273,6 +274,35 @@ private extension AppDelegate {
                 self?.screenshotObserver.start()
             })
             .disposed(by: disposeBag)
+
+        // Apply a lower history count (or a different retention order) immediately instead of
+        // waiting for the periodic maintenance pass.
+        let defaults = AppEnvironment.current.defaults
+        Observable.combineLatest(
+            defaults.rx.observe(Int.self, Constants.UserDefaults.maxHistorySize, retainSelf: false)
+                .compactMap { $0 },
+            defaults.rx.observe(Bool.self, Constants.UserDefaults.reorderClipsAfterPasting, retainSelf: false)
+                .compactMap { $0 }
+        )
+        .distinctUntilChanged { lhs, rhs in lhs == rhs }
+        .skip(1)
+        .subscribe(onNext: { [weak self] _ in
+            self?.scheduleHistoryMaintenance()
+        })
+        .disposed(by: disposeBag)
+    }
+
+    func scheduleHistoryMaintenance() {
+        let maxHistorySize = appStorage.integer(forKey: Constants.UserDefaults.maxHistorySize)
+        let reorderClipsAfterPasting = appStorage.bool(forKey: Constants.UserDefaults.reorderClipsAfterPasting)
+        let repository = pasteboardHistoryRepository
+        historyMaintenanceQueue.async {
+            repository.deleteOverflowingHistories(
+                sortsByCreatedAt: !reorderClipsAfterPasting,
+                maxHistorySize: maxHistorySize
+            )
+            repository.reclaimUnusedStorage(force: false)
+        }
     }
 }
 

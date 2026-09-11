@@ -24,6 +24,8 @@ final class MenuManager: NSObject {
     private var historyMenu: NSMenu?
     private var snippetMenu: NSMenu?
     private var availableUpdateVersion: String?
+    private var captureLimitNotice: String?
+    private var captureLimitNoticeWasShown = false
     // StatusMenu
     private lazy var statusBarItem: NSStatusItem = {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -66,6 +68,18 @@ final class MenuManager: NSObject {
 
     func setAvailableUpdateVersion(_ version: String?) {
         availableUpdateVersion = version
+        createClipMenu()
+    }
+
+    func setCaptureLimitNotice(maximumBytes: Int64) {
+        let formatter = ByteCountFormatter()
+        formatter.allowedUnits = [.useMB]
+        formatter.countStyle = .memory
+        let limit = formatter.string(fromByteCount: maximumBytes)
+        captureLimitNotice = String(
+            format: String(localized: "Not saved — clipboard item exceeds %@"),
+            limit
+        )
         createClipMenu()
     }
 
@@ -181,6 +195,8 @@ private extension MenuManager {
      func createClipMenu() {
         clipMenu = makeMainMenu()
         historyMenu = NSMenu(title: Constants.Menu.history)
+        clipMenu?.delegate = self
+        historyMenu?.delegate = self
         snippetMenu = NSMenu(title: Constants.Menu.snippet)
 
         addHistoryItems(historyMenu!)
@@ -237,6 +253,12 @@ private extension MenuManager {
         labelItem.isEnabled = false
         menu.addItem(labelItem)
 
+        if let captureLimitNotice {
+            let noticeItem = NSMenuItem(title: captureLimitNotice, action: nil)
+            noticeItem.isEnabled = false
+            menu.addItem(noticeItem)
+        }
+
         // History
         let firstIndex = firstIndexOfMenuItems()
 
@@ -291,6 +313,25 @@ private extension MenuManager {
         }
 
         return menuItem
+    }
+}
+
+// MARK: - Menu Delegate
+extension MenuManager: NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+        guard captureLimitNotice != nil,
+              menu === clipMenu || menu === historyMenu else { return }
+        captureLimitNoticeWasShown = true
+    }
+
+    func menuDidClose(_ menu: NSMenu) {
+        guard captureLimitNoticeWasShown,
+              menu === clipMenu || menu === historyMenu else { return }
+        captureLimitNoticeWasShown = false
+        captureLimitNotice = nil
+        DispatchQueue.main.async { [weak self] in
+            self?.createClipMenu()
+        }
     }
 }
 

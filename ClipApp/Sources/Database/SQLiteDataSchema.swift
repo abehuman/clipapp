@@ -24,6 +24,7 @@ struct PasteboardHistory: Identifiable, Equatable {
     let ocrText: String?
     @Column(as: [NSPasteboard.PasteboardType].JSONRepresentation.self)
     let pasteboardTypes: [NSPasteboard.PasteboardType]
+    let payloadByteCount: Int64
     let createdAt: Int
     let updateAt: Int
     let deviceID: String?

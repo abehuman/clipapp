@@ -577,6 +577,40 @@
         }
       }
     },
+    "Not saved — clipboard item exceeds %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht gespeichert — Zwischenablageelement überschreitet %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non salvato — l’elemento negli appunti supera %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存されませんでした — クリップボード項目が%@を超えています"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não salvo — o item da área de transferência excede %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未保存 — 剪贴板项目超过 %@"
+          }
+        }
+      }
+    },
     "Open System Preferences" : {
       "localizations" : {
         "de" : {

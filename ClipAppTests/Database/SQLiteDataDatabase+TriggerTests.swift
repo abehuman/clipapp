@@ -37,6 +37,7 @@ struct SQLiteDataDatabaseTriggerTests {
                     title: "Xqa History Start",
                     ocrText: nil,
                     pasteboardTypes: [.string],
+                    payloadByteCount: 0,
                     createdAt: 1,
                     updateAt: 1,
                     deviceID: nil

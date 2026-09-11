@@ -311,6 +311,7 @@ private extension PasteboardContent {
         }
         self = content
     }
+
 }
 
 private extension PasteboardHistory {
@@ -320,6 +321,7 @@ private extension PasteboardHistory {
             title: title,
             ocrText: ocrText,
             pasteboardTypes: [.string],
+            payloadByteCount: Int64(title.utf8.count),
             createdAt: createdAt ?? updateAt,
             updateAt: updateAt,
             deviceID: CPYUtilities.deviceID
